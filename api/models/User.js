@@ -7,9 +7,9 @@
 var bcrypt = require('bcrypt');
 module.exports = {
 
-  connection:'',
-  migrate:'',
-  tableName:'User',
+  // connection:'',
+  // migrate:'',
+  // tableName:'User',
   attributes: {
     id:{
       type: 'integer',

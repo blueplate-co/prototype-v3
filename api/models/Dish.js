@@ -7,9 +7,9 @@
 
 module.exports = {
 
-  tableName: '',
-  connection:'',
-  migrate:'',
+  // tableName: '',
+  // connection:'',
+  // migrate:'',
   attributes: {
 
     id:{
