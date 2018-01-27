@@ -8,7 +8,19 @@
 module.exports = {
 
   attributes: {
+    id:{},
+    mName:{},
+    mSellingPrice:{},
+    mMinOrder:{},
+    mLeadHour:{},
+    mLeadDay:{},
+    mAverageRating:{},
+    deleted_at:{},
+    mOnlineStatus:{},
+    mOrderCount:{},
 
+    dID:{}, //- dishes ID
+    uID:{},
   }
 };
 

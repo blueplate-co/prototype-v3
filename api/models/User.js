@@ -7,9 +7,9 @@
 var bcrypt = require('bcrypt');
 module.exports = {
 
-  // connection:'',
+  connection:'mongoAdapter',
   // migrate:'',
-  // tableName:'User',
+  tableName:'User',
   attributes: {
     id:{
       type: 'integer',

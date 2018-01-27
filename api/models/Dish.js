@@ -7,9 +7,9 @@
 
 module.exports = {
 
-  // tableName: '',
-  // connection:'',
-  // migrate:'',
+  tableName: 'Dish',
+  connection:'mongoAdapter',
+  migrate:'',
   attributes: {
 
     id:{
@@ -22,9 +22,17 @@ module.exports = {
       type: 'string',
       size: 150,
     },
+    dDescribe:{},
+    dCookingTime:{},
+    dCost:{},
+    dSellingPrice:{},
+    dProfit:{},
     dImageName:{
       type: 'string',
     },
+    dOnlineStatus:{},
+    uID:{},
+    
 
   }
 };
