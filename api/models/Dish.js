@@ -9,7 +9,6 @@ module.exports = {
 
   tableName: 'Dish',
   connection:'mongoAdapter',
-  migrate:'alter',
   attributes: {
 
     id:{

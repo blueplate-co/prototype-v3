@@ -7,6 +7,8 @@
 
 module.exports = {
 
+  connection:'mongoAdapter',
+  tableName:'Kitchen',
   attributes: {
 
     id:{
@@ -15,21 +17,57 @@ module.exports = {
       unique: true,
       autoIncrement: true,
     },
-    kName:{},
-    kChefName:{},
-    kKeywords:{},
-    kCountry:{},
-    kAddress:{},
-    kCoodinates:{}, //- lat & long
-    kAbout:{},
+    kName:{
+      type: 'string',
+      max: 100,
+    },
+    kChefName:{
+      type: 'string',
+      max: 100,
+    },
+    kKeywords:{
+      type: 'string',
+    },
+    kCountry:{
+      type: 'string',
+      max: 100,
+    },
+    kAddress:{
+      type: 'string',
+    },
+    kCoodinates:{
+      type: 'array',
+    }, //- lat & long
+    kAbout:{
+      type: 'string',
+    },
+
     kServingOptions:{},
-    kBankFullName:{},
-    kBankName:{},
-    kAccountNo:{},
-    kBankAddress:{},
-    kOrderCount:{},
-    kAverageRating:{},
-    delete_at:{},
+
+    kBankFullName:{
+      type: 'string',
+      max: 250,
+    },
+    kBankName:{
+      type: 'string',
+      max: 200
+    },
+    kAccountNo:{
+      type: 'string',
+    },
+    kBankAddress:{
+      type: 'string',
+    },
+    kOrderCount:{
+      type: 'integer',
+    },
+    kAverageRating:{
+      type: 'float',
+    },
+    delete_at:{
+      type: 'datetime',
+      defaultsTo: null
+    },
 
     uID:{},
     

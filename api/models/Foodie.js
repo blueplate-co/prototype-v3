@@ -7,6 +7,8 @@
 
 module.exports = {
 
+  connection:'mongoAdapter',
+  tableName:'Foodie',
   attributes: {
 
     id:{
@@ -15,22 +17,60 @@ module.exports = {
       unique: true,
       autoIncrement: true,
     },
-    fEmail:{},
-    fDOB:{},
-    fKeyword:{},
-    fGender:{},
-    fAbout:{},
-    fCountry:{},
-    fAddress:{},
-    fOfficeAddressCountry:{},
-    fOfficeAddress:{},
-    fOfficeCoodinates:{}, //- lat & long
+    fEmail:{
+      type: 'string',
+      unique: true,
+    },
+    fDOB:{
+      type: 'string',
+    },
+    fKeyword:{
+      type: 'string',
+      max: '200',
+    },
+    fGender:{
+      type: 'string',
+      max: 5,
+      enum: ['male', 'female']
+    },
+    fAbout:{
+      type: 'string',
+    },
+    fCountry:{
+      type: 'string',
+    },
+    fAddress:{
+      type: 'string',
+    },
+    fOfficeAddressCountry:{
+      type: 'string',
+    },
+    fOfficeAddress:{
+      type: 'string',
+    },
+    fOfficeCoodinates:{
+      type: 'array',
+    }, //- lat & long
+
     fAllergyTags:{},
     fDietaryTags:{},
-    fCardNumber:{},
-    fCardExpMonth:{},
-    fCardExpYear:{},
-    deleted_at:{},
+
+    fCardNumber:{
+      type: 'string',
+      max: 17
+    },
+    fCardExpMonth:{
+      type: 'string',
+      max: 2
+    },
+    fCardExpYear:{
+      type: 'string',
+      max: 4
+    },
+    deleted_at:{
+      type: 'datetime',
+      defaultsTo: null,
+    },
 
     uID:{},
 

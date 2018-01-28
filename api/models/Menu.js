@@ -7,17 +7,37 @@
 
 module.exports = {
 
+  connection:'mongoAdapter',
+  tableName:'Menu',
   attributes: {
     id:{},
-    mName:{},
-    mSellingPrice:{},
-    mMinOrder:{},
-    mLeadHour:{},
-    mLeadDay:{},
-    mAverageRating:{},
+    mName:{
+      type: 'string',
+    },
+    mSellingPrice:{
+      type: 'integer',
+      min: 0,
+    },
+    mMinOrder:{
+      type: 'integer',
+      min: 0
+    },
+    mLeadHour:{
+      type: 'integer',
+    },
+    mLeadDay:{
+      type: 'integer',
+    },
+    mAverageRating:{
+      type: 'float',
+    },
     deleted_at:{},
-    mOnlineStatus:{},
-    mOrderCount:{},
+    mOnlineStatus:{
+      type: 'binary',
+    },
+    mOrderCount:{
+      type: 'integer',
+    },
 
     dID:{}, //- dishes ID
     uID:{},
