@@ -1,5 +1,5 @@
 /**
- * Dish.js
+ * Foodie.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -7,9 +7,6 @@
 
 module.exports = {
 
-  tableName: 'Dish',
-  connection:'mongoAdapter',
-  migrate:'alter',
   attributes: {
 
     id:{
@@ -18,21 +15,24 @@ module.exports = {
       unique: true,
       autoIncrement: true,
     },
-    dName:{
-      type: 'string',
-      size: 150,
-    },
-    dDescribe:{},
-    dCookingTime:{},
-    dCost:{},
-    dSellingPrice:{},
-    dProfit:{},
-    dImageName:{
-      type: 'string',
-    },
-    dOnlineStatus:{},
+    fEmail:{},
+    fDOB:{},
+    fKeyword:{},
+    fGender:{},
+    fAbout:{},
+    fCountry:{},
+    fAddress:{},
+    fOfficeAddressCountry:{},
+    fOfficeAddress:{},
+    fOfficeCoodinates:{}, //- lat & long
+    fAllergyTags:{},
+    fDietaryTags:{},
+    fCardNumber:{},
+    fCardExpMonth:{},
+    fCardExpYear:{},
+    deleted_at:{},
+
     uID:{},
-    
 
   }
 };

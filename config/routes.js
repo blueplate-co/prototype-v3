@@ -35,7 +35,7 @@ module.exports.routes = {
   //- root route
   '/': {
     
-  }
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -47,4 +47,20 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+
+  //- User routes
+  '/api/register':{
+    controller: 'UserController',
+    action: 'register',
+  },
+
+  '/api/login':{
+    controller: 'UserController',
+    action: 'login',
+  },
+
+  //- Dish routes
+
+
+  //- Menu routes
 };
