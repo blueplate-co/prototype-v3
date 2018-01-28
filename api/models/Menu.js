@@ -10,7 +10,12 @@ module.exports = {
   connection:'mongoAdapter',
   tableName:'Menu',
   attributes: {
-    id:{},
+    id:{
+      type: 'integer',
+      primaryKey: true,
+      unique: true,
+      autoIncrement: true,
+    },
     mName:{
       type: 'string',
     },
