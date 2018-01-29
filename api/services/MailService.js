@@ -1,4 +1,3 @@
-
 var nodemailer = require('nodemailer');
 module.exports = {
     sendEmailVerification:function(options){
