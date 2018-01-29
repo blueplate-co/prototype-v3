@@ -5,6 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var nodemailer = require('nodemailer');
+var bcrypt = require('bcrypt');
 
 module.exports = {
 	//- register new user
@@ -21,7 +22,33 @@ module.exports = {
         .create(data)
         .then(function(created_data){
             //- send email
-
+            var transporter =  nodemailer.createTransport({ // config mail server
+                host: 'smtp.gmail.email',
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                service: 'gmail',
+                auth: {
+                    user: 'bao.tran@blueplate.co',
+                    pass: 'transybao93'
+                }
+            });
+            var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+                from: 'Bao bao',
+                to: 'transybao93@gmail.com',
+                subject: 'Blue Plate Corporation',
+                text: 'Welcome to our service!',
+                html: '<a href="https://www.google.com">Activate account</a>'
+            }
+            transporter.sendMail(mainOptions, function(err, info){
+                if (err) {
+                    console.log(err);
+                    res.send(err);
+                } else {
+                    console.log('Message sent: ' +  info.response);
+                    res.send('Message sent !');
+                }
+            });
+        
             //- return
             return res.json(201, {
                 error: false,
@@ -54,7 +81,7 @@ module.exports = {
         User
         .findOne({uEmail: data.uEmail})
         .then(function(found){
-            // sails.log(found);
+            
             //- if exist
             if(found)
             {
@@ -74,18 +101,19 @@ module.exports = {
                         return res.json(200, {
                             error: false,
                             msg: 'Found',
-                            data: {}
+                            data: null
                         });
                     }else if(result == false){
                         return res.json(200, {
                             error: false,
                             msg: 'Password is not match !',
-                            data: null
+                            data: err
                         });
                     }
                 });
                 
             }else{
+                sails.log('not found');
                 return res.json(404, {
                     error: false,
                     msg: 'Not found',
@@ -105,7 +133,10 @@ module.exports = {
 
     },
 
-
+    resetPass:function(req, res){
+        //- send email to confirm email
+        //- update password
+    },
 
 };
 
