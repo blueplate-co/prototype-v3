@@ -4,6 +4,8 @@ module.exports = {
         //- declare some variables
 
         //- start send email
+        var server_host = "13.250.107.234:1337";
+        var localhost = "localhost:1337";
         var transporter =  nodemailer.createTransport({ // config mail server
             host: 'smtp.gmail.email',
             port: 587,
@@ -19,7 +21,7 @@ module.exports = {
             to: 'transybao93@gmail.com',
             subject: 'Blue Plate Corporation',
             text: 'Welcome to our service!',
-            html: '<a href="https://www.google.com">Activate account</a>'
+            html: '<a href="http://localhost:1337/api/verify/123">Activate account</a>'
         }
         transporter.sendMail(mainOptions, function(err, info){
             if (err) {
@@ -32,5 +34,10 @@ module.exports = {
         });
 
 
-    }
+    },
+
+    encryptEmail:function(options){
+
+    },
+    
 }

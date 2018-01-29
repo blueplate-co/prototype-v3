@@ -59,6 +59,11 @@ module.exports.routes = {
     action: 'login',
   },
 
+  '/api/verify/:email':{
+    controller: 'UserController',
+    action: 'verifyEmail',
+  },
+
   //- Dish routes
 
 

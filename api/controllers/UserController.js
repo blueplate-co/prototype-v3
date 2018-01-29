@@ -107,5 +107,9 @@ module.exports = {
         //- update password
     },
 
+    verifyEmail: function(req, res){
+        sails.log(req.param('email'));
+    },
+
 };
 
