@@ -20,16 +20,16 @@ module.exports = {
     uName:{
       type: 'string',
       size: 150,
+      required: true,
     },
     uEmail:{
       type: 'string',
       unique: true,
+      required: true,
     },
     uPassword:{
       type: 'string',
-    },
-    uPhoneNumber:{
-      type: 'number',
+      required: true,
     },
     uToken:{
       type: 'string',

@@ -69,6 +69,11 @@ module.exports.routes = {
     action: 'test',
   },
 
+  '/api/user/upload/image':{
+    controller: 'UserController',
+    action: 'uploadImage',
+  },
+
   //- Dish routes
 
 

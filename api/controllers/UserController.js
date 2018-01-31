@@ -119,7 +119,7 @@ module.exports = {
         var email = HashService.decrypt({
             cryptedData: token,
         });
-        
+
         //- update data
         User.update({
             uEmail: email
@@ -132,7 +132,7 @@ module.exports = {
             res.redirect('https://www.google.com');
 
         }).catch(function(err){
-             res.json({
+             res.json(500, {
                  error: true,
                  message: 'Verify failed...',
                  data: err
@@ -144,6 +144,15 @@ module.exports = {
 
     test: function(req, res){
         sails.log('test');
+    },
+
+    uploadImage: function(req, res){
+        
+        var isUploaded = ImageService.uploadImage({
+            req: req,
+            res: res,
+            fileInput: 'img'
+        });
     }
 
 };
