@@ -20,7 +20,7 @@ module.exports = {
     verify: function(options){
         var token = options.token;
         
-        return jwt.verify(options.token, secret, function(err, decoded){
+        var tokenVerify = jwt.verify(options.token, secret, function(err, decoded){
             //- if err
             if(err) {
                 sails.log('error: ' + err);
@@ -28,10 +28,9 @@ module.exports = {
             }
             //- if ok
             //- return an array
-            sails.log(decoded);
-            return ['first data'];
+            return [decoded.exp];
         });
-
+        return tokenVerify;
 
     },
 

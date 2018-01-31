@@ -22,7 +22,10 @@ module.exports = {
         .create(data)
         .then(function(created_data){
             //- send email
-            MailService.sendEmailVerification();
+            MailService.sendEmailVerification({
+                username: data.uName,
+                email: data.uEmail
+            });
         
             //- return
             return res.json(201, {
@@ -109,6 +112,7 @@ module.exports = {
 
     verifyEmail: function(req, res){
         sails.log(req.param('email'));
+        res.redirect('https://www.google.com');
     },
 
     test: function(req, res){

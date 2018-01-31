@@ -3,6 +3,8 @@ module.exports = {
     sendEmailVerification:function(options){
         //- declare some variables
         var email = options.email;
+        var username = options.username;
+
         //- start send email
         var server_host = "13.250.107.234:1337";
         var localhost = "localhost:1337";
@@ -16,10 +18,10 @@ module.exports = {
                 pass: 'transybao93'
             }
         });
-        var mailTemplate = '<p>Hi there,</p><br><br>Thank you for joining us. <br>' +
-        'To verify your email address (' + email + '), visit the following link:<br>' +
-        '<a href="http://localhost:1337/api/verify/123">Activate account</a><br>' +
-        'We are so grateful to have another member coming to our community. Feel free to drop me a line if there is anything wrong through out the process.<br>'
+        var mailTemplate = '<p>Hi ' + username + ',</p><br>Thank you for joining us. <br>' +
+        'To verify your email address (' + email + '), visit the following link:<br><br>' +
+        '<a href="http://localhost:1337/api/verify/123" style="background:#4dd0e1; padding:5px; color:white; text-decoration: none; text-align: center">Activate account</a><br><br>' + 
+        'We are so grateful to have another member coming to our community. Feel free to drop me a line if there is anything wrong through out the process.<br>' +
         'See you around!<br><br>' + 
         'Best,<br>' +
         'Alan';

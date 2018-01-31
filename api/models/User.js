@@ -31,6 +31,13 @@ module.exports = {
     uPhoneNumber:{
       type: 'number',
     },
+    uToken:{
+      type: 'string',
+    },
+    uVerified:{
+      type:'boolean', //- 0 or 1
+      defaultsTo: false
+    },
 
   },
 
