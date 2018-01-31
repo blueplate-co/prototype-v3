@@ -47,5 +47,14 @@ module.exports.policies = {
 		// Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
 		// before letting any users feed our rabbits
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
-	// }
+  // }
+  
+  //- policy for UserController
+  UserController:{
+    test: 'isTokenExpire',
+  },
+
+  
+
+
 };

@@ -7,12 +7,11 @@ module.exports = {
      */
     generate: function(options){
         var userInfo = options.userInfo; //- user id
-        var token = jwt.sign(
+        return token = jwt.sign(
             userInfo, 
             secret, 
             {expiresIn: "3 days"} //- 3 days
         );
-        return token;
     },
 
     /**
@@ -28,7 +27,9 @@ module.exports = {
                 return false;
             }
             //- if ok
-            return true;
+            //- return an array
+            sails.log(decoded);
+            return ['first data'];
         });
 
 

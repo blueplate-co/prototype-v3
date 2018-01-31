@@ -70,15 +70,15 @@ module.exports = {
                 {
                     //- create json web token
                     var userInfo = {id: found.id};
-                    // var token    = TokenService.generate({
-                    //     userInfo: userInfo,
-                    // });            
+                    var token    = TokenService.generate({
+                        userInfo: userInfo,
+                    });            
 
                     //- return message with jwt
                     return res.json(200, {
                         error: false,
                         msg: 'Found',
-                        data: null
+                        data: token
                     });
                 }else{
                     return res.json(200, {
@@ -110,6 +110,10 @@ module.exports = {
     verifyEmail: function(req, res){
         sails.log(req.param('email'));
     },
+
+    test: function(req, res){
+        sails.log('test');
+    }
 
 };
 
