@@ -39,6 +39,12 @@ module.exports = {
       defaultsTo: false
     },
 
+    //- foreign key
+    friends:{
+      collection: 'user',
+      via: 'user',
+    },
+
   },
 
   beforeCreate: function(user, cb) {

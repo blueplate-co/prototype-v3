@@ -110,8 +110,9 @@ module.exports = {
     },
 
     resetPass:function(req, res){
-        //- send email to confirm email
+        //- send email to confirm email address
         //- update password
+
     },
 
     verifyToken: function(req, res){
@@ -147,7 +148,7 @@ module.exports = {
     },
 
     uploadImage: function(req, res){
-        
+
         var isUploaded = ImageService.uploadImage({
             req: req,
             res: res,
