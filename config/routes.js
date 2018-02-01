@@ -49,27 +49,27 @@ module.exports.routes = {
 
 
   //- User routes
-  '/api/register':{
+  'POST /api/register':{
     controller: 'UserController',
     action: 'register',
   },
 
-  '/api/login':{
+  'POST /api/login':{
     controller: 'UserController',
     action: 'login',
   },
 
-  '/api/verify/:token':{
+  'POST /api/verify/:token':{
     controller: 'UserController',
     action: 'verifyToken',
   },
 
-  '/api/test':{
+  'POST /api/test':{
     controller: 'UserController',
     action: 'test',
   },
 
-  '/api/user/upload/image':{
+  'POST /api/user/upload/image':{
     controller: 'UserController',
     action: 'uploadImage',
   },

@@ -31,6 +31,17 @@ module.exports = {
       type: 'string',
       required: true,
     },
+
+    //- for facebook
+    uNickName:{
+      type: 'string',
+    },
+    facebookId: {
+      type: 'string',
+      required: false,
+      unique: true
+    },
+
     uToken:{
       type: 'string',
     },
@@ -44,6 +55,10 @@ module.exports = {
       collection: 'user',
       via: 'user',
     },
+    menu: {
+      collection:'menu',
+      via: 'user'
+    }
 
   },
 

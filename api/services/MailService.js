@@ -7,7 +7,7 @@ module.exports = {
         var token = options.token;
 
         //- start send email
-        var server_host = "13.250.107.234:1337";
+        var server_host = "13.250.107.234";
         var localhost = "localhost:1337";
         var transporter =  nodemailer.createTransport({ // config mail server
             host: 'smtp.gmail.email',

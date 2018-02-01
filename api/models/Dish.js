@@ -24,12 +24,17 @@ module.exports = {
     dDescribe:{},
     dCookingTime:{},
     dCost:{},
-    dSellingPrice:{},
-    dProfit:{},
     dImageName:{
       type: 'string',
     },
-    dOnlineStatus:{},
+
+    //- optional
+    dServingOption:{},
+    dDietary:{},
+    dFoodAllergy:{},
+    dTag:{},
+    dMinOrder:{},
+
     uID:{},
     
 

@@ -19,33 +19,23 @@ module.exports = {
     mName:{
       type: 'string',
     },
-    mSellingPrice:{
+    mCost:{
       type: 'integer',
       min: 0,
     },
-    mMinOrder:{
-      type: 'integer',
-      min: 0
-    },
-    mLeadHour:{
-      type: 'integer',
-    },
-    mLeadDay:{
-      type: 'integer',
-    },
-    mAverageRating:{
-      type: 'float',
-    },
+    mSuggestedPrice:{},
+    mCustomPrice:{},
+    mTag:{},
+    mFoodAllergy:{},
+    mDietary:{},
     deleted_at:{},
-    mOnlineStatus:{
-      type: 'binary',
-    },
-    mOrderCount:{
-      type: 'integer',
-    },
 
+    //- relationship
     dID:{}, //- dishes ID
-    uID:{},
+    user:{
+      model: '',
+      unique: true
+    },
   }
 };
 

@@ -6,6 +6,7 @@
  */
 
 var bcrypt = require('bcrypt');
+var passport = require('passport');
 
 module.exports = {
 	//- register new user
@@ -156,9 +157,29 @@ module.exports = {
         });
     },
 
-    facebookLogin: function(req, res)
-    {
-        
+    facebook: function (req, res, next) {
+        passport.authenticate('facebook', { scope: ['email', 'user_about_me']},
+           function (err, user) {
+               req.logIn(user, function (err) {
+               if(err) {
+                   req.session.flash = 'There was an error';
+                   res.redirect('user/login');
+               } else {
+                   req.session.user = user;
+                   sails.log('');
+                   res.redirect('/user/dashboard');
+               }
+            });
+        })(req, res, next);
+    },
+   
+    facebookCallback: function (req, res, next) {
+        passport.authenticate('facebook',
+            function (req, res) {
+                //- authenticate success
+                sails.log('authenticate success...');
+                res.redirect('/user/dashboard');
+        })(req, res, next);
     }
 
 };
