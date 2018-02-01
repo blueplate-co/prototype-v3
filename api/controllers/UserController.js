@@ -154,6 +154,11 @@ module.exports = {
             res: res,
             fileInput: 'img'
         });
+    },
+
+    facebookLogin: function(req, res)
+    {
+        
     }
 
 };
