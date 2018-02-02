@@ -55,14 +55,10 @@ module.exports = {
       collection:'Chef',
       via: 'user'
     },
-    friends:{
-      collection: 'user',
-      via: 'user',
-    },
-    menu: {
-      collection:'menu',
-      via: 'user'
-    }
+    // friends:{
+    //   collection: 'user',
+    //   via: 'user',
+    // },
 
 
   },

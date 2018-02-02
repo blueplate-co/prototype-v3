@@ -74,6 +74,12 @@ module.exports.routes = {
     action: 'uploadImage',
   },
 
+  //- Chef routes
+  'POST /api/chef/create':{
+    controller: 'ChefController',
+    action: 'create',
+  },
+
   //- Dish routes
 
 

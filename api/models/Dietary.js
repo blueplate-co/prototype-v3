@@ -28,7 +28,7 @@ module.exports = {
     },
     //-foreign key
     //- many to many relations
-    chefs:{
+    chef:{
       collection: 'Chef',
       via: 'dietaries',
     },

@@ -27,7 +27,7 @@ module.exports = {
       type: 'string',
     },
     cPhoneNumber:{
-      type: 'number',
+      type: 'string',
     },
     cDOB:{
       type: 'string',
@@ -59,7 +59,7 @@ module.exports = {
     //- in model of one kitchen -> many services
     cServiceOption:{
       type:'string',
-      enum: ['diveIn', 'delivery', 'pickUp']
+      // enum: ['diveIn', 'delivery', 'pickUp']
     },
 
 
@@ -82,13 +82,13 @@ module.exports = {
     //- many to many relations
     ingredients:{
       collection: 'Ingredient',
-      via: 'chefs',
+      via: 'chef',
       dominant: true,
     },
 
     dietaries:{
       collection: 'Dietary',
-      via: 'chefs',
+      via: 'chef',
       dominant: true
     },
 

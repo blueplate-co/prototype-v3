@@ -28,8 +28,8 @@ module.exports = {
 
     //- foreign key
     //- many to many relations
-    chefs:{
-      collection: 'Ingredient',
+    chef:{
+      collection: 'Chef',
       via: 'ingredients',
     },
 

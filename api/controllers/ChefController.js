@@ -17,14 +17,15 @@ module.exports = {
         //- places
         data.cAddr = req.param('address');
         data.cPhoneNumber = req.param('phoneNumber');
+
         //- services
         data.cServiceOption = req.param('serviceOption');
 
         //- images (using service)
-        data.cImageName = req.param('chefImage');
+        data.cImageName = req.param('chefImageName');
 
         //- about
-        data.cDOB = req.param('dob');
+        data.cDOB = req.param('dateOfBirth');
         data.cGender = req.param('gender');
 
 
@@ -35,6 +36,40 @@ module.exports = {
         //- yourself
         data.cAbout = req.param('about');
         data.cInspiration = req.param('inspiration');
+
+        //- upload image seperately
+         ImageService.saveImage({
+            req: req,
+            res: res,
+            fileInput: 'chefImage'
+        });
+
+        //- create chef first
+        //- then insert ingredients, allergy
+        Chef
+        .create(data)
+        .then(function(created_user){
+            if(created_user)
+            {
+                //- insert relations
+                var uID = created_user.id;
+                sails.log(uID);
+                created_user.ingredients.add({
+                    iName: 'ingredient 1',
+                    iDescription: 'asdasdasd',
+                });
+
+                created_user.save(function(err){});
+
+            }   
+
+        }).catch(function(err){
+            return res.json(500, {
+                error: true,
+                message: 'Cannot create chef',
+                data: err
+            });
+        });
         
 
 
