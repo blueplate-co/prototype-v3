@@ -51,6 +51,10 @@ module.exports = {
     },
 
     //- foreign key
+    chef: {
+      collection:'Chef',
+      via: 'user'
+    },
     friends:{
       collection: 'user',
       via: 'user',

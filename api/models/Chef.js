@@ -7,6 +7,8 @@
 
 module.exports = {
 
+  connection:'mongoAdapter',
+  tableName:'Chef',
   attributes: {
 
     id:{
@@ -15,28 +17,79 @@ module.exports = {
       unique: true,
       autoIncrement: true,
     },
-    cAddr:{},
-    cPhoneNumber:{},
-    cDOB:{},
-    cGender:{},
-    cCookingExperience:{},
-    cCertification:{},
-    cSchool:{},
-    cAbout:{},
-    cInspiration:{},
+    cFirstName:{
+      type: 'string',
+    },
+    cLastName:{
+      type: 'string',
+    },
+    cAddr:{
+      type: 'string',
+    },
+    cPhoneNumber:{
+      type: 'number',
+    },
+    cDOB:{
+      type: 'string',
+    },
+    cGender:{
+      type: 'string',
+      max: 5,
+    },
+    cCertification:{
+      type: 'string',
+    },
+    cSchool:{
+      type: 'string',
+      max: 250
+    },
+    cAbout:{
+      type: 'text',
+    },
+    cInspiration:{
+      type: 'text',
+    },
 
     //- profile images and banner
-    cImageLink:{},
+    cImageName:{
+      type: 'string',
+    },
     //- services
+    //- will be changed in future
+    //- in model of one kitchen -> many services
+    cServiceOption:{
+      type:'string',
+      enum: ['diveIn', 'delivery', 'pickUp']
+    },
+
 
     //-foreign key
+    user:{
+      model: 'user',
+      unique: true,
+    },
+
     dishes:{
       collection: 'Dish',
       via: 'chef',
     },
+
     menus:{
       collection: 'Menu',
       via: 'chef',
+    },
+
+    //- many to many relations
+    ingredients:{
+      collection: 'Ingredient',
+      via: 'chefs',
+      dominant: true,
+    },
+
+    dietaries:{
+      collection: 'Dietary',
+      via: 'chefs',
+      dominant: true
     },
 
   }

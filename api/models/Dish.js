@@ -21,12 +21,27 @@ module.exports = {
       type: 'string',
       size: 150,
     },
-    dDescribe:{},
-    dCost:{},
-    dCookingTime:{},
-    dServingOption:{},
-    dDietary:{},
-    dFoodAllergy:{},
+    dDescribe:{
+      type: 'string',
+    },
+    dCost:{
+      type: 'float', //- or double
+    },
+    dCookingTime:{
+      type: 'string',
+    },
+    //- needed to be thinking more
+    dServingOption:{
+      type: 'string',
+    },
+    dDietary:{
+      type: 'string',
+    },
+    dFoodAllergy:{
+      type: 'string',
+    },
+
+    //- 
     dTag:{},
     dImageLink:{
       type: 'string',
