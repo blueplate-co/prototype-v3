@@ -1,7 +1,7 @@
 var path = require('path');
 module.exports = {
 
-    uploadImage:function(options){
+    uploadImage: function(options){
         //- input a request
         var req = options.req;
         var res = options.res;
@@ -28,11 +28,12 @@ module.exports = {
         // return true;
     },
 
-    saveImage:function(options){
+    saveImage: function(options){
         //- input a request
         var req = options.req;
         var res = options.res;
         var fileInput = options.fileInput;
+        var uid = options.uid;
         // setting allowed file types
         var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
 
@@ -71,7 +72,9 @@ module.exports = {
             //- open the image
             sails.log(uploadedFiles[0].fd);
         //   res.render(uploadedFiles[0].fd);
-            return uploadedFiles[0].fd;
+
+            //- update chef profile
+            return uploadedFiles[0].filename;
 
         });
         // return true;
@@ -81,8 +84,34 @@ module.exports = {
         
     },
 
-    downloadImage: function(){
+    downloadImageByID: function(options){
+        var res = options.res;
+        var type = options.type; //- foodie or homecook (chef)
+        var uid = options.uid; //- get images fd by uid
 
+        var fd = '';
+
+        if(type === 'foodie')
+        {
+
+        }else if(type === 'homecook')
+        {
+            
+        }
+
+        var SkipperDisk = require('skipper-disk');
+        var fileAdapter = SkipperDisk(/* optional opts */);
+        var server_path = "/home/transybao/blueplate/main/public/images/";
+        var local_path = "E:/projects/sails/blueplate/public/images/";
+        // set the filename to the same file as the user uploaded
+        res.set("Content-disposition", "attachment; filename='315.jpeg'");
+
+        // Stream the file down
+        fileAdapter.read(local_path + '315.jpeg')
+        .on('error', function (err){
+        return res.serverError(err);
+        })
+        .pipe(res);
     },
     
 }

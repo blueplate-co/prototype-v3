@@ -49,6 +49,10 @@ module.exports = {
       type:'boolean', //- 0 or 1
       defaultsTo: false
     },
+    uRole:{ //- foodie or homecook
+      type: 'string',
+      max: 10
+    },
 
     //- foreign key
     chef: {

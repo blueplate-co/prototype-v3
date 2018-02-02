@@ -80,6 +80,11 @@ module.exports.routes = {
     action: 'create',
   },
 
+  'GET /api/image':{
+    controller: 'ChefController',
+    action: 'update',
+  },
+
   //- Dish routes
 
 

@@ -4,7 +4,7 @@
  * @description :: Server-side logic for managing Chefs
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
+var path = require('path');
 module.exports = {
     
     create: function(req, res)
@@ -22,7 +22,7 @@ module.exports = {
         data.cServiceOption = req.param('serviceOption');
 
         //- images (using service)
-        data.cImageName = req.param('chefImageName');
+        // data.cImageName = req.param('chefImageName');
 
         //- about
         data.cDOB = req.param('dateOfBirth');
@@ -42,7 +42,7 @@ module.exports = {
         data.dietaries = ['cá', 'rau sống'];
 
         //- upload image seperately
-         ImageService.saveImage({
+        data.cImageName = ImageService.saveImage({
             req: req,
             res: res,
             fileInput: 'chefImage'
@@ -70,10 +70,11 @@ module.exports = {
                     message: 'insert success',
                     data: null
                 });
-
+                // return created_user.id;
             }   
 
-        }).catch(function(err){
+        })
+        .catch(function(err){
             return res.json(500, {
                 error: true,
                 message: 'Cannot create chef',
@@ -86,7 +87,15 @@ module.exports = {
     },
 
     update: function(req, res){
-        
+        //- update random field
+        //- this is must be an object {}
+        var data = req.param('data');
+
+        ImageService.downloadImage({
+            res: res
+        });
+
+
     }
 
 };
