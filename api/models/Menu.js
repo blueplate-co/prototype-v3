@@ -19,23 +19,25 @@ module.exports = {
     mName:{
       type: 'string',
     },
-    mCost:{
-      type: 'integer',
-      min: 0,
-    },
+    mCost:{},
     mSuggestedPrice:{},
     mCustomPrice:{},
+    mCookingTime:{},
+    mServingOption:{},
     mTag:{},
-    mFoodAllergy:{},
-    mDietary:{},
+    mMinOrder:{},
+
     deleted_at:{},
 
-    //- relationship
-    dID:{}, //- dishes ID
-    user:{
-      model: '',
-      unique: true
+    //- foreign key
+    dishes:{
+      collection: 'dish',
+      via: 'menu',
     },
+    chef:{
+      model: 'Chef',
+    },
+
   }
 };
 

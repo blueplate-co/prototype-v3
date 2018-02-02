@@ -60,6 +60,7 @@ module.exports = {
       via: 'user'
     }
 
+
   },
 
   beforeCreate: function(user, cb) {

@@ -20,8 +20,24 @@ module.exports = {
     cDOB:{},
     cGender:{},
     cCookingExperience:{},
-    //- profile images and banner
+    cCertification:{},
+    cSchool:{},
+    cAbout:{},
+    cInspiration:{},
 
+    //- profile images and banner
+    cImageLink:{},
+    //- services
+
+    //-foreign key
+    dishes:{
+      collection: 'Dish',
+      via: 'chef',
+    },
+    menus:{
+      collection: 'Menu',
+      via: 'chef',
+    },
 
   }
 };

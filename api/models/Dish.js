@@ -22,21 +22,24 @@ module.exports = {
       size: 150,
     },
     dDescribe:{},
-    dCookingTime:{},
     dCost:{},
-    dImageName:{
-      type: 'string',
-    },
-
-    //- optional
+    dCookingTime:{},
     dServingOption:{},
     dDietary:{},
     dFoodAllergy:{},
     dTag:{},
-    dMinOrder:{},
-
-    uID:{},
+    dImageLink:{
+      type: 'string',
+    },
     
+
+    //- foreign key
+    menu:{
+      model: 'menu',
+    },
+    chef:{
+      model: 'Chef',
+    },
 
   }
 };
