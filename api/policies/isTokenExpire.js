@@ -7,18 +7,17 @@ module.exports = function(req, res, next) {
     {
         var token = req.headers.authorization.split(' ')[1]; //- xxx.yyy.zzz
         //- check it
-        sails.log(token);
         var isOK = TokenService.verify({
             token: token,
         });
-        if(typeof(isOK) == 'object') {
-            //- if it is a token then check expriration of it
-            var expirationDate = isOK[0]; //- in milliseconds
-            //- convert milliseconds and compare to current date
-
-            return next();
-        }
-        return res.forbidden('Please login to continue');
+        //- if check token success
+        if(isOK) return next();
+        //- else
+        return res.forbidden({
+            error: true,
+            message:'Please login to continue',
+            data: null
+        });
     }
     
 

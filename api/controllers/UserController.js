@@ -16,6 +16,9 @@ module.exports = {
         data.uName     = req.param('username');
         data.uEmail    = req.param('email');
         data.uPassword = req.param('password');
+        data.uToken    = HashService.encrypt({
+            email: req.param('email'),
+        });
 
         //- create new user
         User
@@ -24,7 +27,8 @@ module.exports = {
             //- send email
             MailService.sendEmailVerification({
                 username: data.uName,
-                email: data.uEmail
+                email: data.uEmail,
+                token: created_data.uToken
             });
         
             //- return
@@ -110,9 +114,32 @@ module.exports = {
         //- update password
     },
 
-    verifyEmail: function(req, res){
-        sails.log(req.param('email'));
-        res.redirect('https://www.google.com');
+    verifyToken: function(req, res){
+        var token = req.param('token');
+        var email = HashService.decrypt({
+            cryptedData: token,
+        });
+        
+        //- update data
+        User.update({
+            uEmail: email
+        }, {
+            uVerified: true
+        })
+        .then(function(updated_data){
+
+            //- if success
+            res.redirect('https://www.google.com');
+
+        }).catch(function(err){
+             res.json({
+                 error: true,
+                 message: 'Verify failed...',
+                 data: err
+             });
+        });
+
+        
     },
 
     test: function(req, res){

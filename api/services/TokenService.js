@@ -20,17 +20,25 @@ module.exports = {
     verify: function(options){
         var token = options.token;
         
-        var tokenVerify = jwt.verify(options.token, secret, function(err, decoded){
+        return jwt.verify(options.token, secret, function(err, decoded){
             //- if err
             if(err) {
-                sails.log('error: ' + err);
+                // sails.log('error: ' + err);
+                //- debugging
+                if(err.name === 'TokenExpiredError')
+                {
+                    sails.log('Token had been exprired !');
+                }
+                if(err.name === 'JsonWebTokenError')
+                {
+                    sails.log(err);
+                }
                 return false;
             }
             //- if ok
             //- return an array
-            return [decoded.exp];
+            return true;
         });
-        return tokenVerify;
 
     },
 
@@ -40,6 +48,10 @@ module.exports = {
     decode:function(options){
         var token = options.token;
         return jwt.decode(token);
+    },
+
+    updateTokenToDatabase:function(options){
+        
     },
 
 }

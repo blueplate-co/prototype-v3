@@ -59,9 +59,9 @@ module.exports.routes = {
     action: 'login',
   },
 
-  '/api/verify/:email':{
+  '/api/verify/:token':{
     controller: 'UserController',
-    action: 'verifyEmail',
+    action: 'verifyToken',
   },
 
   '/api/test':{
