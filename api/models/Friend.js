@@ -19,9 +19,9 @@ module.exports = {
     },
 
     //- foreign key
-    user: {
-      model: 'user',
-    },
+    // user: {
+    //   model: 'user',
+    // },
 
   }
 };

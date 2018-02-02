@@ -40,10 +40,10 @@ module.exports = {
     },
 
     //- foreign key
-    friends:{
-      collection: 'user',
-      via: 'user',
-    },
+    // friends:{
+    //   collection: 'user',
+    //   via: 'user',
+    // },
 
   },
 
