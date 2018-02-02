@@ -37,6 +37,10 @@ module.exports = {
         data.cAbout = req.param('about');
         data.cInspiration = req.param('inspiration');
 
+        //- ingredients + dietaries (must be an array)
+        data.ingredients = ['thịt', 'cá', 'trứng', 'sữa'];
+        data.dietaries = ['cá', 'rau sống'];
+
         //- upload image seperately
          ImageService.saveImage({
             req: req,
@@ -52,14 +56,20 @@ module.exports = {
             if(created_user)
             {
                 //- insert relations
-                var uID = created_user.id;
-                sails.log(uID);
-                created_user.ingredients.add({
-                    iName: 'ingredient 1',
-                    iDescription: 'asdasdasd',
-                });
+                // var uID = created_user.id;
+                // sails.log(uID);
+                // created_user.ingredients.add({
+                //     iName: 'ingredient 1',
+                //     iDescription: 'asdasdasd',
+                // });
 
-                created_user.save(function(err){});
+                // created_user.save(function(err){});
+                
+                return res.json(200, {
+                    error: false,
+                    message: 'insert success',
+                    data: null
+                });
 
             }   
 
@@ -74,6 +84,10 @@ module.exports = {
 
 
     },
+
+    update: function(req, res){
+        
+    }
 
 };
 

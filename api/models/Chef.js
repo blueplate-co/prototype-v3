@@ -80,16 +80,24 @@ module.exports = {
     },
 
     //- many to many relations
-    ingredients:{
-      collection: 'Ingredient',
-      via: 'chef',
-      dominant: true,
-    },
+    // ingredients:{
+    //   collection: 'Ingredient',
+    //   via: 'chef',
+    //   dominant: true,
+    // },
 
+    // dietaries:{
+    //   collection: 'Dietary',
+    //   via: 'chef',
+    //   dominant: true
+    // },
+
+
+    ingredients:{
+      type: 'array',
+    },
     dietaries:{
-      collection: 'Dietary',
-      via: 'chef',
-      dominant: true
+      type: 'array',
     },
 
   }
