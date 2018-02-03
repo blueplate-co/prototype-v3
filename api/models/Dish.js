@@ -32,18 +32,23 @@ module.exports = {
     },
     //- needed to be thinking more
     dServingOption:{
-      type: 'string',
+      type: 'array',
     },
     dDietary:{
-      type: 'string',
+      type: 'array',
     },
     dFoodAllergy:{
-      type: 'string',
+      type: 'array',
     },
 
-    //- 
-    dTag:{},
+    //- ['tag 1', 'tag 2']
+    dTag:{
+      type: 'array'
+    },
     dImageLink:{
+      type: 'string',
+    },
+    dImageName:{
       type: 'string',
     },
     

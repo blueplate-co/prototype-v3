@@ -64,6 +64,11 @@ module.exports = {
     //   via: 'user',
     // },
 
+    toJSON: function() {
+      var obj = this.toObject();
+      delete obj.uPassword;
+      return obj;
+    }
 
   },
 

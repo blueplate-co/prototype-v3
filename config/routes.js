@@ -86,7 +86,10 @@ module.exports.routes = {
   },
 
   //- Dish routes
-
+  'POST /api/dish/create': {
+    controller: 'DishController',
+    action: 'create'
+  },
 
   //- Menu routes
 };

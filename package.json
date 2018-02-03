@@ -9,6 +9,7 @@
     "ejs": "^2.5.7",
     "include-all": "^1.0.0",
     "jsonwebtoken": "^8.1.1",
+    "mongodb": "^3.0.2",
     "nodemailer": "^4.4.2",
     "path": "^0.12.7",
     "rc": "1.0.1",

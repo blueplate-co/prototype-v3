@@ -13,7 +13,7 @@ module.exports = {
         //- basic info
         data.cFirstName = req.param('firstName');
         data.cLastName = req.param('lastName');
-        data.email = req.param('email');
+        data.uid = req.param('uid');
         //- places
         data.cAddr = req.param('address');
         data.cPhoneNumber = req.param('phoneNumber');
@@ -68,7 +68,9 @@ module.exports = {
                 return res.json(200, {
                     error: false,
                     message: 'insert success',
-                    data: null
+                    data: {
+                        uid: created_user.id
+                    }
                 });
                 // return created_user.id;
             }   
