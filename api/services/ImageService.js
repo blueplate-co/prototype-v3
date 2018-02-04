@@ -71,7 +71,8 @@ module.exports = {
                 return res.badRequest({error: true, message: 'No file was uploaded', data: null});
             }
             //- open the image
-            sails.log(uploadedFiles[0].fd);
+            // sails.log(uploadedFiles[0].fd);
+            sails.log('base url: ' + sails.getBaseUrl());
         //   res.render(uploadedFiles[0].fd);
 
             //- update chef profile
@@ -82,6 +83,10 @@ module.exports = {
     },
 
     optimizeImage: function(options){
+        
+    },
+
+    saveToS3: function(options){
         
     },
 
