@@ -44,6 +44,7 @@ module.exports = {
             //- customize
             saveAs:function(file, cb) {
                 var d = new Date();
+                var originFileName = file.filename;
                 var extension = file.filename.split('.').pop();
                 // sails.log(extension);
                 // generating unique filename with extension
@@ -55,7 +56,7 @@ module.exports = {
                 //   cb(null,uuid);
                 }else{
                   // save as allowed files
-                  cb(null,"/" + uuid);
+                  cb(null,"/" + originFileName);
                 }
 
 

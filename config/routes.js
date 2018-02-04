@@ -92,4 +92,25 @@ module.exports.routes = {
   },
 
   //- Menu routes
+  'POST /api/menu/create':{
+    controller: 'MenuController',
+    action: 'create',
+  },
+
+  'POST /api/menu/add/dish':{
+    controller: 'MenuController',
+    action: 'addDishToMenu',
+  },
+
+  'POST /api/menu/view/dish':{
+    controller: 'MenuController',
+    action: 'viewMenuDishes'
+  },
+
+  'POST /api/dish/view/menu':{
+    controller: 'MenuController',
+    action: 'viewDishMenu'
+  },
+
+
 };

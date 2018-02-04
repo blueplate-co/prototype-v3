@@ -19,20 +19,35 @@ module.exports = {
     mName:{
       type: 'string',
     },
-    mCost:{},
-    mSuggestedPrice:{},
-    mCustomPrice:{},
-    mCookingTime:{},
-    mServingOption:{},
-    mTag:{},
-    mMinOrder:{},
+    mCost:{
+      type: 'float', //- or double
+    },
+    mSuggestedPrice:{
+      type: 'float', //- or double
+    },
+    mCustomPrice:{
+      type: 'float',
+    },
+    mCookingTime:{
+      type: 'integer',
+    },
+    mServingOption:{
+      type: 'array',
+    },
+    mTag:{
+      type: 'array'
+    },
+    mMinOrder:{
+      type: 'integer'
+    },
 
     deleted_at:{},
 
     //- foreign key
     dishes:{
-      collection: 'dish',
-      via: 'menu',
+      collection: 'Dish',
+      via: 'menus',
+      through: 'menudish',
     },
     chef:{
       model: 'Chef',

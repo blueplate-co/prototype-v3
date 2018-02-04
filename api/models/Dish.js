@@ -54,8 +54,11 @@ module.exports = {
     
 
     //- foreign key
-    menu:{
-      model: 'menu',
+    menus:{
+      // model: 'menu',
+      collection: 'Menu',
+      via: 'dishes',
+      through: 'menudish',
     },
     chef:{
       model: 'Chef',

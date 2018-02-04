@@ -31,8 +31,6 @@ module.exports = {
             res: res,
             fileInput: 'DishImage',
         });
-        sails.log('cid: ' + cid);
-        sails.log(typeof(ObjectID(cid)));
         
         //- finding chef
         Chef
@@ -80,6 +78,10 @@ module.exports = {
                 data: err
             });
         });
+    },
+
+    createDishByMenuID: function(req, res){
+
     },
 
     view: function(req, res){
