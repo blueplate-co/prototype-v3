@@ -1,5 +1,5 @@
 /**
- * Dietary.js
+ * FoodAllergy.js
  *
  * @description :: TODO: You might write a short summary of how this model works and what it represents here.
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
@@ -7,8 +7,8 @@
 
 module.exports = {
 
+  tableName: 'FoodAllergy',
   connection:'mongoAdapter',
-  tableName:'Dietary',
   attributes: {
 
     id:{
@@ -17,19 +17,16 @@ module.exports = {
       unique: true,
       autoIncrement: true,
     },
-
-    dName:{
+    faName:{
       type: 'string',
-      max: 200
+      max: 100,
     },
-    dDescription:{
+    faDescribe:{
       type: 'string',
-      max: 200
+      max: 200,
     },
-    
-    //-foreign key
 
-    
+
   }
 };
 

@@ -57,24 +57,15 @@ module.exports = {
         .then(function(created_user){
             if(created_user)
             {
-                //- insert relations
-                // var uID = created_user.id;
-                // sails.log(uID);
-                // created_user.ingredients.add({
-                //     iName: 'ingredient 1',
-                //     iDescription: 'asdasdasd',
-                // });
-
-                // created_user.save(function(err){});
                 
                 return res.json(200, {
                     error: false,
                     message: 'insert success',
                     data: {
-                        uid: created_user.id
+                        chefID: created_user.id
                     }
                 });
-                // return created_user.id;
+
             }   
 
         })
@@ -100,7 +91,6 @@ module.exports = {
             var cid = req.param('chefID');
         
             //- check if has file in request
-
             Chef.update({
                 id: cid
             },data)

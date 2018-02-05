@@ -27,10 +27,10 @@ module.exports = {
     },
 
     //- foreign key
-    //- many to many relations
-    chef:{
-      collection: 'Chef',
-      via: 'ingredients',
+    dishes:{
+      collection: 'Dish',
+      via: 'ingredient',
+      through: 'dishingredient',
     },
 
   }

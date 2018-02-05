@@ -10,27 +10,42 @@ module.exports = {
 
         //- create new dish
         var data = {};
-        data.dName = req.param('name');
-        data.dDescribe = req.param('describe');
-        data.dCost = req.param('cost');
-        data.dCookingTime = req.param('cookingTime');
-        //- serving option, dietary, food allergy
-        //- must be an array
-        data.dServingOption = req.param('servingOption');
-        data.dDietary = req.param('dietary');
-        data.dFoodAllergy = req.param('allergy');
-        data.dTag = req.param('tag');
 
+        //- update
         //- chef id
         var cid = req.param('chefID');
 
+        data.dDescribe = req.param('describe');
         //- upload image
         data.dImageName = req.param('dishImageName');
         ImageService.saveImage({
             req: req,
             res: res,
-            fileInput: 'DishImage',
+            fileInput: 'dishImage',
         });
+
+        // data.dName = req.param('name');
+        // data.dDescribe = req.param('describe');
+        // data.dCost = req.param('cost');
+        // data.dCookingTime = req.param('cookingTime');
+        // //- serving option, dietary, food allergy
+        // //- must be an array
+        // data.dServingOption = req.param('servingOption');
+        // data.dDietary = req.param('dietary');
+        // data.dFoodAllergy = req.param('allergy');
+        // data.dTag = req.param('tag');
+        // data.ingredients = req.param('ingredients'); //- must be an array of ingredient's id
+
+        // //- chef id
+        // var cid = req.param('chefID');
+
+        // //- upload image
+        // data.dImageName = req.param('dishImageName');
+        // ImageService.saveImage({
+        //     req: req,
+        //     res: res,
+        //     fileInput: 'DishImage',
+        // });
         
         //- finding chef
         Chef
@@ -39,18 +54,72 @@ module.exports = {
             id: cid,
         })
         .then(function(found_data){
-            var chefID = found_data.id;
-            
-            //- insert to Dish table
-            found_data.dishes.add(data);
-            found_data.save(function(err){
-                // if(err) return res.json(500, {error: true, message: 'Error', data: err});
+            data.chef = found_data.id;
+            sails.log(data);
+            //- insert to dish data 
+            Dish
+            .create(data)
+            .then(function(created_dish){
+                sails.log(created_dish);
+                // var did = created_dish.id;
+                return res.json(200, {
+                    error: false,
+                    message: 'added new dish',
+                    data:
+                    {
+                        dishID: created_dish.id
+                    } 
+                    
+                    
+                });
+            })
+            .catch(function(err){
+                return res.json(500, {error: true, message: 'Cannot add new dish', data: err});
             });
-            res.json(200, {error: false, message: 'found', data: found_data});
+            
+            // found_data.dishes.add(data);
+            // return found_data.dishes.save(function(err){});
+
+            // res.json(200, {error: false, message: 'found', data: found_data});
 
         }).catch(function(err){
             res.json(500, {error: true, message: 'Errors', data: err});
         });
+
+    },
+
+
+    //- add single ingredient to dish
+    addIngredientToDish: function(req, res)
+    {
+        var did = req.param('dishID');
+        var iid = req.param('ingredientID');
+        DishIngredient
+            .create({
+                dish: did,
+                ingredient: iid,
+            })
+            .then(function(created_data){
+                res.created({
+                    error: false,
+                    message: 'added new ingredient to dish',
+                    data: {
+                        created_data
+                    }
+                });
+            })
+            .catch(function(err){
+                res.json(500, {
+                    error: true, 
+                    message: 'Cannot insert ingredient', 
+                    data: err
+                });
+            });
+    },
+
+    //- add multiple 
+    addIngredientsToDish: function(req, res)
+    {
 
     },
 

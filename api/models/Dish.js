@@ -20,17 +20,26 @@ module.exports = {
     dName:{
       type: 'string',
       size: 150,
+      // required: true,
     },
     dDescribe:{
       type: 'string',
+      required: true,
     },
     dCost:{
       type: 'float', //- or double
     },
+    dSuggestedPrice:{
+      type: 'float',
+    },
+    dCustomPrice:{
+      type: 'float',
+    },
     dCookingTime:{
       type: 'string',
     },
-    //- needed to be thinking more
+
+    //- array
     dServingOption:{
       type: 'array',
     },
@@ -45,11 +54,9 @@ module.exports = {
     dTag:{
       type: 'array'
     },
-    dImageLink:{
-      type: 'string',
-    },
     dImageName:{
       type: 'string',
+      required: true,
     },
     
 
@@ -62,6 +69,11 @@ module.exports = {
     },
     chef:{
       model: 'Chef',
+    },
+    ingredients:{
+      collection: 'Ingredient',
+      via: 'dish',
+      through: 'dishingredient',
     },
 
   }

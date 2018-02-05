@@ -1,7 +1,7 @@
 /**
- * DietaryController
+ * FoodAllergyController
  *
- * @description :: Server-side logic for managing Dietaries
+ * @description :: Server-side logic for managing Foodallergies
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
@@ -10,15 +10,15 @@ module.exports = {
     create: function(req, res)
     {
         var data = {};
-        data.dName = req.param('name');
-        data.dDescription = req.param('describe');
+        data.faName = req.param('name');
+        data.faDescribe = req.param('describe');
 
-        Dietary
+        FoodAllergy
         .create(data)
         .then(function(created_data){
             res.created({
                 error: false,
-                message: 'created new dietary',
+                message: 'created new food allergy',
                 data: created_data
             });
         })
@@ -33,7 +33,7 @@ module.exports = {
 
     viewAll: function(req, res)
     {
-        Dietary
+        FoodAllergy
         .find({})
         .then(function(found_data){
             res.created({
@@ -55,7 +55,7 @@ module.exports = {
     {
         //- limit will be a number
         var limit = parseInt(req.param('limit'));
-        Dietary
+        FoodAllergy
         .find({})
         .limit(limit)
         .then(function(found_data){

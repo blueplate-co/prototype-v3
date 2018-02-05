@@ -73,9 +73,6 @@ module.exports = {
             }
             //- open the image
             // sails.log(uploadedFiles[0].fd);
-            sails.log('base url: ' + sails.getBaseUrl());
-        //   res.render(uploadedFiles[0].fd);
-
             //- update chef profile
             return uploadedFiles[0].filename;
 
@@ -119,6 +116,12 @@ module.exports = {
         return res.serverError(err);
         })
         .pipe(res);
+    },
+
+    checkImageExistInRequest: function(options)
+    {
+        var req = options.req;
+
     },
     
 }

@@ -6,6 +6,50 @@
  */
 
 module.exports = {
-	
+    
+    //- view ingredient list
+    view: function(req, res)
+    {
+        Ingredient
+        .find({})
+        .then(function(ingredient){
+            res.json(200, {
+                error: false,
+                message: 'all ingredient',
+                data: ingredient,
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'Errors. Cannot show all ingredient',
+                data: err,
+            });
+        });
+    },
+
+    create: function(req, res)
+    {
+        var data = {};
+        data.iName = req.param('name');
+        data.iDescription = req.param('description');
+        Ingredient
+        .create(data)
+        .then(function(created_data){
+            res.created({
+                error: false,
+                message: 'new ingredient created',
+                data: created_data
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'Cannot create new ingradient',
+                data: err
+            });
+        });
+    },
+
 };
 
