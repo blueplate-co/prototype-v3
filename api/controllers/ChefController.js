@@ -174,7 +174,15 @@ module.exports = {
         Chef
         .destroy({
             id: cid
-        }).catch(function(err){
+        })
+        .then(function(deleted_data){
+            res.json(200, {
+                error: false,
+                message: 'delete success',
+                data: deleted_data
+            });
+        })
+        .catch(function(err){
             res.json(500, {
                 error: true,
                 message: 'errors',
@@ -183,7 +191,7 @@ module.exports = {
         });
 
     },
-    
+
 
 };
 
