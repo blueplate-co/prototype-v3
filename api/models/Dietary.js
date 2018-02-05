@@ -27,8 +27,12 @@ module.exports = {
       max: 200
     },
     
-    //-foreign key
-
+    //- foreign key
+    dishes:{
+      collection: 'Dish',
+      via: 'dietary',
+      through: 'dishdietary',
+    },
     
   }
 };

@@ -91,6 +91,21 @@ module.exports.routes = {
     action: 'create'
   },
 
+  'POST /api/dish/create/ingredients':{
+    controller: 'DishController',
+    action: 'addIngredientsToDish',
+  },
+  
+  'POST /api/dish/create/allergies':{
+    controller: 'DishController',
+    action: 'addAllergiesToDish',
+  },
+
+  'POST /api/dish/create/dietaries':{
+    controller: 'DishController',
+    action: 'addDietariesToDish',
+  },
+
   //- Menu routes
   'POST /api/menu/create':{
     controller: 'MenuController',

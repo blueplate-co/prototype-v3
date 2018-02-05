@@ -117,10 +117,105 @@ module.exports = {
             });
     },
 
-    //- add multiple 
+
+
+    //- add multiple ingredients to dish
     addIngredientsToDish: function(req, res)
     {
+        var did = req.param('dishID');
 
+        //- array of object ingredients
+        var ingredients = req.param('ingredientsID');
+        // var ingredients = [
+        //     {dish:did, ingredient: 1},
+        //     {dish:did, ingredient: 2},
+        //     {dish:did, ingredient: 3}
+        // ];
+
+        DishIngredient
+        .create(ingredients)
+        .then(function(created_data){
+            res.created({
+                error: false,
+                message: 'added new ingredient to dish',
+                data: {
+                    created_data
+                }
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true, 
+                message: 'Cannot insert ingredient', 
+                data: err
+            });
+        });
+    },
+
+    //- add multiple ingredients to dish
+    addAllergiesToDish: function(req, res)
+    {
+        var did = req.param('dishID');
+
+        //- array of object ingredients
+        var allergies = req.param('allergies');
+        // var allergies = [
+        //     {dish:did, allergies: 1},
+        //     {dish:did, allergies: 2},
+        //     {dish:did, allergies: 3}
+        // ];
+
+        DishAllergy
+        .create(allergies)
+        .then(function(created_data){
+            res.created({
+                error: false,
+                message: 'added new allergy to dish',
+                data: {
+                    created_data
+                }
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true, 
+                message: 'Cannot insert allergy', 
+                data: err
+            });
+        });
+    },
+
+    //- add multiple ingredients to dish
+    addDietariesToDish: function(req, res)
+    {
+        var did = req.param('dishID');
+
+        //- array of object ingredients
+        var dietaries = req.param('dietaries');
+        // var dietaries = [
+        //     {dish:did, dietaries: 1},
+        //     {dish:did, dietaries: 2},
+        //     {dish:did, dietaries: 3}
+        // ];
+
+        DishDietary
+        .create(dietaries)
+        .then(function(created_data){
+            res.created({
+                error: false,
+                message: 'added new dietary to dish',
+                data: {
+                    created_data
+                }
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true, 
+                message: 'Cannot insert dietary', 
+                data: err
+            });
+        });
     },
 
     //- update by dish ID

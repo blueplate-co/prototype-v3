@@ -7,7 +7,7 @@
 
 module.exports = {
 
-  tableName: 'FoodAllergy',
+  tableName: 'Allergy',
   connection:'mongoAdapter',
   attributes: {
 
@@ -17,13 +17,20 @@ module.exports = {
       unique: true,
       autoIncrement: true,
     },
-    faName:{
+    aName:{
       type: 'string',
       max: 100,
     },
-    faDescribe:{
+    aDescribe:{
       type: 'string',
       max: 200,
+    },
+
+    //- foreign key
+    dishes: {
+      collection: 'Dish',
+      via: 'allergy',
+      through: 'dishallergy',
     },
 
 

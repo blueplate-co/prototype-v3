@@ -75,6 +75,16 @@ module.exports = {
       via: 'dish',
       through: 'dishingredient',
     },
+    dietaries:{
+      collection: 'Dietary',
+      via: 'dish',
+      through: 'dishdietary',
+    },
+    allergies: {
+      collection: 'Allergy',
+      via: 'dish',
+      through: 'dishallergy',
+    },
 
   }
 };
