@@ -58,32 +58,32 @@ module.exports = {
     update: function(req, res)
     {
         var did = req.param('dishID');
-        Dish
-        .update({
-            id: did,
-        }, {
-
-        })
-        .then(function(dish){
-            res.json(200, {
-                error: false,
-                message: 'Dish found',
-                data: dish,
+        var data = req.param('data');
+        if(typeof(data) === 'Object')
+        {
+            Dish
+            .update({
+                id: did,
+            }, data)
+            .then(function(dish){
+                res.json(200, {
+                    error: false,
+                    message: 'Dish found',
+                    data: dish,
+                });
+            })
+            .catch(function(err){
+                res.json(500, {
+                    error: true,
+                    message: 'errors',
+                    data: err
+                });
             });
-        })
-        .catch(function(err){
-            res.json(500, {
-                error: true,
-                message: 'errors',
-                data: err
-            });
-        });
+        }
+        
     },
 
-    createDishByMenuID: function(req, res){
-
-    },
-
+    //- view dish by dish id
     view: function(req, res){
         //- view by dish id
         var did = req.param('dishID');
@@ -133,6 +133,20 @@ module.exports = {
     },
 
 
+    //- delete by dish id
+    delete: function(req, res)
+    {
+        var did = req.param('dishID');
+        Dish.destroy({
+            id: did
+        }).catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
+    }
     
 };
 

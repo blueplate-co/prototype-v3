@@ -50,6 +50,34 @@ module.exports = {
         });
     },
 
+    //- update menu info by menu id
+    update: function(req, res)
+    {
+        var mid = req.param('menuID');
+        var data = req.param('data');
+        if(typeof(data) === 'Object')
+        {
+            //- check if request has image
+            
+            Menu.update({
+                id: mid,
+            }, data).then(function(updated_data){
+                res.json(200, {
+                    error: false,
+                    message: 'updayed menu',
+                    data: updated_data
+                });
+            }).catch(function(err){
+                res.json(500, {
+                    error: true,
+                    message: 'errors',
+                    data: null
+                });
+            }); 
+        }
+        
+    },
+
     addDishToMenu: function(req, res){
         //- insert dish by menu id, dishID + chefID
         var mid = req.param('menuID');

@@ -88,17 +88,56 @@ module.exports = {
 
     },
 
+    //- update by id
     update: function(req, res){
         //- update random field
         //- this is must be an object {}
         var data = req.param('data');
+        if(typeof(data) === 'Object')
+        {
+            var cid = req.param('chefID');
+        
+            //- check if has file in request
 
-        ImageService.downloadImage({
-            res: res
+            Chef.update({
+                id: cid
+            },data)
+            .then(function(updated_data){
+                res.json(200, {
+                    error: false,
+                    message: 'Updated...',
+                    data: updated_data
+                });
+            }).catch(function(err){
+                res.json(500, {
+                    error: true,
+                    message: 'Errors',
+                    data: err
+                });
+            });
+
+
+        }
+        
+    },
+
+    delete: function(req, res)
+    {
+        
+        //- delete by chef id
+        //- relationship delete
+        var cid = req.param('chefID');
+        Chef.delete({
+            id: cid
+        }).catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
         });
 
-
-    }
+    },
 
 };
 
