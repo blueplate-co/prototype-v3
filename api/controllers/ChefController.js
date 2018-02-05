@@ -81,6 +81,53 @@ module.exports = {
 
     },
 
+    //- view chef info by id
+    viewByID: function(req, res)
+    {
+        var cid = req.param('chefID');
+        Chef
+        .find({})
+        .where({
+            id: cid
+        })
+        .then(function(found_data){
+            return res.json(200, {
+                error: false,
+                message: 'found',
+                data: found_data
+            });
+        })
+        .catch(function(err){
+            return res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
+    },
+
+    //- view all chef
+    viewAll: function(req, res)
+    {
+        var cid = req.param('chefID');
+        Chef
+        .find({})
+        .then(function(found_data){
+            return res.json(200, {
+                error: false,
+                message: 'found',
+                data: found_data
+            });
+        })
+        .catch(function(err){
+            return res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
+    },
+
     //- update by id
     update: function(req, res){
         //- update random field

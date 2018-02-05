@@ -80,9 +80,24 @@ module.exports.routes = {
     action: 'create',
   },
 
-  'GET /api/image':{
+  // 'GET /api/image':{
+  //   controller: 'ChefController',
+  //   action: 'update',
+  // },
+
+  'GET /api/chef/viewAll':{
     controller: 'ChefController',
-    action: 'update',
+    action: 'viewAll',
+  },
+  
+  'GET /api/chef/viewByID':{
+    controller: 'ChefController',
+    action: 'viewByID',
+  },
+
+  'DELETE /api/chef/delete':{
+    controller: 'ChefController',
+    action: 'delete',
   },
 
   //- Dish routes
