@@ -38,8 +38,10 @@ module.exports = {
         data.cInspiration = req.param('inspiration');
 
         //- ingredients + dietaries (must be an array)
-        data.ingredients = ['thịt', 'cá', 'trứng', 'sữa'];
-        data.dietaries = ['cá', 'rau sống'];
+        // data.ingredients = ['thịt', 'cá', 'trứng', 'sữa'];
+        // data.dietaries = ['cá', 'rau sống'];
+        data.ingredients = req.param('ingredients');
+        data.dietaries = req.param('dietaries');
 
         //- upload image seperately
         data.cImageName = ImageService.saveImage({

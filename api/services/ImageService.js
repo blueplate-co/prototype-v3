@@ -34,6 +34,7 @@ module.exports = {
         var res = options.res;
         var fileInput = options.fileInput;
         var uid = options.uid;
+        var uEmail = options.email;
         // setting allowed file types
         var allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
 
@@ -48,7 +49,7 @@ module.exports = {
                 var extension = file.filename.split('.').pop();
                 // sails.log(extension);
                 // generating unique filename with extension
-                var uuid=d.getMilliseconds() + "." + extension;
+                var uuid = d.getMilliseconds() + "." + extension;
       
                 // seperate allowed and disallowed file types
                 if(allowedTypes.indexOf(file.headers['content-type']) === -1) {

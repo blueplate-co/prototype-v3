@@ -34,7 +34,7 @@ module.exports = {
     },
     cGender:{
       type: 'string',
-      max: 5,
+      max: 10,
     },
     cCertification:{
       type: 'string',
