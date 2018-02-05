@@ -80,6 +80,11 @@ module.exports.routes = {
     action: 'create',
   },
 
+  'PUT /api/chef/update':{
+    controller: 'ChefController',
+    action: 'update'
+  },
+
   // 'GET /api/image':{
   //   controller: 'ChefController',
   //   action: 'update',
@@ -89,7 +94,7 @@ module.exports.routes = {
     controller: 'ChefController',
     action: 'viewAll',
   },
-  
+
   'GET /api/chef/viewByID':{
     controller: 'ChefController',
     action: 'viewByID',

@@ -130,43 +130,49 @@ module.exports = {
 
     //- update by id
     update: function(req, res){
-        //- update random field
-        //- this is must be an object {}
-        var data = req.param('data');
-        if(typeof(data) === 'Object')
+        if(req.method === 'PUT')
         {
-            var cid = req.param('chefID');
-        
-            //- check if has file in request
-            Chef.update({
-                id: cid
-            },data)
-            .then(function(updated_data){
-                res.json(200, {
-                    error: false,
-                    message: 'Updated...',
-                    data: updated_data
+            //- update random field
+            //- this is must be an object {}
+            var data = req.param('data');
+            if(typeof(data) === 'Object')
+            {
+                var cid = req.param('chefID');
+                //- if request has file
+                //- upload the image with image name
+                //- check if has file in request
+                Chef.update({
+                    id: cid
+                },data)
+                .then(function(updated_data){
+                    res.json(200, {
+                        error: false,
+                        message: 'Chef updated...',
+                        data: updated_data
+                    });
+                }).catch(function(err){
+                    res.json(500, {
+                        error: true,
+                        message: 'Errors',
+                        data: err
+                    });
                 });
-            }).catch(function(err){
-                res.json(500, {
-                    error: true,
-                    message: 'Errors',
-                    data: err
-                });
-            });
 
 
+            }
         }
+        
         
     },
 
+    //- delete chef by chef id
     delete: function(req, res)
     {
-        
         //- delete by chef id
         //- relationship delete
         var cid = req.param('chefID');
-        Chef.delete({
+        Chef
+        .destroy({
             id: cid
         }).catch(function(err){
             res.json(500, {
@@ -177,6 +183,7 @@ module.exports = {
         });
 
     },
+    
 
 };
 
