@@ -6,6 +6,7 @@
  */
 var ObjectID = require('mongodb').ObjectID;
 var mongoose = require('mongoose');
+const uuidv4 = require('uuid/v4'); //- random unique string
 module.exports = {
 	create: function(req, res){
 
@@ -15,8 +16,12 @@ module.exports = {
         //- update
         //- chef id
         var cid = req.param('chefID');
-
         data.dDescribe = req.param('describe');
+
+        //- create unique id
+        var uuid = uuidv4();
+        data.dish_id = uuid;
+
         //- upload image
         data.dImageName = req.param('dishImageName');
         ImageService.saveImage({
@@ -52,7 +57,7 @@ module.exports = {
         Chef
         .findOne({})
         .where({
-            id: cid,
+            chef_id: cid,
         })
         .then(function(found_data){
             data.chef = found_data.id;
@@ -68,7 +73,7 @@ module.exports = {
                     message: 'added new dish',
                     data:
                     {
-                        dishID: created_dish.id
+                        dishID: created_dish.dish_id
                     } 
                     
                     
@@ -316,20 +321,14 @@ module.exports = {
                 });
                 sails.log('Upload image success');
             }
-            
-            var did2 = mongoose.Types.ObjectId("5a75c3ebb6b348a425519728");
-            sails.log(typeof(did2));
 
             Dish
             .update(
             {
-                id: mongoose.Types.ObjectId("5a75c3ebb6b348a425519728")
-                // createdAt: '2018-02-06 14:37:17.943'
+                dish_id: did
             }
             , JSON.parse(data))
             .then(function(updated_data){
-                sails.log(updated_data[0].id);
-                sails.log(typeof(updated_data[0].id));
                 return res.json(200, {
                     error: false,
                     message: 'Dish updated...',
