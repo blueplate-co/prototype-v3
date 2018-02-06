@@ -6,6 +6,7 @@
  */
 var path = require('path');
 var ObjectId = require('mongodb').ObjectId;
+const uuidv4 = require('uuid/v4'); //- random unique string
 module.exports = {
     
     create: function(req, res)
@@ -30,22 +31,27 @@ module.exports = {
         data.cGender = req.param('gender');
 
 
-        //- experience
-        data.cCertification = req.param('certification');
-        data.cSchool = req.param('school');
+        //- experience => array
+        // data.cCertification = req.param('certification');
+        // data.cSchool = req.param('school');
+        data.cExperience = req.param('experiences'); //- must be an array of obbject
 
         //- yourself
         data.cAbout = req.param('about');
         data.cInspiration = req.param('inspiration');
 
-        //- ingredients + dietaries (must be an array)
-        // data.ingredients = ['thịt', 'cá', 'trứng', 'sữa'];
+        //- food allergy + dietaries (must be an array)
         // data.dietaries = ['cá', 'rau sống'];
-        data.ingredients = req.param('ingredients');
-        data.dietaries = req.param('dietaries');
+        data.cFoodAllergy = req.param('foodallergies');
+        data.CDietary = req.param('dietaries');
+
+        //- create unique id
+        var uuid = uuidv4();
+        data.chef_id = uuid;
 
         //- upload image seperately
-        data.cImageName = ImageService.saveImage({
+        data.cImageName = req.param('chefImageName');
+        ImageService.saveImage({
             req: req,
             res: res,
             fileInput: 'chefImage'
@@ -63,7 +69,8 @@ module.exports = {
                     error: false,
                     message: 'insert success',
                     data: {
-                        chefID: created_user.id
+                        // chefID: created_user.id,
+                        chefID: created_user.chef_id,
                     }
                 });
 
@@ -135,8 +142,9 @@ module.exports = {
     update: function(req, res){
         if(req.method === 'PUT')
         {
-            var uid = req.param('userID');
-            // var cid = req.param('chefID');
+            // var uid = req.param('userID');
+            var cid = req.param('chefID');
+            sails.log(cid);
              //- update random field
             //- this is must be an object {}
             var data = req.param('data');
@@ -154,7 +162,7 @@ module.exports = {
             
             Chef
             .update({
-                uid: uid
+                chef_id: cid,
             }, JSON.parse(data))
             .then(function(updated_data){
                 res.json(200, {

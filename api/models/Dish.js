@@ -17,6 +17,13 @@ module.exports = {
       unique: true,
       autoIncrement: true,
     },
+    //- create fake id for dish
+    did:{
+      type: 'integer',
+      primaryKey: true,
+      unique: true,
+      autoIncrement: true,
+    },
     dName:{
       type: 'string',
       size: 150,

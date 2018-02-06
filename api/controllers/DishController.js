@@ -5,6 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var ObjectID = require('mongodb').ObjectID;
+var mongoose = require('mongoose');
 module.exports = {
 	create: function(req, res){
 
@@ -295,32 +296,55 @@ module.exports = {
         });
     },
 
-    //- update by dish ID
-    update: function(req, res)
-    {
-        var did = req.param('dishID');
-        var data = req.param('data');
-        if(typeof(data) === 'Object')
+    //- update by dish id
+    update: function(req, res){
+        if(req.method === 'PUT')
         {
-            Dish
-            .update({
-                id: did,
-            }, data)
-            .then(function(dish){
-                res.json(200, {
-                    error: false,
-                    message: 'Dish found',
-                    data: dish,
+            var did = req.param('dishID');
+            sails.log(did);
+             //- update random field
+            //- this is must be an object {}
+            var data = req.param('data');
+            var fileName = req.param('dishImageName');
+            if(fileName != null)
+            {
+                //- upload image seperately
+                ImageService.saveImage({
+                    req: req,
+                    res: res,
+                    fileInput: 'dishImage'
                 });
-            })
-            .catch(function(err){
-                res.json(500, {
+                sails.log('Upload image success');
+            }
+            
+            var did2 = mongoose.Types.ObjectId("5a75c3ebb6b348a425519728");
+            sails.log(typeof(did2));
+
+            Dish
+            .update(
+            {
+                id: mongoose.Types.ObjectId("5a75c3ebb6b348a425519728")
+                // createdAt: '2018-02-06 14:37:17.943'
+            }
+            , JSON.parse(data))
+            .then(function(updated_data){
+                sails.log(updated_data[0].id);
+                sails.log(typeof(updated_data[0].id));
+                return res.json(200, {
+                    error: false,
+                    message: 'Dish updated...',
+                    data: updated_data
+                });
+            }).catch(function(err){
+                return res.json(500, {
                     error: true,
-                    message: 'errors',
+                    message: 'Errors',
                     data: err
                 });
             });
+
         }
+        
         
     },
 

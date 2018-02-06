@@ -10,13 +10,15 @@
     "include-all": "^1.0.0",
     "jsonwebtoken": "^8.1.1",
     "mongodb": "^3.0.2",
+    "mongoose": "^5.0.3",
     "nodemailer": "^4.4.2",
     "path": "^0.12.7",
     "rc": "1.0.1",
     "sails": "^0.12.14",
     "sails-disk": "^0.10.10",
     "sails-mongo": "^0.12.2",
-    "skipper-disk": "^0.5.10"
+    "skipper-disk": "^0.5.10",
+    "uuid": "^3.2.1"
   },
   "scripts": {
     "debug": "node debug app.js",

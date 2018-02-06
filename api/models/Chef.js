@@ -36,12 +36,15 @@ module.exports = {
       type: 'string',
       max: 10,
     },
-    cCertification:{
-      type: 'string',
-    },
-    cSchool:{
-      type: 'string',
-      max: 250
+    // cCertification:{
+    //   type: 'string',
+    // },
+    // cSchool:{
+    //   type: 'string',
+    //   max: 250
+    // },
+    cExperience:{
+      type: 'array', //- array of object
     },
     cAbout:{
       type: 'text',
@@ -79,10 +82,11 @@ module.exports = {
       via: 'chef',
     },
 
-    ingredients:{
+    //- food allergy + dietaries
+    cFoodAllergy:{
       type: 'array',
     },
-    dietaries:{
+    CDietary:{
       type: 'array',
     },
 

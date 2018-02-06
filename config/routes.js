@@ -132,6 +132,7 @@ module.exports.routes = {
 
   'GET /api/dish/showLimit':'DishController.viewLimit',
   
+  'PUT /api/dish/update':'DishController.update',
 
   //- Menu routes
   'POST /api/menu/create':{
