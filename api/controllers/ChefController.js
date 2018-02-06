@@ -135,60 +135,86 @@ module.exports = {
             //- update random field
             //- this is must be an object {}
             var data = req.param('data');
-            if(typeof(data) === 'Object')
+            
+            var cid = req.param('chefID');
+            //- if request has file
+            //- upload the image with image name
+            if(req.file('chefImage'))
             {
-                var cid = req.param('chefID');
-                //- if request has file
-                //- upload the image with image name
-                //- check if has file in request
-                Chef.update({
-                    id: cid
-                },data)
-                .then(function(updated_data){
-                    res.json(200, {
-                        error: false,
-                        message: 'Chef updated...',
-                        data: updated_data
-                    });
-                }).catch(function(err){
-                    res.json(500, {
-                        error: true,
-                        message: 'Errors',
-                        data: err
-                    });
+                //- upload image seperately
+                ImageService.saveImage({
+                    req: req,
+                    res: res,
+                    fileInput: 'chefImage'
                 });
 
-
             }
+
+            Chef
+            .update({
+                id: cid
+            },data)
+            .then(function(updated_data){
+                res.json(200, {
+                    error: false,
+                    message: 'Chef updated...',
+                    data: updated_data
+                });
+            }).catch(function(err){
+                res.json(500, {
+                    error: true,
+                    message: 'Errors',
+                    data: err
+                });
+            });
+
         }
         
         
     },
 
     //- delete chef by chef id
-    delete: function(req, res)
+    deleteChef: function(req, res)
     {
         //- delete by chef id
         //- relationship delete
         var cid = req.param('chefID');
+
+        sails.log(cid);
         Chef
         .destroy({
             id: cid
         })
-        .then(function(deleted_data){
-            res.json(200, {
+        .exec(function (err) {
+            if (err) {
+                return res.negotiate(err);
+            }
+            sails.log('Delete success');
+            return res.ok({
                 error: false,
-                message: 'delete success',
-                data: deleted_data
-            });
-        })
-        .catch(function(err){
-            res.json(500, {
-                error: true,
-                message: 'errors',
-                data: err
+                message: 'Deleted',
+                data: null
             });
         });
+        
+        // Chef
+        // .destroy({
+        //     id: cid
+        // })
+        // .then(function(deleted_data){
+        //     res.json(200, {
+        //         error: false,
+        //         message: 'delete success',
+        //         data: deleted_data
+        //     });
+        // })
+        // .catch(function(err){
+        //     res.json(500, {
+        //         error: true,
+        //         message: 'errors',
+        //         data: err
+        //     });
+        // });
 
     },
 

@@ -102,7 +102,7 @@ module.exports.routes = {
 
   'DELETE /api/chef/delete':{
     controller: 'ChefController',
-    action: 'delete',
+    action: 'deleteChef',
   },
 
   //- Dish routes
@@ -125,6 +125,22 @@ module.exports.routes = {
     controller: 'DishController',
     action: 'addDietariesToDish',
   },
+
+  'GET /api/dish/viewByID':{
+    collection: 'DishController',
+    action: 'viewByID',
+  },
+
+  'GET /api/dish/viewAll':{
+    collection: 'DishController',
+    action: 'viewAll',
+  },
+
+  'GET /api/dish/viewWithLimit':{
+    collection: 'DishController',
+    action: 'viewWithLimit',
+  },
+  
 
   //- Menu routes
   'POST /api/menu/create':{

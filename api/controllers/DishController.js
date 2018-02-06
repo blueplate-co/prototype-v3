@@ -248,7 +248,7 @@ module.exports = {
     },
 
     //- view dish by dish id
-    view: function(req, res){
+    viewByID: function(req, res){
         //- view by dish id
         var did = req.param('dishID');
         Dish
@@ -272,6 +272,56 @@ module.exports = {
         });
     },
 
+    //- view all dish
+    viewAll: function(req, res){
+       
+        Dish
+        .find({})
+        .where({
+            id: did
+        })
+        .then(function(dish){
+            res.json(200, {
+                error: false,
+                message: 'Dish found',
+                data: dish,
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
+    },
+
+    //- view all dish with limit
+    viewWithLimit: function(req, res){
+        var limit = parseInt(req.param('limit'));
+        Dish
+        .find({})
+        .limit(limit)
+        .where({
+            id: did
+        })
+        .then(function(dish){
+            res.json(200, {
+                error: false,
+                message: 'Dish found',
+                data: dish,
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
+    },
+
+    //- view by chef ID
     viewByChefID: function(req, res){
         //- view by dish id
         var cid = req.param('chefID');
@@ -301,7 +351,8 @@ module.exports = {
     delete: function(req, res)
     {
         var did = req.param('dishID');
-        Dish.destroy({
+        Dish
+        .destroy({
             id: did
         }).catch(function(err){
             res.json(500, {
