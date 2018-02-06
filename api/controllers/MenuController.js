@@ -173,6 +173,30 @@ module.exports = {
             });
         });
     },
+
+    //- delete by menu id
+    delete: function(req, res)
+    {
+        var mid = req.param('menuID');
+        Menu
+        .destroy({
+            id: mid
+        })
+        .then(function(deleted_data){
+            res.ok({
+                error: false,
+                message: 'deleted menu',
+                data: null
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
+    },
     
 
 };

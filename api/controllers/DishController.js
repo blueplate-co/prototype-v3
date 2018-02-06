@@ -88,36 +88,79 @@ module.exports = {
 
     },
 
-
-    //- add single ingredient to dish
-    addIngredientToDish: function(req, res)
-    {
-        var did = req.param('dishID');
-        var iid = req.param('ingredientID');
-        DishIngredient
-            .create({
-                dish: did,
-                ingredient: iid,
-            })
-            .then(function(created_data){
-                res.created({
-                    error: false,
-                    message: 'added new ingredient to dish',
-                    data: {
-                        created_data
-                    }
-                });
-            })
-            .catch(function(err){
-                res.json(500, {
-                    error: true, 
-                    message: 'Cannot insert ingredient', 
-                    data: err
-                });
+    //- view all dish
+    viewAll: function(req, res){
+       
+        Dish
+        .find({})
+        .where({
+            id: did
+        })
+        .then(function(dish){
+            res.json(200, {
+                error: false,
+                message: 'Dish found',
+                data: dish,
             });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
     },
 
+    //- view dish by dish id
+    viewByID: function(req, res){
+        //- view by dish id
+        var did = req.param('dishID');
+        Dish
+        .findOne({})
+        .where({
+            id: did
+        })
+        .then(function(dish){
+            res.json(200, {
+                error: false,
+                message: 'Dish found',
+                data: dish,
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
+    },
 
+    //- view all dish with limit
+    viewLimit: function(req, res){
+        var limit = parseInt(req.param('limit'));
+        Dish
+        .find({})
+        .limit(limit)
+        .where({
+            id: did
+        })
+        .then(function(dish){
+            res.json(200, {
+                error: false,
+                message: 'Dish found',
+                data: dish,
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
+    },
 
     //- add multiple ingredients to dish
     addIngredientsToDish: function(req, res)
@@ -152,11 +195,45 @@ module.exports = {
         });
     },
 
+    //- update ingredients to dish
+    //- by dishID
+    updateIngredientsToDish:function()
+    {
+        //- get list of new Ingredients in dish
+        var did = req.param('dishID');
+        //- this must be type of [{},{}]
+        var ingredients = req.param('ingredientsID');
+        //- get current ingredient list by dish ID
+        DishIngredient
+        .find({})
+        .where({
+            dish: did
+        })
+        .then(function(found_data){
+
+            sails.log(found_data);
+
+            res.ok({
+                error: false,
+                message: 'update ingredients',
+                data: found_data
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
+        //- compare new list to current list
+        
+    },
+
     //- add multiple ingredients to dish
     addAllergiesToDish: function(req, res)
     {
         var did = req.param('dishID');
-
         //- array of object ingredients
         var allergies = req.param('allergies');
         // var allergies = [
@@ -245,80 +322,6 @@ module.exports = {
             });
         }
         
-    },
-
-    //- view dish by dish id
-    viewByID: function(req, res){
-        //- view by dish id
-        var did = req.param('dishID');
-        Dish
-        .findOne({})
-        .where({
-            id: did
-        })
-        .then(function(dish){
-            res.json(200, {
-                error: false,
-                message: 'Dish found',
-                data: dish,
-            });
-        })
-        .catch(function(err){
-            res.json(500, {
-                error: true,
-                message: 'errors',
-                data: err
-            });
-        });
-    },
-
-    //- view all dish
-    viewAll: function(req, res){
-       
-        Dish
-        .find({})
-        .where({
-            id: did
-        })
-        .then(function(dish){
-            res.json(200, {
-                error: false,
-                message: 'Dish found',
-                data: dish,
-            });
-        })
-        .catch(function(err){
-            res.json(500, {
-                error: true,
-                message: 'errors',
-                data: err
-            });
-        });
-    },
-
-    //- view all dish with limit
-    viewWithLimit: function(req, res){
-        var limit = parseInt(req.param('limit'));
-        Dish
-        .find({})
-        .limit(limit)
-        .where({
-            id: did
-        })
-        .then(function(dish){
-            res.json(200, {
-                error: false,
-                message: 'Dish found',
-                data: dish,
-            });
-        })
-        .catch(function(err){
-            res.json(500, {
-                error: true,
-                message: 'errors',
-                data: err
-            });
-        });
     },
 
     //- view by chef ID

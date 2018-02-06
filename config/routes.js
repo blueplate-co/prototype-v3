@@ -75,6 +75,16 @@ module.exports.routes = {
   },
 
   //- Chef routes
+  'GET /api/chef/view/all': {
+    controller: 'ChefController',
+    action: 'showAllChef',
+  },
+
+  'POST /api/chef/view/id': {
+    controller: 'ChefController',
+    action: 'viewByID',
+  },
+
   'POST /api/chef/create':{
     controller: 'ChefController',
     action: 'create',
@@ -83,21 +93,6 @@ module.exports.routes = {
   'PUT /api/chef/update':{
     controller: 'ChefController',
     action: 'update'
-  },
-
-  // 'GET /api/image':{
-  //   controller: 'ChefController',
-  //   action: 'update',
-  // },
-
-  'GET /api/chef/viewAll':{
-    controller: 'ChefController',
-    action: 'viewAll',
-  },
-
-  'GET /api/chef/viewByID':{
-    controller: 'ChefController',
-    action: 'viewByID',
   },
 
   'DELETE /api/chef/delete':{
@@ -126,20 +121,16 @@ module.exports.routes = {
     action: 'addDietariesToDish',
   },
 
-  'GET /api/dish/viewByID':{
-    collection: 'DishController',
-    action: 'viewByID',
+  'PUT /api/dish/update/ingredients':{
+    controller: 'DishController',
+    action: 'updateIngredientsToDish',
   },
 
-  'GET /api/dish/viewAll':{
-    collection: 'DishController',
-    action: 'viewAll',
-  },
+  'GET /api/dish/showByID': 'DishController.viewByID',
 
-  'GET /api/dish/viewWithLimit':{
-    collection: 'DishController',
-    action: 'viewWithLimit',
-  },
+  'GET /api/dish/showAll':'DishController.viewAll',
+
+  'GET /api/dish/showLimit':'DishController.viewLimit',
   
 
   //- Menu routes

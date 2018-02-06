@@ -5,6 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var path = require('path');
+var ObjectId = require('mongodb').ObjectId;
 module.exports = {
     
     create: function(req, res)
@@ -84,7 +85,9 @@ module.exports = {
     //- view chef info by id
     viewByID: function(req, res)
     {
+        
         var cid = req.param('chefID');
+        sails.log(cid);
         Chef
         .find({})
         .where({
@@ -107,7 +110,7 @@ module.exports = {
     },
 
     //- view all chef
-    viewAll: function(req, res)
+    showAllChef: function(req, res)
     {
         var cid = req.param('chefID');
         Chef
@@ -128,18 +131,17 @@ module.exports = {
         });
     },
 
-    //- update by id
+    //- update by user id
     update: function(req, res){
         if(req.method === 'PUT')
         {
-            //- update random field
+            var uid = req.param('userID');
+            // var cid = req.param('chefID');
+             //- update random field
             //- this is must be an object {}
             var data = req.param('data');
-            
-            var cid = req.param('chefID');
-            //- if request has file
-            //- upload the image with image name
-            if(req.file('chefImage'))
+            var fileName = req.param('chefImageName');
+            if(fileName != null)
             {
                 //- upload image seperately
                 ImageService.saveImage({
@@ -147,13 +149,13 @@ module.exports = {
                     res: res,
                     fileInput: 'chefImage'
                 });
-
+                sails.log('Upload image success');
             }
-
+            
             Chef
             .update({
-                id: cid
-            },data)
+                uid: uid
+            }, JSON.parse(data))
             .then(function(updated_data){
                 res.json(200, {
                     error: false,
