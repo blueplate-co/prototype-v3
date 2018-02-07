@@ -42,8 +42,11 @@ module.exports = {
     dCustomPrice:{
       type: 'float',
     },
-    dCookingTime:{
-      type: 'string',
+    dCookingTime:{ //- minutes
+      type: 'number',
+    },
+    dMinOrder:{
+      type: 'number',
     },
 
     //- array
