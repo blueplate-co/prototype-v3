@@ -18,6 +18,9 @@ module.exports = {
         var cid = req.param('chefID');
         data.dDescribe = req.param('describe');
 
+        //- temporary ingredients
+        
+
         //- create unique id
         var uuid = uuidv4();
         data.dish_id = uuid;
@@ -224,7 +227,7 @@ module.exports = {
         //- get list of new Ingredients in dish
         var did = req.param('dishID');
         //- this must be type of [{},{}]
-        var ingredients = req.param('ingredientsID');
+        var deletedIngredientList = req.param('deletedIngredientList');
         //- get current ingredient list by dish ID
         DishIngredient
         .find({})

@@ -121,11 +121,6 @@ module.exports.routes = {
     action: 'addDietariesToDish',
   },
 
-  'PUT /api/dish/update/ingredients':{
-    controller: 'DishController',
-    action: 'updateIngredientsToDish',
-  },
-
   'DELETE /api/dish/deleteAll': {
     controller: 'DishController',
     action: 'deleteAll',
@@ -177,5 +172,9 @@ module.exports.routes = {
   //- Dietary routes
   'GET /api/dietary/viewAll':'DietaryController.viewAll',
   'POST /api/dietary/viewLimit':'DietaryController.viewAllWithLimit',
+
+  //- Ingredient routes
+  'POST /api/ingredient/create':'IngredientController.create',
+  'POST /api/ingredient/create/multiple':'IngredientController.createMultiple',
 
 };

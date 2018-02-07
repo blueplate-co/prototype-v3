@@ -33,7 +33,6 @@ module.exports = {
         var data = {};
         data.iName        = req.param('name');
         data.iDescription = req.param('description');
-        data.iCalories    = req.param('calories');
         data.iQuantity    = req.param('quantity');
         data.iUnit        = req.param('unit');
         Ingredient
@@ -54,7 +53,31 @@ module.exports = {
         });
     },
 
-    
+    //- insert ingredient by array of object
+    createMultiple: function(req, res)
+    {
+        //- array of object
+        var data = req.param('data');
+        var ingredientList = JSON.parse(data);
+        Ingredient
+        .create(ingredientList)
+        .then(function(created_data){
+            res.ok({
+                error: false,
+                message: 'Create multiple ingredients success',
+                data: created_data,
+            });
+        })
+        .catch(function(err){
+            res.badRequest({
+                error: true,
+                message: "Cannot create multiple ingredients",
+                dat: err
+            });
+        });
+    },
+
+
 
 };
 
