@@ -61,7 +61,7 @@ module.exports = {
         //- create chef first
         //- then insert ingredients, allergy
         Chef
-        .create(data)
+        .findOrCreate(data)
         .then(function(created_user){
             if(created_user)
             {
@@ -177,8 +177,8 @@ module.exports = {
     update: function(req, res){
         if(req.method === 'PUT')
         {
-            // var uid = req.param('userID');
-            var cid = req.param('chefID');
+            //- must be update_chef_id
+            var cid = req.param('update_chef_id');
             sails.log(cid);
              //- update random field
             //- this is must be an object {}

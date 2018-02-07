@@ -145,30 +145,50 @@ module.exports = {
     },
 
     //- update menu info by menu id
-    update: function(req, res)
-    {
-        var mid = req.param('menuID');
-        var data = req.param('data');
-        if(typeof(data) === 'Object')
+    //- update by dish id
+    update: function(req, res){
+        if(req.method === 'PUT')
         {
-            //- check if request has image
-            
-            Menu.update({
-                id: mid,
-            }, data).then(function(updated_data){
-                res.json(200, {
+            //- must be update_dish_id
+            var mid = req.param('update_menu_id');
+            sails.log(mid);
+             //- update random field
+            //- this is must be an object {}
+            var data = req.param('data');
+            var fileName = req.param('menuImageName');
+            if(fileName != null)
+            {
+                //- upload image seperately
+                ImageService.saveImage({
+                    req: req,
+                    res: res,
+                    fileInput: 'menuImage'
+                });
+                sails.log('Upload image success');
+            }
+
+            Menu
+            .update(
+            {
+                menu_id: mid
+            }
+            , JSON.parse(data))
+            .then(function(updated_data){
+                return res.json(200, {
                     error: false,
-                    message: 'updated menu',
+                    message: 'Menu updated...',
                     data: updated_data
                 });
             }).catch(function(err){
-                res.json(500, {
+                return res.json(500, {
                     error: true,
-                    message: 'errors',
-                    data: null
+                    message: 'Errors',
+                    data: err
                 });
-            }); 
+            });
+
         }
+        
         
     },
 

@@ -64,7 +64,7 @@ module.exports = {
             sails.log(data);
             //- insert to dish data 
             Dish
-            .create(data)
+            .findOrCreate(data)
             .then(function(created_dish){
                 sails.log(created_dish);
                 // var did = created_dish.id;
@@ -217,9 +217,9 @@ module.exports = {
 
     },
 
-    //- update ingredients to dish
+    //- delete ingredients to dish
     //- by dishID
-    updateIngredientsToDish:function()
+    deleteIngredientsFromDish:function(req, res)
     {
         //- get list of new Ingredients in dish
         var did = req.param('dishID');
@@ -336,7 +336,8 @@ module.exports = {
     update: function(req, res){
         if(req.method === 'PUT')
         {
-            var did = req.param('dishID');
+            //- must be update_dish_id
+            var did = req.param('update_dish_id');
             sails.log(did);
              //- update random field
             //- this is must be an object {}
@@ -380,7 +381,7 @@ module.exports = {
 
     //- view by chef ID
     viewByChefID: function(req, res){
-        
+
         //- view by update_chef_id
         var cid = req.param('chefID');
         Dish

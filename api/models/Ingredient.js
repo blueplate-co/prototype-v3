@@ -21,6 +21,15 @@ module.exports = {
       type: 'string',
       max: 100
     },
+    iCalories:{
+      type: 'number'
+    },
+    iQuantity:{
+      type: 'number'
+    },
+    iUnit:{
+      type: 'number'
+    },
     iDescription:{
       type: 'string',
       max: 200

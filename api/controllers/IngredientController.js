@@ -31,8 +31,11 @@ module.exports = {
     create: function(req, res)
     {
         var data = {};
-        data.iName = req.param('name');
+        data.iName        = req.param('name');
         data.iDescription = req.param('description');
+        data.iCalories    = req.param('calories');
+        data.iQuantity    = req.param('quantity');
+        data.iUnit        = req.param('unit');
         Ingredient
         .create(data)
         .then(function(created_data){
@@ -50,6 +53,8 @@ module.exports = {
             });
         });
     },
+
+    
 
 };
 
