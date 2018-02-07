@@ -12,7 +12,7 @@ module.exports = {
   attributes: {
 
     id:{
-      type: 'integer',
+      type: 'string',
       primaryKey: true,
       unique: true,
       autoIncrement: true,
@@ -32,6 +32,11 @@ module.exports = {
       collection: 'Dish',
       via: 'dietary',
       through: 'dishdietary',
+    },
+    menus:{
+      collection: 'Menu',
+      via: 'dietary',
+      through: 'menudietary',
     },
     
   }

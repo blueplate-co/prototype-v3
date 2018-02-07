@@ -16,6 +16,7 @@ module.exports = {
         data.cFirstName = req.param('firstName');
         data.cLastName = req.param('lastName');
         data.uid = req.param('uid');
+        //- check uid (for email duplicate) to create profile
         //- places
         data.cAddr = req.param('address');
         data.cPhoneNumber = req.param('phoneNumber');
@@ -69,8 +70,8 @@ module.exports = {
                     error: false,
                     message: 'insert success',
                     data: {
-                        // chefID: created_user.id,
-                        chefID: created_user.chef_id,
+                        create_chef_id: created_user.id,
+                        update_chef_id: created_user.chef_id,
                     }
                 });
 
@@ -87,6 +88,40 @@ module.exports = {
         
 
 
+    },
+
+    //- check if exist profile with this user id
+    checkChefCreate:function(req, res)
+    {
+        var uid = req.param('userID'); //- using update chefID
+        Chef
+        .count({
+            uid: uid
+        }).exec(function(err, chefCount){
+            if(err) res.json({
+                error: true,
+                message: 'errors',
+                data: err
+            });
+
+            //- if success
+            if(chefCount == 0)
+            {
+                //- chef profile is not exist
+                res.ok({
+                    error: false,
+                    message: 'Chef profile is not found',
+                    data: chefCount
+                });
+            }else{
+                //- chef profile is exist
+                res.ok({
+                    error: false,
+                    message: 'chef profile found',
+                    data: chefCount
+                });
+            }
+        });
     },
 
     //- view chef info by id

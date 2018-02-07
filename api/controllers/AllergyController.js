@@ -38,7 +38,7 @@ module.exports = {
         .then(function(found_data){
             res.created({
                 error: false,
-                message: 'view all',
+                message: 'view all allergy',
                 data: found_data
             });
         })

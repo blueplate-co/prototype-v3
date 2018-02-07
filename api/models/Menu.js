@@ -52,6 +52,16 @@ module.exports = {
     chef:{
       model: 'Chef',
     },
+    allergies:{
+      collection: 'Allergy',
+      via: 'menu',
+      through: 'menuallergy',
+    },
+    dietaries:{
+      collection: 'Dietary',
+      via: 'menu',
+      through: 'menudietary',
+    },
     
 
   }

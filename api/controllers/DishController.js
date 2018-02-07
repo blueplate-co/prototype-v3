@@ -73,7 +73,8 @@ module.exports = {
                     message: 'added new dish',
                     data:
                     {
-                        dishID: created_dish.dish_id
+                        update_dish_id: created_dish.dish_id,
+                        create_dish_id: created_dish.id,
                     } 
                     
                     
@@ -168,21 +169,34 @@ module.exports = {
         });
     },
 
+    //- view allergy by dish id
+
+    //- view dietary by dish id
+
     //- add multiple ingredients to dish
     addIngredientsToDish: function(req, res)
-    {
+    {   
+        //- must be create_dish_id
         var did = req.param('dishID');
 
-        //- array of object ingredients
+        //- array id ingredients
         var ingredients = req.param('ingredientsID');
         // var ingredients = [
-        //     {dish:did, ingredient: 1},
-        //     {dish:did, ingredient: 2},
-        //     {dish:did, ingredient: 3}
+        //     {dish:"9b4f2d0c-de06-4e78-aca6-cb55afda8aec", "ingredient": "1"},
+        //     {dish:"9b4f2d0c-de06-4e78-aca6-cb55afda8aec", "ingredient": "2"},
+        //     {dish:"9b4f2d0c-de06-4e78-aca6-cb55afda8aec", "ingredient": "3"}
         // ];
 
+        var converted = LodashService.convertToCreate({
+            plainString: ingredients,
+            fixedID: did,
+            fixedName: 'dish',
+            fixedName2: 'ingredient',
+        });
+        sails.log(converted);
+
         DishIngredient
-        .create(ingredients)
+        .findOrCreate(converted)
         .then(function(created_data){
             res.created({
                 error: false,
@@ -199,6 +213,8 @@ module.exports = {
                 data: err
             });
         });
+
+
     },
 
     //- update ingredients to dish
@@ -239,17 +255,24 @@ module.exports = {
     //- add multiple ingredients to dish
     addAllergiesToDish: function(req, res)
     {
+        //- must be create_dish_id
         var did = req.param('dishID');
-        //- array of object ingredients
+        //- string
         var allergies = req.param('allergies');
         // var allergies = [
         //     {dish:did, allergies: 1},
         //     {dish:did, allergies: 2},
         //     {dish:did, allergies: 3}
         // ];
+        var converted = LodashService.convertToCreate({
+            plainString: allergies,
+            fixedID: did,
+            fixedName: 'dish',
+            fixedName2: 'allergy',
+        });
 
         DishAllergy
-        .create(allergies)
+        .create(converted)
         .then(function(created_data){
             res.created({
                 error: false,
@@ -271,6 +294,7 @@ module.exports = {
     //- add multiple ingredients to dish
     addDietariesToDish: function(req, res)
     {
+        //- must be create_dish_id
         var did = req.param('dishID');
 
         //- array of object ingredients
@@ -281,8 +305,15 @@ module.exports = {
         //     {dish:did, dietaries: 3}
         // ];
 
+        var converted = LodashService.convertToCreate({
+            plainString: dietaries,
+            fixedID: did,
+            fixedName: 'dish',
+            fixedName2: 'dietary',
+        });
+
         DishDietary
-        .create(dietaries)
+        .create(converted)
         .then(function(created_data){
             res.created({
                 error: false,
@@ -387,7 +418,18 @@ module.exports = {
                 data: err
             });
         });
-    }
+    },
+
+    deleteAll:function(req, res)
+    {
+        DishIngredient
+        .destroy({})
+        .exec(function(err){
+            if(err)res.badRequest(err);
+            res.ok();
+        });
+        // res.ok();
+    },
     
 };
 

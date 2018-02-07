@@ -12,7 +12,7 @@ module.exports = {
   attributes: {
 
     id:{
-      type: 'integer',
+      type: 'string',
       primaryKey: true,
       unique: true,
       autoIncrement: true,
@@ -31,6 +31,11 @@ module.exports = {
       collection: 'Dish',
       via: 'allergy',
       through: 'dishallergy',
+    },
+    menus:{
+      collection: 'Menu',
+      via: 'allergy',
+      through: 'menuallergy',
     },
 
 

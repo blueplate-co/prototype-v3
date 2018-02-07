@@ -50,6 +50,51 @@ module.exports = {
         });
     },
 
+
+
+    //- add multiple ingredients to dish
+    addAllergiesToDish: function(req, res)
+    {
+        //- must be create_menu_id
+        var mid = req.param('menuID');
+        //- string
+        var allergies = req.param('allergies');
+        // var allergies = [
+        //     {dish:did, allergies: 1},
+        //     {dish:did, allergies: 2},
+        //     {dish:did, allergies: 3}
+        // ];
+        var converted = LodashService.convertToCreate({
+            plainString: allergies,
+            fixedID: mid,
+            fixedName: 'menu',
+            fixedName2: 'allergy',
+        });
+
+        MenuAllergy
+        .create(converted)
+        .then(function(created_data){
+            res.created({
+                error: false,
+                message: 'added new allergy to menu',
+                data: {
+                    created_data
+                }
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true, 
+                message: 'Cannot insert allergy', 
+                data: err
+            });
+        });
+    },
+
+    addDietariesToMenu:function(req, res){
+
+    },
+
     //- update menu info by menu id
     update: function(req, res)
     {
@@ -78,11 +123,26 @@ module.exports = {
         
     },
 
+    //- add many dish to menu
     addDishToMenu: function(req, res){
         //- insert dish by menu id, dishID + chefID
         var mid = req.param('menuID');
         var did = req.param('dishID');
         var cid = req.param('chefID');
+
+
+        MenuDish
+        .find({})
+        .where()
+        .then()
+        .catch(function(err){
+            res.json(500, {
+                error: true,
+                message: 'errors',
+                data: err
+            });
+        });
+
 
         Menu
         .findOne({})

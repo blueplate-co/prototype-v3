@@ -126,6 +126,11 @@ module.exports.routes = {
     action: 'updateIngredientsToDish',
   },
 
+  'DELETE /api/dish/deleteAll': {
+    controller: 'DishController',
+    action: 'deleteAll',
+  },
+
   'GET /api/dish/showByID': 'DishController.viewByID',
 
   'GET /api/dish/showAll':'DishController.viewAll',
@@ -155,5 +160,17 @@ module.exports.routes = {
     action: 'viewDishMenu'
   },
 
+  'POST /api/menu/add/allergy':{
+    controller: 'MenuController',
+    action: 'addAllergiesToDish',
+  },
+
+  //- Allergy routes
+  'GET /api/allergy/viewAll':'AllergyController.viewAll',
+  'POST /api/allergy/viewLimit':'AllergyController.viewAllWithLimit',
+
+  //- Dietary routes
+  'GET /api/dietary/viewAll':'DietaryController.viewAll',
+  'POST /api/dietary/viewLimit':'DietaryController.viewAllWithLimit',
 
 };
