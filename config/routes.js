@@ -162,7 +162,12 @@ module.exports.routes = {
 
   'POST /api/menu/add/allergy':{
     controller: 'MenuController',
-    action: 'addAllergiesToDish',
+    action: 'addAllergiesToMenu',
+  },
+
+  'POST /api/menu/add/dietary':{
+    controller: 'MenuController',
+    action: 'addDietariesToMenu',
   },
 
   //- Allergy routes

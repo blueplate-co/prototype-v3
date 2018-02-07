@@ -380,7 +380,8 @@ module.exports = {
 
     //- view by chef ID
     viewByChefID: function(req, res){
-        //- view by dish id
+        
+        //- view by update_chef_id
         var cid = req.param('chefID');
         Dish
         .findOne({})

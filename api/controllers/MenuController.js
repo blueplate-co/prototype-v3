@@ -4,7 +4,7 @@
  * @description :: Server-side logic for managing Menus
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-
+const uuidv4 = require('uuid/v4'); //- random unique string
 module.exports = {
     //- create new menu from chef
     create: function(req, res)
@@ -13,15 +13,20 @@ module.exports = {
         //- some data to insert
         var data = {};
         data.mName           = req.param('name');
-        data.mCost           = req.param('cost');
-        data.mSuggestedPrice = req.param('suggestedPrice');
-        data.mCustomPrice    = req.param('customPrice');
-        data.mCookingTime    = req.param('cookingTime');
-        data.mMinOrder       = req.param('minOrder');
+        // data.mCost           = req.param('cost');
+        // data.mSuggestedPrice = req.param('suggestedPrice');
+        // data.mCustomPrice    = req.param('customPrice');
+        // data.mCookingTime    = req.param('cookingTime');
+        // data.mMinOrder       = req.param('minOrder');
         
-        //- array
-        data.mServingOption  = req.param('servingOption');
-        data.mTag            = req.param('tags');
+        // //- array
+        // data.mServingOption  = req.param('servingOption');
+        // data.mTag            = req.param('tags');
+
+        //- create unique id
+        var uuid = uuidv4();
+        data.menu_id = uuid;
+        data.chef = cid;
         
         //- finding chef
         Chef
@@ -31,15 +36,24 @@ module.exports = {
         })
         .then(function(found_chef){
             if(!found_chef) return res.json(404, {error: true, message: 'Chef not found', data: null});
-            found_chef.menus.add(data);
-            found_chef.save(function(err){});
-            
-            //- create new menu
-            return res.created({
-                error: false,
-                message: 'Menu created...',
-                data: null
+
+            //- create menu with chef id
+            Menu
+            .findOrCreate(data)
+            .then(function(created_menu){
+                //- create new menu
+                return res.created({
+                    error: false,
+                    message: 'Menu created...',
+                    data: 
+                    {
+                        update_menu_id: created_menu.menu_id,
+                        create_menu_id: created_menu.id,
+                    }
+                });
             });
+            
+            
         })
         .catch(function(err){
             res.json(500, {
@@ -53,7 +67,7 @@ module.exports = {
 
 
     //- add multiple ingredients to dish
-    addAllergiesToDish: function(req, res)
+    addAllergiesToMenu: function(req, res)
     {
         //- must be create_menu_id
         var mid = req.param('menuID');
@@ -93,6 +107,41 @@ module.exports = {
 
     addDietariesToMenu:function(req, res){
 
+        //- must be create_menu_id
+        var mid = req.param('menuID');
+        //- string
+        var dietaries = req.param('dietaries');
+        // var dietaries = [
+        //     {dish:did, dietaries: 1},
+        //     {dish:did, dietaries: 2},
+        //     {dish:did, dietaries: 3}
+        // ];
+        var converted = LodashService.convertToCreate({
+            plainString: dietaries,
+            fixedID: mid,
+            fixedName: 'menu',
+            fixedName2: 'dietary',
+        });
+
+        MenuDietary
+        .create(converted)
+        .then(function(created_data){
+            res.created({
+                error: false,
+                message: 'added new dietary to menu',
+                data: {
+                    created_data
+                }
+            });
+        })
+        .catch(function(err){
+            res.json(500, {
+                error: true, 
+                message: 'Cannot insert allergy', 
+                data: err
+            });
+        });
+
     },
 
     //- update menu info by menu id
@@ -109,7 +158,7 @@ module.exports = {
             }, data).then(function(updated_data){
                 res.json(200, {
                     error: false,
-                    message: 'updayed menu',
+                    message: 'updated menu',
                     data: updated_data
                 });
             }).catch(function(err){
