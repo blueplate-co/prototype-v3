@@ -60,7 +60,7 @@ module.exports = {
         Chef
         .findOne({})
         .where({
-            chef_id: cid,
+            id: cid,
         })
         .then(function(found_data){
             data.chef = found_data.id;
@@ -180,7 +180,7 @@ module.exports = {
     addIngredientsToDish: function(req, res)
     {   
         //- must be create_dish_id
-        var did = req.param('dishID');
+        var did = req.param('create_dish_id');
 
         //- array id ingredients
         var ingredients = req.param('ingredientsID');
@@ -286,7 +286,7 @@ module.exports = {
     addAllergiesToDish: function(req, res)
     {
         //- must be create_dish_id
-        var did = req.param('dishID');
+        var did = req.param('create_dish_id');
         //- string
         var allergies = req.param('allergies');
         // var allergies = [
@@ -325,7 +325,7 @@ module.exports = {
     addDietariesToDish: function(req, res)
     {
         //- must be create_dish_id
-        var did = req.param('dishID');
+        var did = req.param('create_dish_id');
 
         //- array of object ingredients
         var dietaries = req.param('dietaries');
