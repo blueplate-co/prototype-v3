@@ -134,6 +134,7 @@ module.exports.routes = {
   
   'PUT /api/dish/update':'DishController.update',
 
+  'DELETE /api/dish/delete/ingredients':'DishController.deleteIngredientsFromDish',
   //- Menu routes
   'POST /api/menu/create':{
     controller: 'MenuController',

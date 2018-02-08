@@ -220,38 +220,65 @@ module.exports = {
 
     },
 
-    //- delete ingredients to dish
-    //- by dishID
+    //- delete all ingredients are not in the list
     deleteIngredientsFromDish:function(req, res)
     {
         //- get list of new Ingredients in dish
-        var did = req.param('dishID');
-        //- this must be type of [{},{}]
-        var deletedIngredientList = req.param('deletedIngredientList');
+        //- this must be a create_dish_id
+        var did = req.param('create_dish_id');
+        //- current list => an array of id [1,2]
+        var currentIngredientList = req.param('currentIngredientList');
+        // sails.log(JSON.parse(currentIngredientList));
         //- get current ingredient list by dish ID
         DishIngredient
-        .find({})
+        .find({
+            select: ['ingredient', 'dish']
+        })
         .where({
-            dish: did
+            dish: did,
+            ingredient: {'!': JSON.parse(currentIngredientList)}
         })
         .then(function(found_data){
 
-            sails.log(found_data);
+            //- update data
+            var count = 0;
+            for(var i=0; i<found_data.length;)
+            {
+                DishIngredient.update(found_data[i].id, {
+                    deletedAt: new Date()
+                }).exec(function(err, updated_data){
+                    if(err) res.badRequest();
+                });
+                i++;
+                count++;
+            }
 
-            res.ok({
-                error: false,
-                message: 'update ingredients',
-                data: found_data
-            });
+            if(count==found_data.length)
+            {
+                return 1;
+            }
+            
+            return 0;
+            
+        })
+        .then(function(result){
+            if(result == 1)
+            {
+                return res.json(200, {
+                    error: false,
+                    message: 'deleted ingredients',
+                    data: null
+                });
+            }
         })
         .catch(function(err){
-            res.json(500, {
+            return res.json(500, {
                 error: true,
                 message: 'errors',
                 data: err
             });
         });
-        //- compare new list to current list
+        
         
     },
 
