@@ -70,7 +70,7 @@ module.exports = {
     addAllergiesToMenu: function(req, res)
     {
         //- must be create_menu_id
-        var mid = req.param('menuID');
+        var mid = req.param('create_menu_id');
         //- string
         var allergies = req.param('allergies');
         // var allergies = [
@@ -86,7 +86,7 @@ module.exports = {
         });
 
         MenuAllergy
-        .create(converted)
+        .findOrCreate(converted)
         .then(function(created_data){
             res.created({
                 error: false,
@@ -108,7 +108,7 @@ module.exports = {
     addDietariesToMenu:function(req, res){
 
         //- must be create_menu_id
-        var mid = req.param('menuID');
+        var mid = req.param('create_menu_id');
         //- string
         var dietaries = req.param('dietaries');
         // var dietaries = [
@@ -159,6 +159,7 @@ module.exports = {
             if(fileName != null)
             {
                 //- upload image seperately
+                var imageName = {mImageName: fileName};
                 ImageService.saveImage({
                     req: req,
                     res: res,
@@ -172,7 +173,7 @@ module.exports = {
             {
                 menu_id: mid
             }
-            , JSON.parse(data))
+            , _.assign(JSON.parse(data), imageName))
             .then(function(updated_data){
                 return res.json(200, {
                     error: false,
@@ -195,23 +196,21 @@ module.exports = {
     //- add many dish to menu
     addDishToMenu: function(req, res){
         //- insert dish by menu id, dishID + chefID
-        var mid = req.param('menuID');
-        var did = req.param('dishID');
-        var cid = req.param('chefID');
+        var mid = req.param('create_menu_id');
+        var did = req.param('dishes');
 
-
-        MenuDish
-        .find({})
-        .where()
-        .then()
-        .catch(function(err){
-            res.json(500, {
-                error: true,
-                message: 'errors',
-                data: err
-            });
+        //- dish array
+        // var dishes = [
+        //     {menu: mid, dish: 321},
+        //     {menu: mid, dish: 654},
+        // ];
+        
+        var converted = LodashService.convertToCreate({
+            plainString: did,
+            fixedID: mid,
+            fixedName: 'menu',
+            fixedName2: 'dish',
         });
-
 
         Menu
         .findOne({})
@@ -221,10 +220,8 @@ module.exports = {
         .then(function(menu_found){
             //- insert dish to many-to-many table
             MenuDish
-            .create({
-                menu: mid,
-                dish: did
-            }).then(function(created_data){
+            .create(converted)
+            .then(function(created_data){
                 res.created({
                     error: false,
                     message: 'Dish added to menu...',
@@ -254,7 +251,7 @@ module.exports = {
     //- view menu dishes by menu id
     viewMenuDishes: function(req, res)
     {
-        var mid = req.param('menuID');
+        var mid = req.param('create_menu_id');
         MenuDish
         .find({})
         .where({

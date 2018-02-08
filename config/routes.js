@@ -166,6 +166,11 @@ module.exports.routes = {
     action: 'addDietariesToMenu',
   },
 
+  'PUT /api/menu/update':{
+    controller: 'MenuController',
+    action: 'update',
+  },
+
   //- Allergy routes
   'GET /api/allergy/viewAll':'AllergyController.viewAll',
   'POST /api/allergy/viewLimit':'AllergyController.viewAllWithLimit',

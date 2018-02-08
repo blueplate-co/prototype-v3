@@ -187,6 +187,7 @@ module.exports = {
             if(fileName != null)
             {
                 //- upload image seperately
+                var imageName = {cImageName: fileName};
                 ImageService.saveImage({
                     req: req,
                     res: res,
@@ -198,7 +199,7 @@ module.exports = {
             Chef
             .update({
                 chef_id: cid,
-            }, JSON.parse(data))
+            }, _.assign(JSON.parse(data), imageName))
             .then(function(updated_data){
                 res.json(200, {
                     error: false,

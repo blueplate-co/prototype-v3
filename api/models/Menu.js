@@ -31,6 +31,9 @@ module.exports = {
     mCookingTime:{
       type: 'integer',
     },
+    mDetail:{
+      type: 'integer',
+    },
     mServingOption:{
       type: 'array',
     },
@@ -41,7 +44,14 @@ module.exports = {
       type: 'integer'
     },
 
+    //- image
+    mImageName:{
+      type: 'string',
+    },
+    
     deleted_at:{},
+
+    
 
     //- foreign key
     dishes:{

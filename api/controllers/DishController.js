@@ -376,6 +376,7 @@ module.exports = {
             if(fileName != null)
             {
                 //- upload image seperately
+                var imageName = {dImageName: fileName};
                 ImageService.saveImage({
                     req: req,
                     res: res,
@@ -389,7 +390,7 @@ module.exports = {
             {
                 dish_id: did
             }
-            , JSON.parse(data))
+            , _.assign(JSON.parse(data), imageName))
             .then(function(updated_data){
                 return res.json(200, {
                     error: false,
