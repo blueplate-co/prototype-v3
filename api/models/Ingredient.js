@@ -22,7 +22,7 @@ module.exports = {
       max: 100
     },
     iQuantity:{
-      type: 'number'
+      type: 'string'
     },
     iUnit:{
       type: 'string'

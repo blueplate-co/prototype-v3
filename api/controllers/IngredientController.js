@@ -58,9 +58,8 @@ module.exports = {
     {
         //- array of object
         var data = req.param('data');
-        var ingredientList = JSON.parse(data);
         Ingredient
-        .create(ingredientList)
+        .create(JSON.parse(data))
         .then(function(created_data){
             res.ok({
                 error: false,
