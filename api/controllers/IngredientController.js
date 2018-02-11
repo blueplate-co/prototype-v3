@@ -58,8 +58,9 @@ module.exports = {
     {
         //- array of object
         var data = req.param('data');
+        sails.log(data);
         Ingredient
-        .create(JSON.parse(data))
+        .create(data)
         .then(function(created_data){
             res.ok({
                 error: false,
