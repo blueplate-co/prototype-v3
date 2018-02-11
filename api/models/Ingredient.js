@@ -25,7 +25,7 @@ module.exports = {
       type: 'number'
     },
     iUnit:{
-      type: 'number'
+      type: 'string'
     },
     iDescription:{
       type: 'string',

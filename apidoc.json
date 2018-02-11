@@ -1,0 +1,14 @@
+{
+  "name": "Blueplate API Documentation",
+  "version": "1.0.0",
+  "description": "Blueplate back-end APIs",
+  "template": {
+      "forceLanguage": "en"
+  },
+  "order": [
+    "User",
+    "Chef",
+    "Dish",
+    "Menu"
+  ]
+}

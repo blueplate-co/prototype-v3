@@ -85,6 +85,32 @@ module.exports.routes = {
     action: 'viewByID',
   },
 
+  /**
+   * 
+   * @api {POST} /path Create Chef's profile
+   * @apiName /api/chef/create
+   * @apiGroup Chef
+   * @apiVersion  1.0.0
+   * 
+   * 
+   * @apiParam  {String} firstName Chef's first name
+   * @apiParam  {String} lastName Chef's last name
+   * 
+   * @apiSuccess (200) {type} name description
+   * 
+   * @apiParamExample  {type} Request-Example:
+     {
+         property : value
+     }
+   * 
+   * 
+   * @apiSuccessExample {type} Success-Response:
+     {
+         property : value
+     }
+   * 
+   * 
+   */
   'POST /api/chef/create':{
     controller: 'ChefController',
     action: 'create',
@@ -135,17 +161,157 @@ module.exports.routes = {
   'PUT /api/dish/update':'DishController.update',
 
   'DELETE /api/dish/delete/ingredients':'DishController.deleteIngredientsFromDish',
+  
   //- Menu routes
+
+  /**
+   * 
+   * @api {POST} /api/menu/create Create Menu's profile
+   * @apiName Create Menu's profile
+   * @apiGroup Menu
+   * @apiVersion  1.0.0
+   * 
+   * 
+   * @apiParam  {String} chefID Chef's ID
+   * @apiParam  {String} name Menu's name
+   * 
+   * 
+   * @apiParamExample  {json} Request-Example:
+     {
+         "chefID" : "5a7431f357076fd017913c9f",
+         "name": "menu 1"
+     }
+   * 
+   * @apiSuccess (200) {Boolean} error true/false
+   * @apiSuccess (200) {String} message successful string
+   * @apiSuccess (200) {Object} data show data
+   * 
+   * @apiSuccessExample {json} Success-Response:
+     {
+        HTTP/1.1 200 OK
+        "error": false,
+        "message": "Menu created...",
+        "data": {
+            "update_menu_id": "c918f3bd-6584-43b7-b639-e0d9c9f9c81a",
+            "create_menu_id": "5a7bf6bc29a21d20110c3e5a"
+        }
+     }
+   * 
+   * 
+   */
   'POST /api/menu/create':{
     controller: 'MenuController',
     action: 'create',
   },
 
+  /**
+   * 
+   * @api {POST} /api/menu/add/dish Add dish to menu
+   * @apiName Add dish to menu
+   * @apiGroup Menu
+   * @apiVersion  1.0.0
+   * 
+   * 
+   * @apiParam  {String} create_menu_id create_menu_id
+   * @apiParam  {String} dishes Dish's ID, seperate with commas(,)
+   * 
+   * 
+   * @apiParamExample  {json} Request-Example:
+     {
+         "create_menu_id" : "5a7bf6bc29a21d20110c3e5a",
+         "dishes": "0001,0002,0003"
+     }
+   * 
+   * @apiSuccess (200) {Boolean} error true/false
+   * @apiSuccess (200) {String} message successful string
+   * @apiSuccess (200) {Array} data show data
+   * 
+   * @apiSuccessExample {json} Success-Response:
+     {
+        HTTP/1.1 200 OK
+        "error": false,
+        "message": "Dish added to menu...",
+        "data": [
+            {
+                "menu": "5a7bf6bc29a21d20110c3e5a",
+                "dish": "0001",
+                "createdAt": "2018-02-08T07:07:04.325Z",
+                "updatedAt": "2018-02-08T07:07:04.325Z",
+                "id": "5a7bf71829a21d20110c3e5b"
+            },
+            {
+                "menu": "5a7bf6bc29a21d20110c3e5a",
+                "dish": "0002",
+                "createdAt": "2018-02-08T07:07:04.327Z",
+                "updatedAt": "2018-02-08T07:07:04.327Z",
+                "id": "5a7bf71829a21d20110c3e5c"
+            },
+            {
+                "menu": "5a7bf6bc29a21d20110c3e5a",
+                "dish": "0003",
+                "createdAt": "2018-02-08T07:07:04.328Z",
+                "updatedAt": "2018-02-08T07:07:04.328Z",
+                "id": "5a7bf71829a21d20110c3e5d"
+            }
+        ]
+     }
+   * 
+   * 
+   */
   'POST /api/menu/add/dish':{
     controller: 'MenuController',
     action: 'addDishToMenu',
   },
 
+  /**
+   * 
+   * @api {POST} /api/menu/view/dish View menu's dish
+   * @apiName View menu's dish
+   * @apiGroup Menu
+   * @apiVersion  1.0.0
+   * 
+   * 
+   * @apiParam  {String} create_menu_id create_menu_id
+   * 
+   * 
+   * @apiParamExample  {json} Request-Example:
+     {
+         "create_menu_id" : "5a7bf6bc29a21d20110c3e5a"
+     }
+   * 
+   * @apiSuccess (200) {Boolean} error true/false
+   * @apiSuccess (200) {String} message successful string
+   * @apiSuccess (200) {Array} data show data
+   * 
+   * @apiSuccessExample {json} Success-Response:
+     {
+        HTTP/1.1 200 OK
+        "error": false,
+        "message": "found data",
+        "data": [
+            {
+                "menu": "5a7bf6bc29a21d20110c3e5a",
+                "createdAt": "2018-02-08T07:07:04.325Z",
+                "updatedAt": "2018-02-08T07:07:04.325Z",
+                "id": "5a7bf71829a21d20110c3e5b"
+            },
+            {
+                "menu": "5a7bf6bc29a21d20110c3e5a",
+                "createdAt": "2018-02-08T07:07:04.327Z",
+                "updatedAt": "2018-02-08T07:07:04.327Z",
+                "id": "5a7bf71829a21d20110c3e5c"
+            },
+            {
+                "menu": "5a7bf6bc29a21d20110c3e5a",
+                "createdAt": "2018-02-08T07:07:04.328Z",
+                "updatedAt": "2018-02-08T07:07:04.328Z",
+                "id": "5a7bf71829a21d20110c3e5d"
+            }
+        ]
+     }
+   * 
+   * 
+   */
   'POST /api/menu/view/dish':{
     controller: 'MenuController',
     action: 'viewMenuDishes'

@@ -16,6 +16,7 @@ module.exports = {
         //- update
         //- chef id
         var cid = req.param('chefID');
+        data.dName = req.param('name');
         data.dDescribe = req.param('describe');
 
         //- temporary ingredients

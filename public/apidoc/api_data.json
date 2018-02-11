@@ -1,0 +1,265 @@
+[
+  {
+    "type": "POST",
+    "url": "/path",
+    "title": "Create Chef's profile",
+    "name": "_api_chef_create",
+    "group": "Chef",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "firstName",
+            "description": "<p>Chef's first name</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "lastName",
+            "description": "<p>Chef's last name</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    property : value\n}",
+          "type": "type"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "type",
+            "optional": false,
+            "field": "name",
+            "description": "<p>description</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n    property : value\n}",
+          "type": "type"
+        }
+      ]
+    },
+    "filename": "./config/routes.js",
+    "groupTitle": "Chef"
+  },
+  {
+    "type": "POST",
+    "url": "/api/menu/add/dish",
+    "title": "Add dish to menu",
+    "name": "Add_dish_to_menu",
+    "group": "Menu",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "create_menu_id",
+            "description": "<p>create_menu_id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "dishes",
+            "description": "<p>Dish's ID, seperate with commas(,)</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    \"create_menu_id\" : \"5a7bf6bc29a21d20110c3e5a\",\n    \"dishes\": \"0001,0002,0003\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "error",
+            "description": "<p>true/false</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>successful string</p>"
+          },
+          {
+            "group": "200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>show data</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n   HTTP/1.1 200 OK\n   \"error\": false,\n   \"message\": \"Dish added to menu...\",\n   \"data\": [\n       {\n           \"menu\": \"5a7bf6bc29a21d20110c3e5a\",\n           \"dish\": \"0001\",\n           \"createdAt\": \"2018-02-08T07:07:04.325Z\",\n           \"updatedAt\": \"2018-02-08T07:07:04.325Z\",\n           \"id\": \"5a7bf71829a21d20110c3e5b\"\n       },\n       {\n           \"menu\": \"5a7bf6bc29a21d20110c3e5a\",\n           \"dish\": \"0002\",\n           \"createdAt\": \"2018-02-08T07:07:04.327Z\",\n           \"updatedAt\": \"2018-02-08T07:07:04.327Z\",\n           \"id\": \"5a7bf71829a21d20110c3e5c\"\n       },\n       {\n           \"menu\": \"5a7bf6bc29a21d20110c3e5a\",\n           \"dish\": \"0003\",\n           \"createdAt\": \"2018-02-08T07:07:04.328Z\",\n           \"updatedAt\": \"2018-02-08T07:07:04.328Z\",\n           \"id\": \"5a7bf71829a21d20110c3e5d\"\n       }\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./config/routes.js",
+    "groupTitle": "Menu"
+  },
+  {
+    "type": "POST",
+    "url": "/api/menu/create",
+    "title": "Create Menu's profile",
+    "name": "Create_Menu_s_profile",
+    "group": "Menu",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "chefID",
+            "description": "<p>Chef's ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Menu's name</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    \"chefID\" : \"5a7431f357076fd017913c9f\",\n    \"name\": \"menu 1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "error",
+            "description": "<p>true/false</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>successful string</p>"
+          },
+          {
+            "group": "200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>show data</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n   HTTP/1.1 200 OK\n   \"error\": false,\n   \"message\": \"Menu created...\",\n   \"data\": {\n       \"update_menu_id\": \"c918f3bd-6584-43b7-b639-e0d9c9f9c81a\",\n       \"create_menu_id\": \"5a7bf6bc29a21d20110c3e5a\"\n   }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./config/routes.js",
+    "groupTitle": "Menu"
+  },
+  {
+    "type": "POST",
+    "url": "/api/menu/view/dish",
+    "title": "View menu's dish",
+    "name": "View_menu_s_dish",
+    "group": "Menu",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "create_menu_id",
+            "description": "<p>create_menu_id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    \"create_menu_id\" : \"5a7bf6bc29a21d20110c3e5a\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "200": [
+          {
+            "group": "200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "error",
+            "description": "<p>true/false</p>"
+          },
+          {
+            "group": "200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>successful string</p>"
+          },
+          {
+            "group": "200",
+            "type": "Array",
+            "optional": false,
+            "field": "data",
+            "description": "<p>show data</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n   HTTP/1.1 200 OK\n   \"error\": false,\n   \"message\": \"found data\",\n   \"data\": [\n       {\n           \"menu\": \"5a7bf6bc29a21d20110c3e5a\",\n           \"createdAt\": \"2018-02-08T07:07:04.325Z\",\n           \"updatedAt\": \"2018-02-08T07:07:04.325Z\",\n           \"id\": \"5a7bf71829a21d20110c3e5b\"\n       },\n       {\n           \"menu\": \"5a7bf6bc29a21d20110c3e5a\",\n           \"createdAt\": \"2018-02-08T07:07:04.327Z\",\n           \"updatedAt\": \"2018-02-08T07:07:04.327Z\",\n           \"id\": \"5a7bf71829a21d20110c3e5c\"\n       },\n       {\n           \"menu\": \"5a7bf6bc29a21d20110c3e5a\",\n           \"createdAt\": \"2018-02-08T07:07:04.328Z\",\n           \"updatedAt\": \"2018-02-08T07:07:04.328Z\",\n           \"id\": \"5a7bf71829a21d20110c3e5d\"\n       }\n   ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./config/routes.js",
+    "groupTitle": "Menu"
+  }
+]
