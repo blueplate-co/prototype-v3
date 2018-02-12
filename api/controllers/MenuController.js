@@ -13,15 +13,16 @@ module.exports = {
         //- some data to insert
         var data = {};
         data.mName           = req.param('name');
-        // data.mCost           = req.param('cost');
-        // data.mSuggestedPrice = req.param('suggestedPrice');
-        // data.mCustomPrice    = req.param('customPrice');
-        // data.mCookingTime    = req.param('cookingTime');
-        // data.mMinOrder       = req.param('minOrder');
-        
+        data.mDescribe       = req.param('describe');
+        data.mNumberOfPeople = parseInt(req.param('numberOfPeople'));
+        //- cost
+        data.mCost           = parseInt(req.param('cost'));
+        data.mSuggestedPrice = parseInt(req.param('suggestedPrice'));
+        data.mCustomPrice    = parseInt(req.param('customPrice'));
+        //- prepare time
+        data.mCookingTime    = parseInt(req.param('prepareTime'));
         // //- array
-        // data.mServingOption  = req.param('servingOption');
-        // data.mTag            = req.param('tags');
+        data.mTag            = req.param('tags').split(',');
 
         //- create unique id
         var uuid = uuidv4();
@@ -199,6 +200,7 @@ module.exports = {
         var mid = req.param('create_menu_id');
         var did = req.param('dishes');
 
+        sails.log(mid);
         //- dish array
         // var dishes = [
         //     {menu: mid, dish: 321},

@@ -19,29 +19,26 @@ module.exports = {
     mName:{
       type: 'string',
     },
+    mDescribe:{
+      type: 'string'
+    },
+    mNumberOfPeople:{
+      type: 'integer',
+    },
     mCost:{
-      type: 'float', //- or double
+      type: 'integer', //- or double
     },
     mSuggestedPrice:{
-      type: 'float', //- or double
+      type: 'integer', //- or double
     },
     mCustomPrice:{
-      type: 'float',
+      type: 'integer',
     },
     mCookingTime:{
       type: 'integer',
     },
-    mDetail:{
-      type: 'integer',
-    },
-    mServingOption:{
-      type: 'array',
-    },
     mTag:{
       type: 'array'
-    },
-    mMinOrder:{
-      type: 'integer'
     },
 
     //- image
