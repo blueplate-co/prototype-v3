@@ -18,12 +18,6 @@ module.exports = {
       autoIncrement: true,
     },
     //- create fake id for dish
-    did:{
-      type: 'integer',
-      primaryKey: true,
-      unique: true,
-      autoIncrement: true,
-    },
     dName:{
       type: 'string',
       size: 150,
@@ -31,22 +25,21 @@ module.exports = {
     },
     dDescribe:{
       type: 'string',
-      required: true,
     },
     dCost:{
-      type: 'float', //- or double
+      type: 'integer', //- or double
     },
     dSuggestedPrice:{
-      type: 'float',
+      type: 'integer',
     },
     dCustomPrice:{
-      type: 'float',
+      type: 'integer',
     },
     dCookingTime:{ //- minutes
-      type: 'number',
+      type: 'integer',
     },
     dMinOrder:{
-      type: 'number',
+      type: 'string',
     },
 
     //- array

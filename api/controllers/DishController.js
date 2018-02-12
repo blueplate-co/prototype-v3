@@ -19,7 +19,19 @@ module.exports = {
         data.dName = req.param('name');
         data.dDescribe = req.param('describe');
 
-        //- temporary ingredients
+        //- cost
+        data.dCost = parseInt(req.param('cost')); //- number
+        data.dSuggestedPrice = parseInt(req.param('suggestedPrice')); //- number
+        data.dCustomPrice = parseInt(req.param('customPrice')); //- number
+
+        //- prepare time
+        data.dCookingTime = parseInt(req.param('prepareTime')); //- minutes
+
+        //- tags
+        data.dTag = req.param('tags').split(','); //- array
+
+        //- minimum order
+        data.dMinOrder = req.param('minOrder'); //- number
         
 
         //- create unique id
@@ -58,6 +70,7 @@ module.exports = {
         // });
         
         //- finding chef
+        
         Chef
         .findOne({})
         .where({
@@ -68,10 +81,11 @@ module.exports = {
             sails.log(data);
             //- insert to dish data 
             Dish
-            .findOrCreate(data)
+            .create(data)
             .then(function(created_dish){
                 sails.log(created_dish);
                 // var did = created_dish.id;
+                res.set('Content-Type', 'application/json');
                 return res.json(200, {
                     error: false,
                     message: 'added new dish',
@@ -372,25 +386,34 @@ module.exports = {
              //- update random field
             //- this is must be an object {}
             var data = req.param('data');
+            sails.log(typeof(data));
+            
             var fileName = req.param('dishImageName');
+            var imageName = {};
             if(fileName != null)
             {
                 //- upload image seperately
-                var imageName = {dImageName: fileName};
+                imageName = {dImageName: fileName};
                 ImageService.saveImage({
                     req: req,
                     res: res,
                     fileInput: 'dishImage'
                 });
                 sails.log('Upload image success');
+                
             }
+            sails.log('----------');
+            sails.log(_.assign(data, imageName));
 
             Dish
             .update(
             {
                 dish_id: did
             }
-            , _.assign(JSON.parse(data), imageName))
+            , {
+                dDescribe: 'hehe2',
+                dCost: 2
+            })
             .then(function(updated_data){
                 return res.json(200, {
                     error: false,

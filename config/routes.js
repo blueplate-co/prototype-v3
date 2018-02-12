@@ -158,7 +158,10 @@ module.exports.routes = {
 
   'GET /api/dish/showLimit':'DishController.viewLimit',
   
-  'PUT /api/dish/update':'DishController.update',
+  'PUT /api/dish/update':{
+    controller: 'DishController',
+    action: 'update'
+  },
 
   'DELETE /api/dish/delete/ingredients':'DishController.deleteIngredientsFromDish',
   

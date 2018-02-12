@@ -323,6 +323,26 @@ module.exports = {
             });
         });
     },
+
+    //- view dish list by chef id
+    viewDishByChefID: function(req, res)
+    {
+        var chefID = req.param('create_chef_id');
+        Dish
+        .find({})
+        .where({
+            chef: chefID
+        })
+        .then(function(found_data){
+            console.log(found_data);
+            res.ok(found_data);
+        })
+        .catch(function(err){
+            console.log(err);
+            res.negotiate(err);
+        });
+
+    },
     
 
 };
