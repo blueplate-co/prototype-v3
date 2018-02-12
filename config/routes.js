@@ -322,12 +322,12 @@ module.exports.routes = {
     action: 'viewDishMenu'
   },
 
-  'POST /api/menu/add/allergy':{
+  'POST /api/menu/create/allergies':{
     controller: 'MenuController',
     action: 'addAllergiesToMenu',
   },
 
-  'POST /api/menu/add/dietary':{
+  'POST /api/menu/create/dietaries':{
     controller: 'MenuController',
     action: 'addDietariesToMenu',
   },

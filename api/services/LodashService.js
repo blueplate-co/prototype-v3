@@ -13,7 +13,9 @@ module.exports = {
         var fixedName2 = options.fixedName2;
 
         //- ingredients
-        var aValues = plainString.split(','); // => []
+        // var aValues = plainString.split(','); // => []
+        var aValues = plainString; // => []
+        console.log(typeof(aValues));
         aValues.unshift(fixedID);
         var aKeys = [fixedName];
 
