@@ -61,7 +61,7 @@ module.exports = {
     //- will be changed in future
     //- in model of one kitchen -> many services
     cServiceOption:{
-      type:'string',
+      type:'array',
       // enum: ['diveIn', 'delivery', 'pickUp']
     },
 
