@@ -59,7 +59,7 @@ module.exports.routes = {
     action: 'login',
   },
 
-  'POST /api/verify/:token':{
+  'GET /api/verify/:token':{
     controller: 'UserController',
     action: 'verifyToken',
   },

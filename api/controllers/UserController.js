@@ -20,11 +20,12 @@ module.exports = {
         data.uToken    = HashService.encrypt({
             email: req.param('email'),
         });
-
+        sails.log(data);
         //- create new user
         User
         .create(data)
         .then(function(created_data){
+            sails.log(created_data);
             //- send email
             MailService.sendEmailVerification({
                 username: data.uName,
@@ -36,10 +37,23 @@ module.exports = {
             return res.json(201, {
                 error: false,
                 msg: 'Created !',
-                data: null,
+                data: created_data,
             });
         })
         .catch(function(err){
+            //- validate email
+            if(err.invalidAttributes.uEmail)
+            {
+                // var uEmail = err.invalidAttributes.uEmail;
+                // var message = uEmail[0].message;
+                // console.log(message);
+                return res.negotiate({
+                    error: true,
+                    message: 'This email have already existed !',
+                    data: data.uEmail,
+                });
+            }
+            
             return res.json(500, {
                 error: true,
                 msg: 'Errors !',
@@ -118,6 +132,7 @@ module.exports = {
 
     verifyToken: function(req, res){
         var token = req.param('token');
+        sails.log(token);
         var email = HashService.decrypt({
             cryptedData: token,
         });

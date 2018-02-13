@@ -26,10 +26,10 @@ module.exports = {
         'We are so grateful to have another member coming to our community. Feel free to drop me a line if there is anything wrong through out the process.<br>' +
         'See you around!<br><br>' + 
         'Best,<br>' +
-        'Alan';
-        var mainOptions = { // thiết lập đối tượng, nội dung gửi mail
+        'Alan<br><br>';
+        var mainOptions = { //- config environment, email content
             from: 'Bao bao',
-            to: 'transybao93@gmail.com',
+            to: email,
             subject: 'Blue Plate Corporation',
             text: 'Welcome to our service!',
             html: mailTemplate
