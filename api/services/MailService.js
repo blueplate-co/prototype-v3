@@ -35,13 +35,9 @@ module.exports = {
             html: mailTemplate
         }
         transporter.sendMail(mainOptions, function(err, info){
-            if (err) {
-                console.log(err);
-                res.send(err);
-            } else {
-                console.log('Message sent: ' +  info.response);
-                res.send('Message sent !');
-            }
+            if (err) console.log(err);
+            //- if success
+            console.log('Message sent: ' +  info.response);
         });
 
 
@@ -75,13 +71,10 @@ module.exports = {
             html: mailTemplate
         }
         transporter.sendMail(mainOptions, function(err, info){
-            if (err) {
-                console.log(err);
-                res.send(err);
-            } else {
-                console.log('Email of reset password is sent: ' + info.response);
-                res.send('Message sent !');
-            }
+            if (err) console.log(err); 
+            //- if success
+            console.log('Email of reset password is sent: ' + info.response);
+            
         });
 
 
