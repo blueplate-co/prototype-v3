@@ -74,10 +74,7 @@ module.exports = {
             if (err) console.log(err); 
             //- if success
             console.log('Email of reset password is sent: ' + info.response);
-            
         });
-
-
     },
 
     encryptEmail:function(options){

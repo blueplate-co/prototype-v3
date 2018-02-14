@@ -129,7 +129,7 @@ module.exports = {
         //- send email to confirm email address
         //- update password
         //- send email and redirect
-        MailService.sendEmailResetPass({
+        var isSent = MailService.sendEmailResetPass({
             email: email,
         });
         res.ok('email is sent');
