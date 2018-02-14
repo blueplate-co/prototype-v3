@@ -54,7 +54,16 @@ module.exports.policies = {
     test: 'isTokenExpire',
   },
 
-  
+  //- policy for ChefController
+  // ChefController:{'*': 'isTokenExpire'},
 
+  //- policy for FoodieController
+  // FoodieController:{'*': 'isTokenExpire'},
+
+  //- policy for Dishtroller
+  // DishController:{'*': 'isTokenExpire'},
+
+  //- policy for MenuController
+  // MenuController:{'*': 'isTokenExpire'},
 
 };

@@ -125,8 +125,77 @@ module.exports = {
     },
 
     resetPass:function(req, res){
+        var email = req.param('email');
         //- send email to confirm email address
         //- update password
+        //- send email and redirect
+        MailService.sendEmailResetPass({
+            email: email,
+        });
+        res.ok('email is sent');
+    },
+
+    //- update password by user email
+    updateNewPassword: function(req, res)
+    {
+        //- declare some variable
+        var userEmail = req.param('userEmail');
+        var newPassword = req.param('userPassword');
+        //- encrypt new password and update to database
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(newPassword, salt, function(err, newPass) {
+                if(err) console.log(err);  
+              
+                //- update new password using user email
+                User
+                .update({
+                    uEmail: userEmail
+                },{
+                    uPassword: newPass
+                })
+                .then(function(updated_data){
+                    res.ok(updated_data);
+                })
+                .catch(function(err){
+                    res.serverError(err);
+                });
+                
+
+            });
+        });
+    },
+
+    //- update role by user email
+    updateRole: function(req, res)
+    {
+        //- create_user_id
+        var userEmail = req.param('userEmail');
+        User
+        .findOne()
+        .where({
+            uEmail: userEmail,
+        })
+        .then(function(found_data){
+            
+            //- update data
+            User
+            .update({
+                uEmail: userEmail,
+            },{
+                uCanCook: true,
+            })
+            .then(function(updated_data){
+                res.ok(found_data);
+            })
+            .catch(function(err){
+                res.serverError(err);
+            });
+
+            
+        })
+        .catch(function(err){
+            res.serverError(err);
+        });
 
     },
 

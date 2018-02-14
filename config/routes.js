@@ -64,6 +64,16 @@ module.exports.routes = {
     action: 'verifyToken',
   },
 
+  'GET /api/reset/password':{
+    controller: 'UserController',
+    action: 'resetPass',
+  },
+
+  'POST /api/update/password': {
+    controller: 'UserController',
+    action: 'updateNewPassword',
+  },
+
   'POST /api/test':{
     controller: 'UserController',
     action: 'test',
