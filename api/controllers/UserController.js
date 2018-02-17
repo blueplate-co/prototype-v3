@@ -165,6 +165,25 @@ module.exports = {
         });
     },
 
+    //- update username and user email by user id
+    updateUser: function(req, res)
+    {
+        var uid = req.param('userID');
+        var update_data = req.param('update_data');
+    
+        //- update
+        User
+        .update({
+            id: uid,
+        }, JSON.parse(update_data))
+        .then(function(updated_data){
+            res.ok(updated_data);
+        })
+        .catch(function(err){
+            res.serverError(err);
+        });
+    },
+
     //- update role by user email
     updateRole: function(req, res)
     {

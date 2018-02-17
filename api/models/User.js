@@ -9,10 +9,11 @@ module.exports = {
 
   connection:'mongoAdapter',
   tableName:'User',
+  autoPK: false,
   attributes: {
     
     id:{
-      type: 'integer',
+      type: 'string',
       primaryKey: true,
       unique: true,
       autoIncrement: true,

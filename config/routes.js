@@ -84,6 +84,11 @@ module.exports.routes = {
     action: 'uploadImage',
   },
 
+  'POST /api/user/update':{
+    controller: 'UserController',
+    action: 'updateUser'
+  },
+
   //- Chef routes
   'GET /api/chef/view/all': {
     controller: 'ChefController',
