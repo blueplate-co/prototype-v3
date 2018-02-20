@@ -89,6 +89,15 @@ module.exports.routes = {
     action: 'updateUser'
   },
 
+  '/auth/facebook':{
+    controller: 'UserController',
+    action: 'facebook',
+  },
+  '/auth/facebook/callback':{
+    controller: 'UserController',
+    action: 'facebookCallback',
+  },
+
   //- Chef routes
   'GET /api/chef/view/all': {
     controller: 'ChefController',
