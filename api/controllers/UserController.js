@@ -283,20 +283,43 @@ module.exports = {
         passport.authenticate('facebook',
             function (req, res) {
                 //- authenticate success
-                sails.log('authenticate success...');
+                sails.log('facebook authenticate success...');
                 // res.redirect('https://www.google.com');
         })(req, res, next);
     },
 
     //- google authentication
-    google: function(req, res)
+    google: function(req, res, next)
     {
+        sails.log('here at google 1');
+        // passport.authenticate('google', { scope: [
+        //     'https://www.googleapis.com/auth/plus.login',
+        //     'https://www.googleapis.com/auth/plus.profile.emails.read'
+        //   ] });
+
+        passport.authenticate('google', { scope: [
+            'https://www.googleapis.com/auth/plus.login',
+            'https://www.googleapis.com/auth/plus.profile.emails.read'
+          ] });
+        
+        // passport.authenticate('google', { scope: ['profile'] });
 
     },
 
-    googleCallback: function(req, res)
+    googleCallback: function(req, res, next)
     {
+        sails.log('here at google callback');
+        passport.authenticate('google', { failureRedirect: '/' }),
+            function(req, res) {
+                sails.log('google authentication success...');
+                res.redirect('https://www.google.com');
+        };
 
+        // passport.authenticate('google', { failureRedirect: '/login' }),
+        // function(req, res) {
+        //     sails.log('authentication success...');
+        //     // res.redirect('/');
+        // };
     },
 
 };

@@ -1,6 +1,9 @@
-var passport = require('passport'),
-  FacebookStrategy = require('passport-facebook').Strategy;
-var config = require('./fb.js');
+var passport       = require('passport'),
+  FacebookStrategy = require('passport-facebook').Strategy,
+  GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
+//- configuration
+var fbConfig       = require('./facebook.js');
+var googleConfig   = require('./google.js');
 
 function findById(id, fn) {
   User.findOne(id).done(function (err, user) {
@@ -24,34 +27,39 @@ function findByFacebookId(id, fn) {
   });
 }
 
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
+// passport.serializeUser(function (user, done) {
+//   done(null, user.id);
+// });
  
-passport.deserializeUser(function (id, done) {
-  findById(id, function (err, user) {
-    done(err, user);
-  });
+// passport.deserializeUser(function (id, done) {
+//   findById(id, function (err, user) {
+//     done(err, user);
+//   });
+// });
+
+
+// serialize and deserialize
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
 });
 
+
+//- middleware for facebook
 passport.use(new FacebookStrategy(
-//     {
-//     clientID: "YOUR-FACEBOOK-CLIENT-ID",
-//     clientSecret: "YOUR-FACEBOOK-CLIENT-SECRET",
-//     callbackURL: "http://localhost:1337/user/facebook/callback",
-//     enableProof: false
-//   }
-    config.facebook
+    fbConfig.facebook
   , function (accessToken, refreshToken, profile, done) {
 
 
     console.log(profile);
-          console.log(profile.id);
-          console.log(accessToken);
-          console.log(profile.name.givenName);
-          console.log(profile.name.familyName);
-          console.log(profile.emails[0].value);
-        return done(null, profile);
+    console.log(profile.id);
+    console.log(accessToken);
+    console.log(profile.name.givenName);
+    console.log(profile.name.familyName);
+    console.log(profile.emails[0].value);
+    return done(null, profile);
 
         
     // findByFacebookId(profile.id, function (err, user) {
@@ -87,29 +95,63 @@ passport.use(new FacebookStrategy(
   }
 ));
 
+//- middleware for google authentication
+passport.use(new GoogleStrategy(
+  googleConfig.google
+  ,
+  function(request, accessToken, refreshToken, profile, done) {
+    process.nextTick(function () {
+      sails.log('here at google middleware');
+      sails.log(profile);
+      return done(null, profile);
+    });
+  }
+));
+
 module.exports.http = {
- 
+  //- facebook custom middleware
   customMiddleware: function(app) {
  
     passport.use(new FacebookStrategy(
-    config.facebook
-    , function (accessToken, refreshToken, profile, done) {
+    fbConfig.facebook
+    , 
+      function (accessToken, refreshToken, profile, done) {
 
+        //- get profile data
+        console.log(profile);
+        console.log(profile.id);
+        console.log(accessToken);
+        console.log(profile.name.givenName);
+        console.log(profile.name.familyName);
+        console.log(profile.emails[0].value);
+        return done(null, profile);
+      },
 
-      console.log(profile);
-            console.log(profile.id);
-            console.log(accessToken);
-            console.log(profile.name.givenName);
-            console.log(profile.name.familyName);
-            console.log(profile.emails[0].value);
+    ));
+
+    //- google authentication
+    passport.use(new GoogleStrategy(
+      googleConfig.google
+      ,
+      function(request, accessToken, refreshToken, profile, done) {
+        process.nextTick(function () {
+          console.log(profile);
+          console.log(profile.id);
+          console.log(accessToken);
+          console.log(profile.name.givenName);
+          console.log(profile.name.familyName);
+          console.log(profile.emails[0].value);
           return done(null, profile);
-  
-          
-      
-    }
-  ));
+        });
+      }
+    ));
+
  
     app.use(passport.initialize());
     app.use(passport.session());
-  }
+  },
+
+
+
+
 };

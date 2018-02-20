@@ -89,13 +89,25 @@ module.exports.routes = {
     action: 'updateUser'
   },
 
-  '/auth/facebook':{
+  //- facebook authentication
+  'GET /auth/facebook':{
     controller: 'UserController',
     action: 'facebook',
   },
-  '/auth/facebook/callback':{
+
+  'GET /auth/facebook/callback':{
     controller: 'UserController',
     action: 'facebookCallback',
+  },
+
+  //- google authentication
+  'GET /auth/google':{
+    controller: 'UserController',
+    action: 'google',
+  },
+  'GET /auth/google/callback':{
+    controller: 'UserController',
+    action: 'googleCallback',
   },
 
   //- Chef routes
