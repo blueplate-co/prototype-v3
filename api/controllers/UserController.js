@@ -73,12 +73,12 @@ module.exports = {
             data.uEmail = req.param('email').trim();
             data.uPassword = req.param('password');
         }
-        
+
         //- check user information due to database information
         User
         .findOne({uEmail: data.uEmail})
         .then(function(found){
-            
+           
             //- if exist
             if(found)
             {
@@ -97,11 +97,22 @@ module.exports = {
                     });            
 
                     //- return message with jwt
-                    return res.json(200, {
-                        error: false,
-                        msg: 'Found',
-                        data: token
+                    // return res.json(200, {
+                    //     error: false,
+                    //     msg: 'Found',
+                    //     data: {
+                    //         token: token,
+                    //         email: found.uEmail,
+                    //         userID: found.id
+                    //     }
+                    // });
+
+                    res.ok({
+                        token: token,
+                        email: found.uEmail,
+                        userID: found.id
                     });
+
                 }else{
                     return res.json(200, {
                         error: false,
@@ -122,6 +133,18 @@ module.exports = {
             });
         });
 
+    },
+
+    //- check token expiration
+    isExpired: function(req, res)
+    {
+        var token = req.param('userToken');
+        //- check it
+        var isOK = TokenService.verify({
+            token: token,
+        });
+        if(isOK)res.ok('token is not expired');
+        res.negotiate('expired');
     },
 
     resetPass:function(req, res){

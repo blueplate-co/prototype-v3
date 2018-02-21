@@ -59,6 +59,24 @@ module.exports.routes = {
     action: 'login',
   },
 
+  /**
+   * 
+   * @api {POST} /api/check/token User email's code validation
+   * @apiName User email's code validation
+   * @apiGroup User
+   * @apiVersion  1.0.0
+   * 
+   * 
+   * @apiParam  {String} token
+   * 
+   * 
+   * @apiParamExample  {json} Request-Example:
+     {
+         "token" : "<token inside the email>",
+     }
+   * 
+   * 
+   */
   'GET /api/verify/:token':{
     controller: 'UserController',
     action: 'verifyToken',
@@ -87,6 +105,43 @@ module.exports.routes = {
   'POST /api/user/update':{
     controller: 'UserController',
     action: 'updateUser'
+  },
+
+  /**
+   * 
+   * @api {POST} /api/check/token User's token checking
+   * @apiName User's token checking
+   * @apiGroup User
+   * @apiVersion  1.0.0
+   * 
+   * 
+   * @apiParam  {String} userToken
+   * 
+   * 
+   * @apiParamExample  {json} Request-Example:
+     {
+         "userToken" : "<user token string here>",
+     }
+   * 
+   * 
+   * @apiSuccessExample {json} Success-Response:
+     {
+        HTTP/1.1 200 OK
+        "token is not expired"
+     }
+   * 
+   * 
+   * * @apiSuccessExample {json} Success-Response:
+     {
+        HTTP/1.1 500
+        "expired"
+     }
+   * 
+   * 
+   */
+  'POST /api/check/token':{
+    controller: 'UserController',
+    action: 'isExpired'
   },
 
   //- facebook authentication
