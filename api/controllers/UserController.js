@@ -147,6 +147,26 @@ module.exports = {
         res.negotiate('expired');
     },
 
+    //- check if email is verified
+    //- using email
+    checkEmailVerified: function(req, res)
+    {
+        var email = req.param('userEmail');
+        User.count({
+            uEmail: email,
+            uVerified: true
+        })
+        .then(function(count_data){
+            if(count_data > 0)
+            {
+                res.ok("This email is verified");
+            }
+            res.ok("This email is not verified");
+        }).catch(function(err){
+            res.negotiate(err);
+        });
+    },
+
     resetPass:function(req, res){
         var email = req.param('email');
         //- send email to confirm email address
@@ -316,18 +336,22 @@ module.exports = {
     //- google authentication
     google: function(req, res, next)
     {
-        sails.log('here at google 1');
+        
         // passport.authenticate('google', { scope: [
         //     'https://www.googleapis.com/auth/plus.login',
         //     'https://www.googleapis.com/auth/plus.profile.emails.read'
         //   ] });
 
+        // passport.authenticate('google', { scope: [
+        //     'https://www.googleapis.com/auth/plus.login',
+        //     'https://www.googleapis.com/auth/plus.profile.emails.read'
+        //   ] });
+        sails.log('here at google 1');
+          // passport.authenticate('google', { scope: ['profile'] });
         passport.authenticate('google', { scope: [
-            'https://www.googleapis.com/auth/plus.login',
-            'https://www.googleapis.com/auth/plus.profile.emails.read'
-          ] });
-        
-        // passport.authenticate('google', { scope: ['profile'] });
+        'https://www.googleapis.com/auth/plus.login',
+        'https://www.googleapis.com/auth/plus.profile.emails.read'
+        ] });
 
     },
 
