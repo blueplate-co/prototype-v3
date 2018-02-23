@@ -257,7 +257,7 @@ module.exports = {
         .then(function(updated_data){
 
             //- if success
-            res.redirect('https://www.google.com');
+            res.redirect('http://13.250.50.89:4003/verify');
 
         }).catch(function(err){
              res.json(500, {

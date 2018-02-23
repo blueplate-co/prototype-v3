@@ -19,7 +19,7 @@ module.exports = {
                 pass: 'transybao93'
             }
         });
-        var verifyLink = 'http://localhost:1337/api/verify/' + token;
+        var verifyLink = 'http://13.250.107.234/api/verify/' + token;
         var mailTemplate = '<p>Hi ' + username + ',</p><br>Thank you for joining us. <br>' +
         'To verify your email address (' + email + '), please visit the following link to active your account:<br><br>' +
         '<a href="' + verifyLink + '" style="background:#4dd0e1; padding:5px; color:white; text-decoration: none; text-align: center">Activate account</a><br><br>' + 
