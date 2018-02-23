@@ -125,6 +125,11 @@ module.exports.routes = {
     action: 'updateNewPassword',
   },
 
+  'POST /api/email/verified':{
+    controller: 'UserController',
+    action: 'checkEmailVerified'
+  },
+
   'GET /api/test':{
     controller: 'UserController',
     action: 'test',

@@ -5,27 +5,27 @@ var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var fbConfig       = require('./facebook.js');
 var googleConfig   = require('./google.js');
 
-function findById(id, fn) {
-  User.findOne(id).done(function (err, user) {
-    if (err) {
-      return fn(null, null);
-    } else {
-      return fn(null, user);
-    }
-  });
-}
+// function findById(id, fn) {
+//   User.findOne(id).done(function (err, user) {
+//     if (err) {
+//       return fn(null, null);
+//     } else {
+//       return fn(null, user);
+//     }
+//   });
+// }
 
-function findByFacebookId(id, fn) {
-  User.findOne({
-    facebookId: id
-  }).done(function (err, user) {
-    if (err) {
-      return fn(null, null);
-    } else {
-      return fn(null, user);
-    }
-  });
-}
+// function findByFacebookId(id, fn) {
+//   User.findOne({
+//     facebookId: id
+//   }).done(function (err, user) {
+//     if (err) {
+//       return fn(null, null);
+//     } else {
+//       return fn(null, user);
+//     }
+//   });
+// }
 
 // passport.serializeUser(function (user, done) {
 //   done(null, user.id);
@@ -52,7 +52,6 @@ passport.use(new FacebookStrategy(
     fbConfig.facebook
   , function (accessToken, refreshToken, profile, done) {
 
-
     console.log(profile);
     console.log(profile.id);
     console.log(accessToken);
@@ -60,38 +59,7 @@ passport.use(new FacebookStrategy(
     console.log(profile.name.familyName);
     console.log(profile.emails[0].value);
     return done(null, profile);
-
-        
-    // findByFacebookId(profile.id, function (err, user) {
-
-    //   // Create a new User if it doesn't exist yet
-    //   if (!user) {
-    //     User.create({
-
-    //       facebookId: profile.id
-
-    //       // You can also add any other data you are getting back from Facebook here 
-    //       // as long as it is in your model
-
-    //     }).done(function (err, user) {
-    //       if (user) {
-    //         return done(null, user, {
-    //           message: 'Logged In Successfully'
-    //         });
-    //       } else {
-    //         return done(err, null, {
-    //           message: 'There was an error logging you in with Facebook'
-    //         });
-    //       }
-    //     });
-
-    //   // If there is already a user, return it
-    //   } else {
-    //     return done(null, user, {
-    //       message: 'Logged In Successfully'
-    //     });
-    //   }
-    // });
+    
   }
 ));
 
@@ -136,21 +104,27 @@ module.exports.http = {
     // ));
 
     // //- google authentication
-    // passport.use(new GoogleStrategy(
-    //   googleConfig.google
-    //   ,
-    //   function(request, accessToken, refreshToken, profile, done) {
-    //     process.nextTick(function () {
-    //       console.log(profile);
-    //       console.log(profile.id);
-    //       console.log(accessToken);
-    //       console.log(profile.name.givenName);
-    //       console.log(profile.name.familyName);
-    //       console.log(profile.emails[0].value);
-    //       return done(null, profile);
-    //     });
-    //   }
-    // ));
+    passport.use(new GoogleStrategy(
+      {
+
+        clientID        : "495077090541-v31i7g6v50ejiv8vn2nok5p8ilglv3ef.apps.googleusercontent.com",
+        clientSecret    : "f9d9RiKAg8EGhR_nQ_tPUeb6",
+        callbackURL     : "http://localhost:1337/auth/google/callback",
+    
+    }
+      ,
+      function(request, accessToken, refreshToken, profile, done) {
+        process.nextTick(function () {
+          console.log(profile);
+          console.log(profile.id);
+          console.log(accessToken);
+          console.log(profile.name.givenName);
+          console.log(profile.name.familyName);
+          console.log(profile.emails[0].value);
+          return done(null, profile);
+        });
+      }
+    ));
 
  
     app.use(passport.initialize());
