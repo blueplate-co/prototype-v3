@@ -1,5 +1,6 @@
 var passport       = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
+// var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 //- configuration
 var fbConfig       = require('./facebook.js');
@@ -59,26 +60,18 @@ passport.use(new FacebookStrategy(
     console.log(profile.name.familyName);
     console.log(profile.emails[0].value);
     return done(null, profile);
-    
+
   }
 ));
 
 //- middleware for google authentication
 passport.use(new GoogleStrategy(
-  {
-
-    clientID        : "495077090541-v31i7g6v50ejiv8vn2nok5p8ilglv3ef.apps.googleusercontent.com",
-    clientSecret    : "f9d9RiKAg8EGhR_nQ_tPUeb6",
-    callbackURL     : "http://localhost:1337/auth/google/callback",
-
-}
+  googleConfig.google
   ,
-  function(request, accessToken, refreshToken, profile, done) {
-    process.nextTick(function () {
-      sails.log('here at google middleware');
-      sails.log(profile);
-      return done(null, profile);
-    });
+  function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    
+    return done(null, profile); 
   }
 ));
 
@@ -103,28 +96,30 @@ module.exports.http = {
 
     // ));
 
-    // //- google authentication
-    passport.use(new GoogleStrategy(
-      {
+    //- google authentication
+    // passport.use(new GoogleStrategy(
+    //   googleConfig.google
+    //   ,
+    //   function(accessToken, refreshToken, profile, done) {
+    //     console.log(profile);
+    //     console.log(profile.id);
+    //     console.log(accessToken);
+    //     console.log(profile.name.givenName);
+    //     console.log(profile.name.familyName);
+    //     console.log(profile.emails[0].value);
+    //     return done(null, profile); 
+    //   }
+    // ));
 
-        clientID        : "495077090541-v31i7g6v50ejiv8vn2nok5p8ilglv3ef.apps.googleusercontent.com",
-        clientSecret    : "f9d9RiKAg8EGhR_nQ_tPUeb6",
-        callbackURL     : "http://localhost:1337/auth/google/callback",
-    
-    }
-      ,
-      function(request, accessToken, refreshToken, profile, done) {
-        process.nextTick(function () {
-          console.log(profile);
-          console.log(profile.id);
-          console.log(accessToken);
-          console.log(profile.name.givenName);
-          console.log(profile.name.familyName);
-          console.log(profile.emails[0].value);
-          return done(null, profile);
-        });
-      }
-    ));
+    // passport.use(new GoogleStrategy(
+    //   googleConfig.google
+    //   ,
+    //   function(accessToken, refreshToken, profile, done) {
+    //     console.log(profile);
+        
+    //     return done(null, profile); 
+    //   }
+    // ));
 
  
     app.use(passport.initialize());

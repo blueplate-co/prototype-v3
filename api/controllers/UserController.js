@@ -26,6 +26,7 @@ module.exports = {
         .create(data)
         .then(function(created_data){
             sails.log(created_data);
+
             //- send email
             MailService.sendEmailVerification({
                 username: data.uName,
@@ -269,12 +270,16 @@ module.exports = {
         });
 
         //- update data
-        User.update({
+        User
+        .update({
             uEmail: email
         }, {
             uVerified: true
         })
         .then(function(updated_data){
+
+            //- send token back
+
 
             //- if success
             res.redirect('http://13.250.50.89:4003/verify');
@@ -334,41 +339,34 @@ module.exports = {
     },
 
     //- google authentication
-    google: function(req, res, next)
+    google: function(req, res)
     {
-        
         // passport.authenticate('google', { scope: [
         //     'https://www.googleapis.com/auth/plus.login',
         //     'https://www.googleapis.com/auth/plus.profile.emails.read'
-        //   ] });
+        //   ] },
+        // function (err, user) {
+            
+            
+            
+        // })(req, res);
 
-        // passport.authenticate('google', { scope: [
-        //     'https://www.googleapis.com/auth/plus.login',
-        //     'https://www.googleapis.com/auth/plus.profile.emails.read'
-        //   ] });
-        sails.log('here at google 1');
-          // passport.authenticate('google', { scope: ['profile'] });
-        passport.authenticate('google', { scope: [
-        'https://www.googleapis.com/auth/plus.login',
-        'https://www.googleapis.com/auth/plus.profile.emails.read'
-        ] });
-
+        passport.authenticate('google', { scope: 
+            [
+                'https://www.googleapis.com/auth/plus.login',
+                'https://www.googleapis.com/auth/plus.profile.emails.read'
+            ] 
+        })(req, res);
     },
 
-    googleCallback: function(req, res, next)
+    googleCallback: function(req, res)
     {
-        sails.log('here at google callback');
+        // passport.authenticate('google')(req, res, next);
         passport.authenticate('google', { failureRedirect: '/' }),
-            function(req, res) {
-                sails.log('google authentication success...');
-                res.redirect('https://www.google.com');
-        };
-
-        // passport.authenticate('google', { failureRedirect: '/login' }),
-        // function(req, res) {
-        //     sails.log('authentication success...');
-        //     // res.redirect('/');
-        // };
+        function(req, res) {
+            console.log('Google authentication success');
+            res.redirect('https://www.google.com');
+        }
     },
 
 };
