@@ -459,6 +459,11 @@ module.exports.routes = {
     action: 'viewDishMenu'
   },
 
+  'POST /api/view/dishes':{
+    controller: 'MenuController',
+    action: 'viewDishByChefID',
+  },
+
   'POST /api/menu/create/allergies':{
     controller: 'MenuController',
     action: 'addAllergiesToMenu',
