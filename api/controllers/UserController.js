@@ -262,6 +262,23 @@ module.exports = {
 
     },
 
+    //- email resend
+    resendEmail: function(req, res)
+    {
+        var email = req.param('email');
+        var userToken = req.param('uToken');
+        var username = req.param('username');
+        //- send email
+        MailService.sendEmailVerification({
+            username: username,
+            email: email,
+            token: userToken
+        });
+        res.ok({
+            message: 'Resend email ok',
+        });
+    },
+
     verifyToken: function(req, res){
         var token = req.param('token');
         sails.log(token);
