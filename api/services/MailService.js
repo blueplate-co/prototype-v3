@@ -16,7 +16,8 @@ module.exports = {
             service: 'gmail',
             auth: {
                 user: 'account.admin@blueplate.co',
-                pass: '@dminB1ate'
+                // pass: '@dminB1ate'
+                pass: 'fplghmnwqwgytknh'
             }
         });
         var verifyLink = 'http://13.250.107.234/api/verify/' + token;
@@ -28,7 +29,7 @@ module.exports = {
         'Best,<br>' +
         'Alan<br><br>';
         var mainOptions = { //- config environment, email content
-            from: 'Bao bao',
+            from: 'Blueplate Company',
             to: email,
             subject: 'Blue Plate Corporation',
             text: 'Welcome to our service!',
