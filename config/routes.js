@@ -92,6 +92,11 @@ module.exports.routes = {
     action: 'login',
   },
 
+  'POST /api/email/resend':{
+    controller: 'UserController',
+    action: 'resendEmail',
+  },
+
   /**
    * 
    * @api {POST} /api/check/token User email's code validation
