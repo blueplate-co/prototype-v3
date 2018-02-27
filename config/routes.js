@@ -482,10 +482,12 @@ module.exports.routes = {
   //- Allergy routes
   'GET /api/allergy/viewAll':'AllergyController.viewAll',
   'POST /api/allergy/viewLimit':'AllergyController.viewAllWithLimit',
+  'POST /api/allergy/create':'AllergyController.create',
 
   //- Dietary routes
   'GET /api/dietary/viewAll':'DietaryController.viewAll',
   'POST /api/dietary/viewLimit':'DietaryController.viewAllWithLimit',
+  'POST /api/dietary/create':'DietaryController.create',
 
   //- Ingredient routes
   'POST /api/ingredient/create':'IngredientController.create',
