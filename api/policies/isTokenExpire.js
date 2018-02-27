@@ -1,6 +1,7 @@
 
 module.exports = function(req, res, next) {
 
+    sails.log('token: ', req.headers);
     //- get token from headers
     // sails.log(req.headers.authorization);
     if(req.headers.authorization)
@@ -10,6 +11,11 @@ module.exports = function(req, res, next) {
         var isOK = TokenService.verify({
             token: token,
         });
+        sails.log('=============================');
+        sails.log('authentication middleware');
+        sails.log('token: ', token);
+        sails.log('isOK? ',isOK);
+        sails.log('=============================');
         //- if check token success
         if(isOK) return next();
         //- else
@@ -18,6 +24,7 @@ module.exports = function(req, res, next) {
             message:'Please login to continue',
             data: null
         });
+        // return  res.redirect('http://localhost:3000');
     }
     
 
@@ -25,5 +32,6 @@ module.exports = function(req, res, next) {
     // (default res.forbidden() behavior can be overridden in `config/403.js`)
     return res.forbidden('Please login to continue');
 
+    // return res.redirect('http://localhost:3000');
 
 }

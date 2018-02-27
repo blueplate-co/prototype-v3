@@ -271,6 +271,8 @@ module.exports = {
     },
 
     test: function(req, res){
+        sails.log('authentication success');
+        sails.log(req.headers);
         sails.log('test');
     },
 

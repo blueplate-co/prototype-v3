@@ -261,5 +261,79 @@
     },
     "filename": "./config/routes.js",
     "groupTitle": "Menu"
+  },
+  {
+    "type": "POST",
+    "url": "/api/check/token",
+    "title": "User email's code validation",
+    "name": "User_email_s_code_validation",
+    "group": "User",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    \"token\" : \"<token inside the email>\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./config/routes.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "POST",
+    "url": "/api/check/token",
+    "title": "User's token checking",
+    "name": "User_s_token_checking",
+    "group": "User",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userToken",
+            "description": ""
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example:",
+          "content": "{\n    \"userToken\" : \"<user token string here>\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "{\n   HTTP/1.1 200 OK\n   \"token is not expired\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Success-Response:",
+          "content": "{\n   HTTP/1.1 500\n   \"expired\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./config/routes.js",
+    "groupTitle": "User"
   }
 ]

@@ -49,6 +49,39 @@ module.exports.routes = {
 
 
   //- User routes
+
+  /**
+   * 
+   * @api {POST} /api/register User register
+   * @apiName User register
+   * @apiGroup User
+   * @apiVersion  1.0.0
+   * 
+   * 
+   * @apiParam  {String} username Username
+   * @apiParam  {String} email User's email
+   * @apiParam  {String} password User's password
+   * 
+   * 
+   * @apiParamExample  {json} Request-Example:
+     {
+         "username" : "<username>",
+         "email": "<user email>",
+         "password": "<user password>"
+     }
+   * 
+   * @apiSuccess (200) {Boolean} error true/false
+   * @apiSuccess (200) {String} message successful string
+   * @apiSuccess (200) {Object} data show data
+   * 
+   * @apiSuccessExample {json} Success-Response:
+     {
+        HTTP/1.1 200 OK
+        
+     }
+   * 
+   * 
+   */
   'POST /api/register':{
     controller: 'UserController',
     action: 'register',
@@ -92,7 +125,7 @@ module.exports.routes = {
     action: 'updateNewPassword',
   },
 
-  'POST /api/test':{
+  'GET /api/test':{
     controller: 'UserController',
     action: 'test',
   },
