@@ -13,7 +13,7 @@ module.exports = {
         data.faName = req.param('name');
         data.faDescribe = req.param('describe');
 
-        FoodAllergy
+        Allergy
         .create(data)
         .then(function(created_data){
             res.created({
