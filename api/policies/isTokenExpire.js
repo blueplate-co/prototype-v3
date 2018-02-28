@@ -11,11 +11,7 @@ module.exports = function(req, res, next) {
         var isOK = TokenService.verify({
             token: token,
         });
-        sails.log('=============================');
-        sails.log('authentication middleware');
-        sails.log('token: ', token);
-        sails.log('isOK? ',isOK);
-        sails.log('=============================');
+        
         //- if check token success
         if(isOK) return next();
         //- else

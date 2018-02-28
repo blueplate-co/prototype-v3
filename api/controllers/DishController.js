@@ -45,7 +45,7 @@ module.exports = {
             res: res,
             fileInput: 'dishImage',
         });
-
+        console.log(data);
         // data.dName = req.param('name');
         // data.dDescribe = req.param('describe');
         // data.dCost = req.param('cost');
@@ -308,31 +308,38 @@ module.exports = {
         //     {dish:did, allergies: 2},
         //     {dish:did, allergies: 3}
         // ];
-        var converted = LodashService.convertToCreate({
-            plainString: allergies,
-            fixedID: did,
-            fixedName: 'dish',
-            fixedName2: 'allergy',
-        });
 
-        DishAllergy
-        .create(converted)
-        .then(function(created_data){
-            res.created({
-                error: false,
-                message: 'added new allergy to dish',
-                data: {
-                    created_data
-                }
+        if(allergies.length > 0)
+        {
+            var converted = LodashService.convertToCreate({
+                plainString: allergies,
+                fixedID: did,
+                fixedName: 'dish',
+                fixedName2: 'allergy',
             });
-        })
-        .catch(function(err){
-            res.json(500, {
-                error: true, 
-                message: 'Cannot insert allergy', 
-                data: err
+    
+            DishAllergy
+            .create(converted)
+            .then(function(created_data){
+                res.created({
+                    error: false,
+                    message: 'added new allergy to dish',
+                    data: {
+                        created_data
+                    }
+                });
+            })
+            .catch(function(err){
+                res.json(500, {
+                    error: true, 
+                    message: 'Cannot insert allergy', 
+                    data: err
+                });
             });
-        });
+        }else{
+            res.ok('Allergy is null');
+        }
+        
     },
 
     //- add multiple ingredients to dish
@@ -348,7 +355,7 @@ module.exports = {
         //     {dish:did, dietaries: 2},
         //     {dish:did, dietaries: 3}
         // ];
-
+        
         if(dietaries.length > 0)
         {
             var converted = LodashService.convertToCreate({

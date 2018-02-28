@@ -79,31 +79,37 @@ module.exports = {
         //     {dish:did, allergies: 2},
         //     {dish:did, allergies: 3}
         // ];
-        var converted = LodashService.convertToCreate({
-            plainString: allergies,
-            fixedID: mid,
-            fixedName: 'menu',
-            fixedName2: 'allergy',
-        });
-
-        MenuAllergy
-        .findOrCreate(converted)
-        .then(function(created_data){
-            res.created({
-                error: false,
-                message: 'added new allergy to menu',
-                data: {
-                    created_data
-                }
+        if(allergies.length > 0)
+        {
+            var converted = LodashService.convertToCreate({
+                plainString: allergies,
+                fixedID: mid,
+                fixedName: 'menu',
+                fixedName2: 'allergy',
             });
-        })
-        .catch(function(err){
-            res.json(500, {
-                error: true, 
-                message: 'Cannot insert allergy', 
-                data: err
+    
+            MenuAllergy
+            .findOrCreate(converted)
+            .then(function(created_data){
+                res.created({
+                    error: false,
+                    message: 'added new allergy to menu',
+                    data: {
+                        created_data
+                    }
+                });
+            })
+            .catch(function(err){
+                res.json(500, {
+                    error: true, 
+                    message: 'Cannot insert allergy', 
+                    data: err
+                });
             });
-        });
+        }else{
+            res.ok("Allergy is null");
+        }
+        
     },
 
     addDietariesToMenu:function(req, res){
@@ -117,31 +123,37 @@ module.exports = {
         //     {dish:did, dietaries: 2},
         //     {dish:did, dietaries: 3}
         // ];
-        var converted = LodashService.convertToCreate({
-            plainString: dietaries,
-            fixedID: mid,
-            fixedName: 'menu',
-            fixedName2: 'dietary',
-        });
-
-        MenuDietary
-        .create(converted)
-        .then(function(created_data){
-            res.created({
-                error: false,
-                message: 'added new dietary to menu',
-                data: {
-                    created_data
-                }
+        if(dietaries.length > 0)
+        {
+            var converted = LodashService.convertToCreate({
+                plainString: dietaries,
+                fixedID: mid,
+                fixedName: 'menu',
+                fixedName2: 'dietary',
             });
-        })
-        .catch(function(err){
-            res.json(500, {
-                error: true, 
-                message: 'Cannot insert allergy', 
-                data: err
+    
+            MenuDietary
+            .create(converted)
+            .then(function(created_data){
+                res.created({
+                    error: false,
+                    message: 'added new dietary to menu',
+                    data: {
+                        created_data
+                    }
+                });
+            })
+            .catch(function(err){
+                res.json(500, {
+                    error: true, 
+                    message: 'Cannot insert allergy', 
+                    data: err
+                });
             });
-        });
+        }else{
+            res.ok('Dietary is null');
+        }
+        
 
     },
 
