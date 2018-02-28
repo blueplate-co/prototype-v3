@@ -72,7 +72,31 @@ module.exports = {
                 data: err
             });
         });
-    }
+    },
+
+    //- insert ingredient by array of object
+    createMultiple: function(req, res)
+    {
+        //- array of object
+        var data = req.param('data');
+        sails.log(data);
+        Allergy
+        .findOrCreate(data)
+        .then(function(created_data){
+            res.ok({
+                error: false,
+                message: 'Create multiple allergies success',
+                data: created_data,
+            });
+        })
+        .catch(function(err){
+            res.badRequest({
+                error: true,
+                message: "Cannot create multiple allergies",
+                dat: err
+            });
+        });
+    },
 
 };
 

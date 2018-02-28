@@ -135,10 +135,10 @@ module.exports.routes = {
     action: 'checkEmailVerified'
   },
 
-  'GET /api/test':{
-    controller: 'UserController',
-    action: 'test',
-  },
+  // 'GET /api/test':{
+  //   controller: 'UserController',
+  //   action: 'test',
+  // },
 
   'POST /api/user/upload/image':{
     controller: 'UserController',
@@ -148,6 +148,11 @@ module.exports.routes = {
   'POST /api/user/update':{
     controller: 'UserController',
     action: 'updateUser'
+  },
+
+  'POST /api/user/check/role':{
+    controller: 'ChefController',
+    action: 'checkUserRole',
   },
 
   /**
@@ -209,6 +214,11 @@ module.exports.routes = {
   },
 
   //- Chef routes
+  'POST /api/chef/profile/view':{
+    controller: 'ChefController',
+    action: 'viewProfile',
+  },
+
   'GET /api/chef/view/all': {
     controller: 'ChefController',
     action: 'showAllChef',
@@ -261,6 +271,10 @@ module.exports.routes = {
   },
 
   //- Dish routes
+  'POST /api/chef/view/dish':{
+    controller: 'DishController',
+    action: 'viewByChefID',
+  },
   'POST /api/dish/create': {
     controller: 'DishController',
     action: 'create'

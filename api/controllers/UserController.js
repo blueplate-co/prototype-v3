@@ -33,6 +33,14 @@ module.exports = {
                 email: data.uEmail,
                 token: created_data.uToken
             });
+
+            //- add chef
+            // sails.log(created_data.id);
+            // created_data.chef.add(created_data.id);
+            // created_data.save(function(err){
+            //     if (err) { return res.serverError(err); }
+            //     return res.ok();
+            //   });
         
             //- return
             return res.json(201, {

@@ -342,38 +342,44 @@ module.exports = {
         var did = req.param('create_dish_id');
 
         //- array of object ingredients
-        var dietaries = req.param('dietaries');
+        var dietaries = req.param('dietaries'); //- []
         // var dietaries = [
         //     {dish:did, dietaries: 1},
         //     {dish:did, dietaries: 2},
         //     {dish:did, dietaries: 3}
         // ];
 
-        var converted = LodashService.convertToCreate({
-            plainString: dietaries,
-            fixedID: did,
-            fixedName: 'dish',
-            fixedName2: 'dietary',
-        });
-
-        DishDietary
-        .create(converted)
-        .then(function(created_data){
-            res.created({
-                error: false,
-                message: 'added new dietary to dish',
-                data: {
-                    created_data
-                }
+        if(dietaries.length > 0)
+        {
+            var converted = LodashService.convertToCreate({
+                plainString: dietaries,
+                fixedID: did,
+                fixedName: 'dish',
+                fixedName2: 'dietary',
             });
-        })
-        .catch(function(err){
-            res.json(500, {
-                error: true, 
-                message: 'Cannot insert dietary', 
-                data: err
+    
+            DishDietary
+            .create(converted)
+            .then(function(created_data){
+                res.created({
+                    error: false,
+                    message: 'added new dietary to dish',
+                    data: {
+                        created_data
+                    }
+                });
+            })
+            .catch(function(err){
+                res.json(500, {
+                    error: true, 
+                    message: 'Cannot insert dietary', 
+                    data: err
+                });
             });
-        });
+        }else{
+            res.ok('dietary is null');
+        }
+        
     },
 
     //- update by dish id
@@ -433,7 +439,7 @@ module.exports = {
         
     },
 
-    //- view by chef ID
+    //- view dishes by chef ID
     viewByChefID: function(req, res){
 
         //- view by update_chef_id
@@ -446,7 +452,7 @@ module.exports = {
         .then(function(chef){
             res.json(200, {
                 error: false,
-                message: 'Chef found',
+                message: 'Dish found',
                 data: chef,
             });
         })

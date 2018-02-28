@@ -242,27 +242,69 @@ module.exports = {
                 data: null
             });
         });
-        
-        // Chef
-        // .destroy({
-        //     id: cid
-        // })
-        // .then(function(deleted_data){
-        //     res.json(200, {
-        //         error: false,
-        //         message: 'delete success',
-        //         data: deleted_data
-        //     });
-        // })
-        // .catch(function(err){
-        //     res.json(500, {
-        //         error: true,
-        //         message: 'errors',
-        //         data: err
-        //     });
-        // });
 
     },
+
+    //- check user role by user email
+    checkUserRole: function(req, res)
+    {
+        var email = req.param('email');
+        User
+        .findOne({
+            uEmail: email,
+            uCanCook: true
+        })
+        .then(function(found_data){
+            if(!found_data){
+                res.ok({
+                    message: 0
+                })
+            }else{
+                //- if this user has already a chef
+                //- return chef id
+                Chef
+                .findOne({
+                    uid: found_data.id
+                })
+                .then(function(chef){
+                    if(!chef)res.negotiate({
+                        message:"Cannot find chef's profile"
+                    });
+                    res.ok({
+                        message: chef.id
+                    });
+                })
+                .catch(function(err){
+                    res.negotiate(err);
+                });
+            }
+
+            
+            
+
+        })
+        .catch(function(err){
+            res.negotiate(err);
+        });
+    },
+
+
+    //- view all related data of chef
+    //- by chef id
+    viewProfile: function(req, res)
+    {
+        var chefID = req.param('create_chef_id');
+        Chef.findOne()
+        .where({
+            id: chefID
+        })
+        .then(function(found_data){
+            res.ok(found_data);
+        })
+        .catch(function(err){
+            res.negotiate(err);
+        });
+    }
 
 
 };
