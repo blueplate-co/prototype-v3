@@ -19,7 +19,7 @@ module.exports = {
                 // pass: '@dminB1ate'
                 // pass: 'fplghmnwqwgytknh',
                 user: 'adam.anderson@blueplate.co',
-                pass: 'Temporary',
+                pass: 'blueplate2018',
             }
         });
         var verifyLink = 'http://13.250.107.234/api/verify/' + token;
