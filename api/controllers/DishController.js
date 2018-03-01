@@ -355,7 +355,6 @@ module.exports = {
         //     {dish:did, dietaries: 2},
         //     {dish:did, dietaries: 3}
         // ];
-        
         if(dietaries.length > 0)
         {
             var converted = LodashService.convertToCreate({

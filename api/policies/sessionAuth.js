@@ -15,6 +15,7 @@ module.exports = function(req, res, next) {
   //   return next();
   // }
 
+  sails.log('facebook login authentication');
   //- using passport
   if (req.isAuthenticated()) {
     return next();

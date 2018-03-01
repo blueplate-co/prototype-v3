@@ -34,7 +34,7 @@ module.exports.routes = {
 
   //- root route
   '/': {
-    
+    // view: 'layout',
   },
 
   /***************************************************************************
@@ -95,6 +95,11 @@ module.exports.routes = {
   'POST /api/email/resend':{
     controller: 'UserController',
     action: 'resendEmail',
+  },
+
+  'POST /api/facebook/login':{
+    controller: 'UserController',
+    action: 'facebookLogin',
   },
 
   /**

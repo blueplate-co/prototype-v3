@@ -362,6 +362,8 @@ module.exports = {
             function (req, res) {
                 //- authenticate success
                 sails.log('facebook authenticate success...');
+                sails.log('=================================');
+                sails.log(req);
                 // res.redirect('https://www.google.com');
         })(req, res, next);
     },
@@ -395,6 +397,19 @@ module.exports = {
             console.log('Google authentication success');
             res.redirect('https://www.google.com');
         }
+    },
+
+    //- create social network token
+    facebookLogin: function(req, res)
+    {
+        var userData = req.profile;
+        sails.log(userData);
+    },
+
+    //- google login
+    googleLogin: function()
+    {
+
     },
 
 };

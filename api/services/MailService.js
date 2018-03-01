@@ -15,9 +15,11 @@ module.exports = {
             secure: false, // true for 465, false for other ports
             service: 'gmail',
             auth: {
-                user: 'account.admin@blueplate.co',
+                // user: 'account.admin@blueplate.co',
                 // pass: '@dminB1ate'
-                pass: 'fplghmnwqwgytknh'
+                // pass: 'fplghmnwqwgytknh',
+                user: 'adam.anderson@blueplate.co',
+                pass: 'Temporary',
             }
         });
         var verifyLink = 'http://13.250.107.234/api/verify/' + token;

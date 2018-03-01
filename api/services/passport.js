@@ -16,35 +16,49 @@ var googleConfig   = require('./google.js');
 //   });
 // }
 
-// function findByFacebookId(id, fn) {
-//   User.findOne({
-//     facebookId: id
-//   }).done(function (err, user) {
-//     if (err) {
-//       return fn(null, null);
-//     } else {
-//       return fn(null, user);
-//     }
-//   });
-// }
-
-// passport.serializeUser(function (user, done) {
-//   done(null, user.id);
-// });
- 
-// passport.deserializeUser(function (id, done) {
-//   findById(id, function (err, user) {
-//     done(err, user);
-//   });
-// });
+function findByFacebookId(id, fn) {
+  User
+  .findOne({
+    facebookId: id
+  })
+  .then(function(found_data){
+    //- if not exist
+    if(!found_data)
+    {
+      //- create new user
+      User.create
+    }
+    
+    //- if exist
+    return done(found_data);
+  })
+  .done(function (err, user) {
+    if (err) {
+      return fn(null, null);
+    } else {
+      return fn(null, user);
+    }
+  });
+}
 
 
 // serialize and deserialize
+// passport.serializeUser(function(user, done) {
+//   done(null, user);
+// });
+// passport.deserializeUser(function(obj, done) {
+//   done(null, obj);
+// });
+
+//- serialize and deserialize
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.facebookId);
 });
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
+ 
+passport.deserializeUser(function(facebookId, done) {
+  User.findOne({facebookId: facebookId}, function(err, user) {
+    done(err, user);
+  });
 });
 
 
@@ -53,13 +67,52 @@ passport.use(new FacebookStrategy(
     fbConfig.facebook
   , function (accessToken, refreshToken, profile, done) {
 
-    console.log(profile);
-    console.log(profile.id);
-    console.log(accessToken);
-    console.log(profile.name.givenName);
-    console.log(profile.name.familyName);
-    console.log(profile.emails[0].value);
-    return done(null, profile);
+    // var facebookId = profile.id;
+    // var token = accessToken;
+    // var email = profile.emails[0].value;
+
+
+    // console.log(profile);
+    // console.log(profile.id);
+    // console.log(accessToken);
+    // console.log(profile.name.givenName);
+    // console.log(profile.name.familyName);
+    // console.log(profile.emails[0].value);
+
+    User
+    .findOne(
+      {
+        facebookId: profile.id
+      }, function(err, user) {
+      if (user) {
+        return done(null, user);
+      } else {
+ 
+        var data = {
+          provider: profile.provider,
+          facebookId: profile.id,
+          uName: profile.displayName
+        };
+ 
+        if (profile.emails && profile.emails[0] && profile.emails[0].value) {
+          data.uEmail = profile.emails[0].value;
+        }
+        // if (profile.name && profile.name.givenName) {
+        //   data.uFirstName = profile.name.givenName;
+        // }
+        // if (profile.name && profile.name.familyName) {
+        //   data.lastname = profile.name.familyName;
+        // }
+ 
+        User
+        .create(data, function(err, user) {
+          return done(err, user);
+        });
+      }
+    });
+
+
+    // return done(null, profile);
 
   }
 ));
@@ -85,12 +138,12 @@ module.exports.http = {
     //   function (accessToken, refreshToken, profile, done) {
 
     //     //- get profile data
-    //     console.log(profile);
-    //     console.log(profile.id);
-    //     console.log(accessToken);
-    //     console.log(profile.name.givenName);
-    //     console.log(profile.name.familyName);
-    //     console.log(profile.emails[0].value);
+    //     // console.log(profile);
+    //     // console.log(profile.id);
+    //     // console.log(accessToken);
+    //     // console.log(profile.name.givenName);
+    //     // console.log(profile.name.familyName);
+    //     // console.log(profile.emails[0].value);
     //     return done(null, profile);
     //   },
 
