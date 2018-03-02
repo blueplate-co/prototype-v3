@@ -97,6 +97,17 @@ module.exports.routes = {
     action: 'resendEmail',
   },
 
+  //- update and check user's role
+  'POST /api/user/update/role': {
+    controller: 'UserController',
+    action: 'updateRole',
+  },
+
+  'POST /api/user/check/role': {
+    controller: 'UserController',
+    action: 'checkUserRole'
+  },
+
   '/api/facebook/login':{
     controller: 'UserController',
     action: 'facebookLogin',

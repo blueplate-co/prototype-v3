@@ -240,7 +240,7 @@ module.exports = {
     updateRole: function(req, res)
     {
         //- create_user_id
-        var userEmail = req.param('userEmail');
+        var userEmail = req.param('email');
         User
         .findOne()
         .where({
@@ -268,6 +268,50 @@ module.exports = {
             res.serverError(err);
         });
 
+    },
+
+    //- check if user is a chef or not
+    //- check by user email
+    checkUserRole: function(req, res)
+    {
+        var email = req.param('email');
+        User
+        .findOne({
+            uEmail: email,
+            uCanCook: true
+        })
+        .then(function(found_data){
+            if(!found_data){
+                res.ok({
+                    message: 0
+                })
+            }else{
+                //- if this user has already a chef
+                //- return chef id
+                Chef
+                .findOne({
+                    uid: found_data.id
+                })
+                .then(function(chef){
+                    if(!chef)res.negotiate({
+                        message:"Cannot find chef's profile"
+                    });
+                    res.ok({
+                        message: chef.id
+                    });
+                })
+                .catch(function(err){
+                    res.negotiate(err);
+                });
+            }
+
+            
+            
+
+        })
+        .catch(function(err){
+            res.negotiate(err);
+        });
     },
 
     //- email resend
