@@ -108,6 +108,11 @@ module.exports.routes = {
     action: 'checkUserRole'
   },
 
+  'POST /api/social/login':{
+    controller: 'UserController',
+    action: 'socialLogin'
+  },
+
   '/api/facebook/login':{
     controller: 'UserController',
     action: 'facebookLogin',

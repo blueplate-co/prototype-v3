@@ -509,13 +509,50 @@ module.exports = {
         var googleID = req.param('googleID');//- can be null
 
         //- insert to database
-        // User
-        // .find({
-        //     facebookId: data.facebookId
-        // }).then(function(found_data){
+        User
+        .find({
+            facebookId: (facebookID != null) ?facebookID:null,
+            googleId: (googleID != null) ?googleID:null,
+        }).then(function(found_data){
+            
+            if(_.isEmpty(found_data))
+            {
+                //- if user not found
+                //- create new one
+                User
+                .create(data)
+                .then(function(created_data){
+                    sails.log('created data: ', created_data);
+                    //- response a token back
+                    var userInfo = {id: created_data.id};
+                    var token    = TokenService.generate({
+                        userInfo: userInfo,
+                    }); 
+                    return res.ok({
+                        message: 'created new user',
+                        token: token,
+                    });
+                })
+                .catch(function(err){
+                    sails.log(err);
+                    res.negotiate(err);
+                });
+
+            }else{
+                //- if user found
+                //- response a token back
+                var userInfo = {id: found_data.id};
+                var token    = TokenService.generate({
+                    userInfo: userInfo,
+                });
+
+                return res.ok({
+                    message: 'user existed',
+                    token: token
+                });
+            }
         
-        
-        // });
+        });
     }
 
 };
