@@ -448,7 +448,7 @@ module.exports = {
     //- view dishes by chef ID
     viewByChefID: function(req, res){
 
-        //- view by update_chef_id
+        //- view by creates_chef_id
         var cid = req.param('create_chef_id');
         Dish
         .findOne({})
