@@ -455,12 +455,21 @@ module.exports = {
         .where({
             chef: cid
         })
-        .then(function(chef){
-            res.json(200, {
-                error: false,
-                message: 'Dish found',
-                data: chef,
-            });
+        .then(function(dish_found){
+            if(_.isEmpty(dish_found))
+            {
+                res.json(200, {
+                    error: false,
+                    message: 'Dish not found',
+                    data: [],
+                });
+            }else{
+                res.json(200, {
+                    error: false,
+                    message: 'Dish found',
+                    data: dish_found,
+                });
+            }
         })
         .catch(function(err){
             res.json(500, {
