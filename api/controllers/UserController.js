@@ -341,31 +341,28 @@ module.exports = {
 
     //- facebook authentication
     facebook: function (req, res, next) {
-        passport.authenticate('facebook', { scope: ['email', 'user_about_me']},
-           function (err, user) {
-            //     req.logIn(user, function (err) {
-            //     if(err) {
-            //        req.session.flash = 'There was an error';
-            //        res.redirect('https://www.google.com');
-            //     } else {
-            //        req.session.user = user;
-            //        sails.log('');
-            //        res.redirect('https://www.google.com');
-            //     }
-            // });
-            
-        })(req, res, next);
+        passport.authenticate('facebook', { scope: ['email', 'user_about_me']})(req, res, next);
     },
-   
-    facebookCallback: function (req, res, next) {
-        passport.authenticate('facebook',
-            function (req, res) {
-                //- authenticate success
-                sails.log('facebook authenticate success...');
-                sails.log('=================================');
-                sails.log(req);
-                // res.redirect('https://www.google.com');
-        })(req, res, next);
+
+    facebookCallback: function(req, res) {
+        passport.authenticate('facebook', function(err, user) {
+            if(err) sails.log(err);
+
+            req.logIn(user, function(err) {
+                if (err) {
+                    sails.log(err);
+                    res.redirect('/');
+                    return;
+                }
+                // sails.log(user);
+                req.flash('userID', user.id);
+                req.flash('userName', user.last_name);
+                req.flash('userEmail', user.email);
+                res.redirect('/api/facebook/login');
+                return;
+              });
+            
+        })(req, res);
     },
 
     //- google authentication
@@ -402,14 +399,62 @@ module.exports = {
     //- create social network token
     facebookLogin: function(req, res)
     {
-        var userData = req.profile;
-        sails.log(userData);
-    },
+        sails.log('facebookLogin function');
 
-    //- google login
-    googleLogin: function()
-    {
+        //- keep flash data
+        var data = {};
+        data.facebookId = req.flash('userID')[0];
+        data.uName = req.flash('userName')[0];
+        data.uEmail = req.flash('userEmail')[0];
+        //- chek if user with facebook id is existed
+        User
+        .find({
+            facebookId: data.facebookId
+        }).then(function(found_data){
+            if(_.isEmpty(found_data))
+            {
+                //- if user not found
+                //- create new one
+                User
+                .create(data)
+                .then(function(created_data){
+                    sails.log('created data: ', created_data);
+                    //- response a token back
+                    var userInfo = {id: created_data.id};
+                    var token    = TokenService.generate({
+                        userInfo: userInfo,
+                    }); 
+                    return res.ok({
+                        message: 'created new user',
+                        token: token,
+                    });
+                })
+                .catch(function(err){
+                    sails.log(err);
+                    res.negotiate(err);
+                });
 
+            }else{
+                //- if user found
+                //- response a token back
+                var userInfo = {id: found_data.id};
+                var token    = TokenService.generate({
+                    userInfo: userInfo,
+                });
+
+                return res.ok({
+                    message: 'user existed',
+                    token: token
+                });
+            }
+            
+
+        }).catch(function(err){
+            res.negotiate(err);
+        });
+        
+        
+        
     },
 
 };

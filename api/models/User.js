@@ -21,7 +21,7 @@ module.exports = {
     uName:{
       type: 'string',
       size: 150,
-      required: true,
+      // required: true,
     },
     uEmail:{
       type: 'string',
@@ -30,18 +30,18 @@ module.exports = {
     },
     uPassword:{
       type: 'string',
-      required: true,
+      // required: true,
     },
 
     //- for facebook
-    uNickName:{
-      type: 'string',
-    },
     facebookId: {
       type: 'string',
-      required: false,
-      unique: true
+      // required: false,
+      // unique: true
     },
+    // facebookToken: {
+    //   type: 'string',
+    // },
 
     uToken:{
       type: 'string',
@@ -75,15 +75,23 @@ module.exports = {
 
   beforeCreate: function(user, cb) {
 
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(user.uPassword, salt, function(err, hash) {
-          if(err) console.log(err);  
-          // Store hash in your password DB.
-          user.uPassword = hash;
-          // console.log('hash password: ' + hash);
-          cb();
-        });
-    });
+    //- check if user password is exist
+    if(user.uPassword)
+    {
+
+      bcrypt.genSalt(10, function(err, salt) {
+          bcrypt.hash(user.uPassword, salt, function(err, hash) {
+            if(err) console.log(err);  
+            // Store hash in your password DB.
+            user.uPassword = hash;
+            // console.log('hash password: ' + hash);
+            cb();
+          });
+      });
+
+    }
+    cb();
+    
 
   },
 

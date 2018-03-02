@@ -449,7 +449,7 @@ module.exports = {
     viewByChefID: function(req, res){
 
         //- view by update_chef_id
-        var cid = req.param('chefID');
+        var cid = req.param('create_chef_id');
         Dish
         .findOne({})
         .where({

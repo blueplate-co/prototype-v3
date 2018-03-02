@@ -52,7 +52,7 @@ module.exports.policies = {
   //- policy for UserController
   UserController:{
     test: 'isTokenExpire',
-    facebookLogin: 'sessionAuth',
+    // facebookLogin: 'sessionAuth',
   },
 
   //- policy for ChefController

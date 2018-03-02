@@ -59,8 +59,12 @@ module.exports = {
             secure: false, // true for 465, false for other ports
             service: 'gmail',
             auth: {
-                user: 'bao.tran@blueplate.co',
-                pass: 'transybao93'
+                // user: 'account.admin@blueplate.co',
+                // pass: 'fplghmnwqwgytknh',
+                // user: 'bao.tran@blueplate.co',
+                // pass: 'transybao93'
+                user: 'adam.anderson@blueplate.co',
+                pass: 'blueplate2018',
             }
         });
         var verifyLink = 'http://localhost:1337/api/reset/password';

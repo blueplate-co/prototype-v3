@@ -5,124 +5,151 @@ var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 //- configuration
 var fbConfig       = require('./facebook.js');
 var googleConfig   = require('./google.js');
-
-// function findById(id, fn) {
-//   User.findOne(id).done(function (err, user) {
-//     if (err) {
-//       return fn(null, null);
-//     } else {
-//       return fn(null, user);
-//     }
-//   });
-// }
-
-function findByFacebookId(id, fn) {
-  User
-  .findOne({
-    facebookId: id
-  })
-  .then(function(found_data){
-    //- if not exist
-    if(!found_data)
-    {
-      //- create new user
-      User.create
-    }
-    
-    //- if exist
-    return done(found_data);
-  })
-  .done(function (err, user) {
-    if (err) {
-      return fn(null, null);
-    } else {
-      return fn(null, user);
-    }
-  });
-}
+var request        = require('request');
 
 
 // serialize and deserialize
-// passport.serializeUser(function(user, done) {
-//   done(null, user);
-// });
-// passport.deserializeUser(function(obj, done) {
-//   done(null, obj);
-// });
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
 
 //- serialize and deserialize
-passport.serializeUser(function(user, done) {
-  done(null, user.facebookId);
-});
+// passport.serializeUser(function(user, done) {
+//   done(null, user.facebookId);
+// });
  
-passport.deserializeUser(function(facebookId, done) {
-  User.findOne({facebookId: facebookId}, function(err, user) {
-    done(err, user);
-  });
-});
+// passport.deserializeUser(function(facebookId, done) {
+//   User.findOne({facebookId: facebookId}, function(err, user) {
+//     done(err, user);
+//   });
+// });
 
 
 //- middleware for facebook
-passport.use(new FacebookStrategy(
-    fbConfig.facebook
-  , function (accessToken, refreshToken, profile, done) {
+// passport.use(new FacebookStrategy(
+//     fbConfig.facebook
+//   , function (accessToken, refreshToken, profile, done) {
 
-    // var facebookId = profile.id;
-    // var token = accessToken;
-    // var email = profile.emails[0].value;
+//     // var facebookId = profile.id;
+//     // var token = accessToken;
+//     // var email = profile.emails[0].value;
+
+//     // sails.log("=========================");
+//     // // console.log(profile);
+//     // sails.log(profile.id);
+//     // sails.log(accessToken);
+//     // sails.log(profile.name.givenName);
+//     // sails.log(profile.name.familyName);
+//     // sails.log(profile.emails[0].value);
+//     // sails.log("=========================");
+
+//     // User
+//     // .findOne(
+//     //   {
+//     //     facebookId: profile.id
+//     //   })
+//     //   .then(function(found_data){
+//     //     sails.log(found_data);
+//     //     if(!_.isEmpty(found_data))
+//     //     {
+//     //       sails.log('có data');
+//     //       sails.log(found_data);
+//     //     }else{
 
 
-    // console.log(profile);
-    // console.log(profile.id);
-    // console.log(accessToken);
-    // console.log(profile.name.givenName);
-    // console.log(profile.name.familyName);
-    // console.log(profile.emails[0].value);
+//     //       sails.log('chưa có data');
+//     //       sails.log('tạo mới');
+//     //       var data = {
+//     //         // provider: profile.provider,
+//     //         facebookId: profile.id,
+//     //         uName: profile.name.givenName,
+//     //         facebookToken: accessToken
+//     //       };
 
-    User
-    .findOne(
-      {
-        facebookId: profile.id
-      }, function(err, user) {
-      if (user) {
-        return done(null, user);
-      } else {
+//     //       if (profile.emails && profile.emails[0] && profile.emails[0].value) {
+//     //         data.uEmail = profile.emails[0].value;
+//     //       }
+//     //       // if (profile.name && profile.name.givenName) {
+//     //       //   data.uFirstName = profile.name.givenName;
+//     //       // }
+//     //       // if (profile.name && profile.name.familyName) {
+//     //       //   data.lastname = profile.name.familyName;
+//     //       // }
+
+//     //       sails.log('data: ', data);
+
+//     //       //- create new data
+//     //       // User
+//     //       // .create(data)
+//     //       // .then(function(created_data){
+//     //       //   sails.log('created data: ', created_data);
+//     //       //   return done(null, create);
+//     //       // }).catch(function(err){
+//     //       //   sails.log('error: ', err);
+//     //       // });
+
+//     //       createNewAccount(data);
+           
+
+//     //     }
+  
+
+//     //   })
+//     //   .catch(function(err){
+//     //     sails.log(err);
+//     //   });
+
+
+//     return done(null, profile);
+
+//   }
+// ));
+
+var verifyHandler = function(req, token, tokenSecret, profile, done) {
  
-        var data = {
-          provider: profile.provider,
-          facebookId: profile.id,
-          uName: profile.displayName
-        };
+  process.nextTick(function() {
+    var url = 'https://graph.facebook.com/v2.4/me?access_token=%s&fields=id,name,email,first_name,last_name,gender';
+    url = url.replace('%s', token);
  
-        if (profile.emails && profile.emails[0] && profile.emails[0].value) {
-          data.uEmail = profile.emails[0].value;
-        }
-        // if (profile.name && profile.name.givenName) {
-        //   data.uFirstName = profile.name.givenName;
-        // }
-        // if (profile.name && profile.name.familyName) {
-        //   data.lastname = profile.name.familyName;
-        // }
- 
-        User
-        .create(data, function(err, user) {
-          return done(err, user);
-        });
+    var options = {method: 'GET', url: url, json: true};
+    request(options, function (err, response) {
+      if (err) {
+        return done(null, null);
       }
+ 
+      var data = {
+        id: response.body.id,
+        first_name: response.body.first_name,  //jshint ignore:line
+        last_name: response.body.last_name,    //jshint ignore:line
+        email: response.body.email,
+        gender: response.body.gender
+      };
+      
+      return done(null, data);
+
     });
-
-
-    // return done(null, profile);
-
-  }
-));
+  });
+};
+ 
+passport.use(new FacebookStrategy(
+  // {
+  // clientID: 'YOU_CLIENT_ID',
+  // clientSecret: 'YOUR_CLIENT_SECRET',
+  // callbackURL: 'http://localhost:1337/facebook/callback',
+  // passReqToCallback: true
+  // }
+  fbConfig.facebook
+, verifyHandler));
 
 //- middleware for google authentication
 passport.use(new GoogleStrategy(
   googleConfig.google
   ,
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
+    // console.log(profile);
     
     return done(null, profile); 
   }
@@ -131,52 +158,16 @@ passport.use(new GoogleStrategy(
 module.exports.http = {
   //- facebook custom middleware
   customMiddleware: function(app) {
- 
-    // passport.use(new FacebookStrategy(
-    // fbConfig.facebook
-    // , 
-    //   function (accessToken, refreshToken, profile, done) {
-
-    //     //- get profile data
-    //     // console.log(profile);
-    //     // console.log(profile.id);
-    //     // console.log(accessToken);
-    //     // console.log(profile.name.givenName);
-    //     // console.log(profile.name.familyName);
-    //     // console.log(profile.emails[0].value);
-    //     return done(null, profile);
-    //   },
-
-    // ));
-
-    //- google authentication
-    // passport.use(new GoogleStrategy(
-    //   googleConfig.google
-    //   ,
-    //   function(accessToken, refreshToken, profile, done) {
-    //     console.log(profile);
-    //     console.log(profile.id);
-    //     console.log(accessToken);
-    //     console.log(profile.name.givenName);
-    //     console.log(profile.name.familyName);
-    //     console.log(profile.emails[0].value);
-    //     return done(null, profile); 
-    //   }
-    // ));
-
-    // passport.use(new GoogleStrategy(
-    //   googleConfig.google
-    //   ,
-    //   function(accessToken, refreshToken, profile, done) {
-    //     console.log(profile);
-        
-    //     return done(null, profile); 
-    //   }
-    // ));
 
  
     app.use(passport.initialize());
     app.use(passport.session());
+
+    // app.use(function(req, res, next){
+    //   res.locals.user = req.session.user;
+    //   next();
+    // });
+
   },
 
 
