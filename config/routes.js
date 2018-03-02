@@ -166,11 +166,6 @@ module.exports.routes = {
     action: 'updateUser'
   },
 
-  'POST /api/user/check/role':{
-    controller: 'ChefController',
-    action: 'checkUserRole',
-  },
-
   /**
    * 
    * @api {POST} /api/check/token User's token checking
