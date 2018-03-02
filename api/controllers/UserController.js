@@ -256,7 +256,7 @@ module.exports = {
                 uCanCook: true,
             })
             .then(function(updated_data){
-                res.ok(found_data);
+                res.ok(updated_data);
             })
             .catch(function(err){
                 res.serverError(err);
@@ -500,6 +500,23 @@ module.exports = {
         
         
     },
+
+    socialLogin: function(req, res)
+    {
+        var email = req.param('email');
+        var username = req.param('username');
+        var facebookID = req.param("facebookID"); //- can be null
+        var googleID = req.param('googleID');//- can be null
+
+        //- insert to database
+        // User
+        // .find({
+        //     facebookId: data.facebookId
+        // }).then(function(found_data){
+        
+        
+        // });
+    }
 
 };
 

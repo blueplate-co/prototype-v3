@@ -38,10 +38,17 @@ module.exports = {
       type: 'string',
       // required: false,
       // unique: true
+      defaultsTo: null
     },
+    
     // facebookToken: {
     //   type: 'string',
     // },
+
+    googleId: {
+      type: 'string',
+      defaultsTo: null
+    },
 
     uToken:{
       type: 'string',
