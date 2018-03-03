@@ -21,7 +21,7 @@ module.exports = {
     uName:{
       type: 'string',
       size: 150,
-      // required: true,
+      required: true,
     },
     uEmail:{
       type: 'string',
@@ -30,7 +30,7 @@ module.exports = {
     },
     uPassword:{
       type: 'string',
-      // required: true,
+      required: true,
     },
 
     //- for facebook
@@ -38,7 +38,7 @@ module.exports = {
       type: 'string',
       // required: false,
       // unique: true
-      defaultsTo: null
+      // defaultsTo: null
     },
     
     // facebookToken: {
@@ -47,7 +47,7 @@ module.exports = {
 
     googleId: {
       type: 'string',
-      defaultsTo: null
+      // defaultsTo: null
     },
 
     uToken:{
@@ -100,6 +100,7 @@ module.exports = {
     // cb();
 
     bcrypt.genSalt(10, function(err, salt) {
+
       bcrypt.hash(user.uPassword, salt, function(err, hash) {
         if(err) console.log(err);  
         // Store hash in your password DB.
@@ -107,7 +108,8 @@ module.exports = {
         // console.log('hash password: ' + hash);
         cb();
       });
-  });
+
+    });
     
 
   },
