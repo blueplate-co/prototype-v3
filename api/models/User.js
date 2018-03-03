@@ -83,21 +83,31 @@ module.exports = {
   beforeCreate: function(user, cb) {
 
     //- check if user password is exist
-    if(user.uPassword)
-    {
+    // if(user.uPassword)
+    // {
 
-      bcrypt.genSalt(10, function(err, salt) {
-          bcrypt.hash(user.uPassword, salt, function(err, hash) {
-            if(err) console.log(err);  
-            // Store hash in your password DB.
-            user.uPassword = hash;
-            // console.log('hash password: ' + hash);
-            cb();
-          });
+    //   bcrypt.genSalt(10, function(err, salt) {
+    //       bcrypt.hash(user.uPassword, salt, function(err, hash) {
+    //         if(err) console.log(err);  
+    //         // Store hash in your password DB.
+    //         user.uPassword = hash;
+    //         // console.log('hash password: ' + hash);
+    //         cb();
+    //       });
+    //   });
+
+    // }
+    // cb();
+
+    bcrypt.genSalt(10, function(err, salt) {
+      bcrypt.hash(user.uPassword, salt, function(err, hash) {
+        if(err) console.log(err);  
+        // Store hash in your password DB.
+        user.uPassword = hash;
+        // console.log('hash password: ' + hash);
+        cb();
       });
-
-    }
-    cb();
+  });
     
 
   },
