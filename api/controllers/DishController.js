@@ -397,7 +397,8 @@ module.exports = {
             sails.log(did);
              //- update random field
             //- this is must be an object {}
-            var data = req.param('data');
+            // var data = JSON.parse(req.param('data'));//- using for postman
+            var data = JSON.parse(req.param('data'));
             sails.log(typeof(data));
             
             var fileName = req.param('dishImageName');
@@ -416,16 +417,23 @@ module.exports = {
             }
             sails.log('----------');
             sails.log(_.assign(data, imageName));
+            sails.log(_.assign(data, {
+                updatedAt: new Date()
+            }));
 
             Dish
             .update(
             {
                 dish_id: did
             }
-            , {
-                dDescribe: 'hehe2',
-                dCost: 2
-            })
+            , 
+            // {
+            //     dDescribe: 'hehe2',
+            //     dCost: 2,
+            //     updatedAt: new Date()
+            // }
+            data
+            )
             .then(function(updated_data){
                 return res.json(200, {
                     error: false,

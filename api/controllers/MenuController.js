@@ -157,7 +157,6 @@ module.exports = {
 
     },
 
-    //- update menu info by menu id
     //- update by dish id
     update: function(req, res){
         if(req.method === 'PUT')
@@ -167,26 +166,43 @@ module.exports = {
             sails.log(mid);
              //- update random field
             //- this is must be an object {}
-            var data = req.param('data');
+            // var data = JSON.parse(req.param('data'));//- using for postman
+            var data = JSON.parse(req.param('data'));
+            sails.log(typeof(data));
+            
             var fileName = req.param('menuImageName');
+            var imageName = {};
             if(fileName != null)
             {
                 //- upload image seperately
-                var imageName = {mImageName: fileName};
+                imageName = {mImageName: fileName};
                 ImageService.saveImage({
                     req: req,
                     res: res,
                     fileInput: 'menuImage'
                 });
                 sails.log('Upload image success');
+                
             }
+            sails.log('----------');
+            sails.log(_.assign(data, imageName));
+            sails.log(_.assign(data, {
+                updatedAt: new Date()
+            }));
 
             Menu
             .update(
             {
                 menu_id: mid
             }
-            , _.assign(JSON.parse(data), imageName))
+            , 
+            // {
+            //     dDescribe: 'hehe2',
+            //     dCost: 2,
+            //     updatedAt: new Date()
+            // }
+            data
+            )
             .then(function(updated_data){
                 return res.json(200, {
                     error: false,
