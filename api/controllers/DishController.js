@@ -451,9 +451,10 @@ module.exports = {
         //- view by creates_chef_id
         var cid = req.param('create_chef_id');
         Dish
-        .findOne({})
+        .find()
         .where({
-            chef: cid
+            chef: cid,
+            deletedAt: null
         })
         .then(function(dish_found){
             if(_.isEmpty(dish_found))
@@ -480,15 +481,95 @@ module.exports = {
         });
     },
 
+    //- view dish - ingredient by chef id
+    viewDishIngredient: function(req, res)
+    {
+        var dishID = req.param('create_dish_id');
+
+        DishIngredient
+        .find()
+        .where({
+            dish: dishID
+        })
+        .then(function(found_data){
+
+        })
+        .catch(function(err){
+            res.negotiate({
+                error: true,
+                message: 'Errors',
+                data: err
+            });
+        });
+    },
+
+    //- view dish - allergy by chef id
+    viewDishAllergy: function(req, res)
+    {
+        var dishID = req.param('create_dish_id');
+
+        DishAllergy
+        .find()
+        .where({
+            dish: dishID
+        })
+        .then(function(found_data){
+
+        })
+        .catch(function(err){
+            res.negotiate({
+                error: true,
+                message: 'Errors',
+                data: err
+            });
+        });;
+    },
+
+    //- view dish - dietary by chef id
+    viewDishDietary: function(req, res)
+    {
+        var dishID = req.param('create_dish_id');
+
+        DishDietary
+        .find()
+        .where({
+            dish: dishID
+        })
+        .then(function(found_data){
+
+        })
+        .catch(function(){
+
+            res.negotiate({
+                error: true,
+                message: 'Errors',
+                data: err
+            });
+
+        });
+    },
+
 
     //- delete by dish id
+    //- soft delete
     delete: function(req, res)
     {
-        var did = req.param('dishID');
+        var dishID = req.param('update_dish_id');
         Dish
-        .destroy({
-            id: did
-        }).catch(function(err){
+        .update({
+            // id: dishID,
+            dish_id: dishID,
+        },{
+            deletedAt: new Date()
+        })
+        .then(function(deleted_data){
+            res.ok({
+                error: false,
+                message: 'Soft deleted single dish',
+                data: deleted_data
+            });
+        })
+        .catch(function(err){
             res.json(500, {
                 error: true,
                 message: 'errors',
@@ -507,6 +588,42 @@ module.exports = {
         });
         // res.ok();
     },
+
+    //- delete multiple dish by dish array of object
+    deleteMultiple: function(req, res)
+    {
+        //- ["",""]
+        var dishIDData = req.param('update_dish_id_array'); 
+        
+        //- using postman
+        // let d2 = JSON.parse(dishIDData);
+        // console.log('dish id type: ',typeof(d2));
+        // console.log(JSON.parse(dishIDData));
+
+        // console.log('dish id array: ', dishIDData);
+        Dish
+        .update({ 
+            // dish_id: JSON.parse(dishIDData), //- using postman
+            dish_id: dishIDData
+        }
+        ,{
+            deletedAt: new Date()
+        })
+        .then(function(deleted_data){
+            res.ok({
+                error: false,
+                message: 'Deleted success...',
+                data: deleted_data
+            });
+        })
+        .catch(function(err){
+            res.negotiate({
+                error: true,
+                message: 'Errors',
+                data: err
+            });
+        });
+    }
     
 };
 

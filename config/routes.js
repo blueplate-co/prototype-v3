@@ -287,6 +287,17 @@ module.exports.routes = {
   },
 
   //- Dish routes
+
+  'DELETE /api/dish/delete/multiple':{
+    controller: 'DishController',
+    action: 'deleteMultiple',
+  },
+
+  'DELETE /api/dish/delete':{
+    controller: 'DishController',
+    action: 'delete',
+  },
+
   'POST /api/chef/view/dish':{
     controller: 'DishController',
     action: 'viewByChefID',
@@ -484,6 +495,11 @@ module.exports.routes = {
     action: 'viewMenuDishes'
   },
 
+  'POST /api/chef/view/menu':{
+    controller: 'MenuController',
+    action: 'viewMenuByChefID'
+  },
+
   'POST /api/dish/view/menu':{
     controller: 'MenuController',
     action: 'viewDishMenu'
@@ -507,6 +523,11 @@ module.exports.routes = {
   'PUT /api/menu/update':{
     controller: 'MenuController',
     action: 'update',
+  },
+
+  'DELETE /api/menu/delete':{
+    controller: 'MenuController',
+    action: 'delete',
   },
 
   //- Allergy routes

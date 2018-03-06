@@ -41,6 +41,10 @@ module.exports = {
     dMinOrder:{
       type: 'string',
     },
+    dDeletedAt:{
+      type: 'datetime',
+      defaultsTo: null
+    },
 
     //- array
     dServingOption:{
